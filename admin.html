@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — NWU Residences Reviews</title>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #f7f3ff;
+    color: #1a102f;
+    padding: 24px 16px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 1.4rem; margin-bottom: 8px; color: #2d1f54; }
+  .sub { color: #6b5b8c; font-size: 0.9rem; margin-bottom: 20px; }
+  a.back { color: #6b46c0; text-decoration: none; font-size: 0.9rem; }
+  .gate {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(45,31,84,0.08);
+    border: 1px solid #e9deff;
+  }
+  .gate input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #d9cbfc;
+    font-size: 1rem;
+    margin: 12px 0;
+  }
+  .gate button, .actions button {
+    background: #6b46c0;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .gate button:hover, .actions button:hover { background: #5a3aab; }
+  .hidden { display: none !important; }
+  .review {
+    background: white;
+    border: 1px solid #e9deff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .review .meta { font-size: 0.8rem; color: #8a79b5; margin-bottom: 6px; }
+  .review .res { font-weight: 700; color: #2d1f54; }
+  .review .body { font-size: 0.95rem; margin: 6px 0; }
+  .review .del {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  .review .del:hover { background: #b91c1c; }
+  .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+  .status { font-size: 0.85rem; color: #6b5b8c; }
+  .err { color: #dc2626; margin-top: 8px; font-size: 0.85rem; }
+</style>
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T1MY4MEC4J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T1MY4MEC4J');
+</script>
+
+</head>
+<body>
+  <a class="back" href="index.html">← Back to site</a>
+  <h1 style="margin-top:12px">Review admin</h1>
+  <p class="sub">Delete inappropriate comments. Password is only on this page (simple lock for you).</p>
+
+  <div id="gate" class="gate">
+    <label for="pw">Admin password</label>
+    <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password">
+    <button type="button" id="unlockBtn">Unlock</button>
+    <p class="err hidden" id="gateErr">Wrong password</p>
+    <p class="sub" style="margin-top:12px;margin-bottom:0">Default password: <code>purplearmy</code> — change it in admin.html if you want.</p>
+  </div>
+
+  <div id="panel" class="hidden">
+    <div class="toolbar">
+      <button type="button" id="refreshBtn">Refresh</button>
+      <span class="status" id="status">Loading…</span>
+    </div>
+    <div id="list"></div>
+  </div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD7QHVH5hT0eURqXsJ0EXO_-BXUge5Iq_M",
+    authDomain: "nwu-residences-81b8b.firebaseapp.com",
+    projectId: "nwu-residences-81b8b",
+    storageBucket: "nwu-residences-81b8b.firebasestorage.app",
+    messagingSenderId: "979946386540",
+    appId: "1:979946386540:web:da1c423bdf9be046445449",
+    measurementId: "G-T1MY4MEC4J"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Change this password to something only you know
+  const ADMIN_PASSWORD = "purplearmy";
+
+  const gate = document.getElementById("gate");
+  const panel = document.getElementById("panel");
+  const list = document.getElementById("list");
+  const status = document.getElementById("status");
+  const gateErr = document.getElementById("gateErr");
+
+  document.getElementById("unlockBtn").onclick = () => {
+    const v = document.getElementById("pw").value;
+    if (v === ADMIN_PASSWORD) {
+      sessionStorage.setItem("nwu_admin", "1");
+      gate.classList.add("hidden");
+      panel.classList.remove("hidden");
+      loadReviews();
+    } else {
+      gateErr.classList.remove("hidden");
+    }
+  };
+  document.getElementById("pw").addEventListener("keydown", e => {
+    if (e.key === "Enter") document.getElementById("unlockBtn").click();
+  });
+  document.getElementById("refreshBtn").onclick = loadReviews;
+
+  if (sessionStorage.getItem("nwu_admin") === "1") {
+    gate.classList.add("hidden");
+    panel.classList.remove("hidden");
+    loadReviews();
+  }
+
+  function esc(s) {
+    return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  async function loadReviews() {
+    status.textContent = "Loading…";
+    list.innerHTML = "";
+    try {
+      const snap = await db.collection("reviews").orderBy("createdAt", "desc").limit(200).get();
+      if (snap.empty) {
+        status.textContent = "No reviews yet.";
+        return;
+      }
+      status.textContent = snap.size + " review(s)";
+      snap.forEach(doc => {
+        const d = doc.data();
+        const when = d.createdAt && d.createdAt.toDate ? d.createdAt.toDate().toLocaleString() : "";
+        const stars = d.rating ? ("★".repeat(d.rating) + "☆".repeat(5 - d.rating)) : "—";
+        const div = document.createElement("div");
+        div.className = "review";
+        div.innerHTML = `
+          <div class="meta"><span class="res">${esc(d.residenceName)}</span> · ${stars} · ${esc(d.author || "Student")} · ${esc(when)}</div>
+          <div class="body">${esc(d.comment || "(rating only)")}</div>
+          <button type="button" class="del" data-id="${doc.id}">Delete</button>
+        `;
+        div.querySelector(".del").onclick = async () => {
+          if (!confirm("Delete this review?")) return;
+          await db.collection("reviews").doc(doc.id).delete();
+          loadReviews();
+        };
+        list.appendChild(div);
+      });
+    } catch (err) {
+      console.error(err);
+      status.textContent = "Error loading: " + err.message;
+    }
+  }
+</script>
+</body>
+</html>
