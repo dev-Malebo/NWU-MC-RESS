@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — NWU Residences</title>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: #f7f3ff;
+    color: #1a102f;
+    padding: 20px 16px 40px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  a.back { color: #6b46c0; text-decoration: none; font-size: 0.9rem; }
+  h1 { font-size: 1.45rem; margin: 12px 0 4px; color: #2d1f54; }
+  .sub { color: #6b5b8c; font-size: 0.9rem; margin-bottom: 18px; }
+  .gate {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #e9deff;
+    box-shadow: 0 4px 16px rgba(45,31,84,0.06);
+    max-width: 420px;
+  }
+  .gate label { display: block; font-size: 0.85rem; font-weight: 600; color: #4c3b73; margin-top: 10px; }
+  .gate input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #d9cbfc;
+    font-size: 1rem;
+    margin-top: 6px;
+  }
+  button {
+    background: #6b46c0;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover { background: #5a3aab; }
+  button.secondary { background: #6b7280; }
+  button.danger { background: #dc2626; }
+  button.danger:hover { background: #b91c1c; }
+  .hidden { display: none !important; }
+  .err { color: #dc2626; margin-top: 10px; font-size: 0.85rem; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .stat {
+    background: #fff;
+    border: 1px solid #e9deff;
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat .n { font-size: 1.6rem; font-weight: 800; color: #6b46c0; }
+  .stat .l { font-size: 0.78rem; color: #6b5b8c; margin-top: 4px; }
+  .tabs { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .tabs button {
+    background: #ede9fe;
+    color: #4c1d95;
+  }
+  .tabs button.active { background: #6b46c0; color: #fff; }
+  .toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 12px; flex-wrap: wrap; }
+  .status { font-size: 0.85rem; color: #6b5b8c; }
+  .card {
+    background: #fff;
+    border: 1px solid #e9deff;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .card .meta { font-size: 0.78rem; color: #8a79b5; margin-bottom: 6px; }
+  .card .title { font-weight: 700; color: #2d1f54; }
+  .card .body { font-size: 0.95rem; margin: 6px 0; white-space: pre-wrap; }
+  .who { font-size: 0.8rem; color: #6b5b8c; margin-bottom: 12px; }
+
+  .admin-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0 16px;
+  }
+  .admin-nav a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6b46c0;
+    text-decoration: none;
+    background: #f5f3ff;
+    border: 1px solid #e0d4ff;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+  .admin-nav a:hover { background: #ede9fe; }
+  .admin-nav a.here {
+    background: #6b46c0;
+    color: #fff;
+    border-color: #6b46c0;
+  }
+
+</style>
+</head>
+<body>
+  <a class="back" href="index.html">← Back to site</a>
+  <h1>Feedback dashboard</h1>
+  <p class="sub">Site feedback + review moderation. Admin only.</p>
+  <nav class="admin-nav">
+    <a href="index.html">Site</a>
+    <a href="admin.html">Reviews</a>
+    <a class="here" href="dashboard.html">Dashboard</a>
+  </nav>
+
+  <div id="gate" class="gate">
+    <label for="email">Admin email</label>
+    <input id="email" type="email" value="maleboneomahlatsi@gmail.com" autocomplete="username">
+    <label for="pw">Password</label>
+    <input id="pw" type="password" placeholder="Firebase password" autocomplete="current-password">
+    <button type="button" id="unlockBtn" style="margin-top:14px">Sign in</button>
+    <p class="err hidden" id="gateErr"></p>
+  </div>
+
+  <div id="panel" class="hidden">
+    <p class="who" id="who"></p>
+    <div class="stats">
+      <div class="stat"><div class="n" id="sReviews">—</div><div class="l">Total reviews</div></div>
+      <div class="stat"><div class="n" id="sFeedback">—</div><div class="l">Feedback messages</div></div>
+      <div class="stat"><div class="n" id="sOpen">—</div><div class="l">Open feedback</div></div>
+      <div class="stat"><div class="n" id="sAvg">—</div><div class="l">Avg rating</div></div>
+    </div>
+    <div class="tabs">
+      <button type="button" class="active" data-tab="feedback">Site feedback</button>
+      <button type="button" data-tab="reviews">Reviews</button>
+    </div>
+    <div class="toolbar">
+      <button type="button" id="refreshBtn">Refresh</button>
+      <button type="button" class="secondary" id="signOutBtn">Sign out</button>
+      <span class="status" id="status"></span>
+    </div>
+    <div id="list"></div>
+  </div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD7QHVH5hT0eURqXsJ0EXO_-BXUge5Iq_M",
+    authDomain: "nwu-residences-81b8b.firebaseapp.com",
+    projectId: "nwu-residences-81b8b",
+    storageBucket: "nwu-residences-81b8b.firebasestorage.app",
+    messagingSenderId: "979946386540",
+    appId: "1:979946386540:web:da1c423bdf9be046445449",
+    measurementId: "G-T1MY4MEC4J"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
+  const ADMIN_EMAIL = "maleboneomahlatsi@gmail.com";
+
+  let currentTab = "feedback";
+  let feedbackRows = [];
+  let reviewRows = [];
+
+  const gate = document.getElementById("gate");
+  const panel = document.getElementById("panel");
+  const list = document.getElementById("list");
+  const status = document.getElementById("status");
+  const gateErr = document.getElementById("gateErr");
+
+  function esc(s) {
+    return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  function showPanel(user) {
+    gate.classList.add("hidden");
+    panel.classList.remove("hidden");
+    document.getElementById("who").textContent = "Signed in as " + (user.email || "");
+    loadAll();
+  }
+  function showGate(msg) {
+    panel.classList.add("hidden");
+    gate.classList.remove("hidden");
+    if (msg) { gateErr.textContent = msg; gateErr.classList.remove("hidden"); }
+    else gateErr.classList.add("hidden");
+  }
+
+  document.getElementById("unlockBtn").onclick = async () => {
+    const email = (document.getElementById("email").value || "").trim();
+    const password = document.getElementById("pw").value;
+    try {
+      const cred = await auth.signInWithEmailAndPassword(email, password);
+      if ((cred.user.email || "").toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        await auth.signOut();
+        showGate("Not the admin account.");
+        return;
+      }
+      showPanel(cred.user);
+    } catch (e) {
+      showGate(e.message || "Sign-in failed");
+    }
+  };
+  document.getElementById("pw").addEventListener("keydown", e => {
+    if (e.key === "Enter") document.getElementById("unlockBtn").click();
+  });
+  document.getElementById("signOutBtn").onclick = async () => { await auth.signOut(); showGate(); };
+  document.getElementById("refreshBtn").onclick = loadAll;
+
+  document.querySelectorAll(".tabs button").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentTab = btn.getAttribute("data-tab");
+      renderList();
+    };
+  });
+
+  auth.onAuthStateChanged(user => {
+    if (user && (user.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) showPanel(user);
+  });
+
+  async function loadAll() {
+    status.textContent = "Loading…";
+    try {
+      const [fbSnap, revSnap] = await Promise.all([
+        db.collection("site_feedback").orderBy("createdAt", "desc").limit(100).get(),
+        db.collection("reviews").orderBy("createdAt", "desc").limit(200).get()
+      ]);
+      feedbackRows = [];
+      fbSnap.forEach(doc => feedbackRows.push({ id: doc.id, ...doc.data() }));
+      reviewRows = [];
+      let sum = 0, rc = 0;
+      revSnap.forEach(doc => {
+        const d = doc.data();
+        reviewRows.push({ id: doc.id, ...d });
+        if (d.rating) { sum += Number(d.rating); rc++; }
+      });
+      document.getElementById("sReviews").textContent = reviewRows.length;
+      document.getElementById("sFeedback").textContent = feedbackRows.length;
+      document.getElementById("sOpen").textContent = feedbackRows.filter(f => f.status !== "done").length;
+      document.getElementById("sAvg").textContent = rc ? (sum / rc).toFixed(1) : "—";
+      status.textContent = "Updated " + new Date().toLocaleTimeString();
+      renderList();
+    } catch (e) {
+      console.error(e);
+      status.textContent = "Error: " + e.message;
+    }
+  }
+
+  function when(ts) {
+    if (!ts) return "";
+    if (ts.toDate) return ts.toDate().toLocaleString();
+    return "";
+  }
+
+  function renderList() {
+    list.innerHTML = "";
+    if (currentTab === "feedback") {
+      if (!feedbackRows.length) {
+        list.innerHTML = "<p class='status'>No site feedback yet. Students can send it from the form on the main site.</p>";
+        return;
+      }
+      feedbackRows.forEach(f => {
+        const div = document.createElement("div");
+        div.className = "card";
+        const done = f.status === "done";
+        div.innerHTML = `
+          <div class="meta">${esc(f.type || "feedback")} · ${esc(when(f.createdAt))} · ${done ? "done" : "open"}</div>
+          <div class="title">${esc(f.name || "Anonymous")}${f.contact ? " · " + esc(f.contact) : ""}</div>
+          <div class="body">${esc(f.message || "")}</div>
+          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+            ${done ? "" : '<button type="button" class="mark">Mark done</button>'}
+            <button type="button" class="danger del">Delete</button>
+          </div>`;
+        const mark = div.querySelector(".mark");
+        if (mark) mark.onclick = async () => {
+          await db.collection("site_feedback").doc(f.id).update({ status: "done" });
+          loadAll();
+        };
+        div.querySelector(".del").onclick = async () => {
+          if (!confirm("Delete this feedback?")) return;
+          await db.collection("site_feedback").doc(f.id).delete();
+          loadAll();
+        };
+        list.appendChild(div);
+      });
+    } else {
+      if (!reviewRows.length) {
+        list.innerHTML = "<p class='status'>No reviews yet.</p>";
+        return;
+      }
+      reviewRows.forEach(r => {
+        const stars = r.rating ? ("★".repeat(r.rating) + "☆".repeat(5 - r.rating)) : "—";
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+          <div class="meta">${stars} · ${esc(r.author || "Student")} · ${esc(when(r.createdAt))}</div>
+          <div class="title">${esc(r.residenceName)}</div>
+          <div class="body">${esc(r.comment || "(rating only)")}</div>
+          <button type="button" class="danger del" style="margin-top:8px">Delete</button>`;
+        div.querySelector(".del").onclick = async () => {
+          if (!confirm("Delete this review?")) return;
+          try {
+            await db.collection("reviews").doc(r.id).delete();
+            loadAll();
+          } catch (e) {
+            alert("Delete failed: " + e.message);
+          }
+        };
+        list.appendChild(div);
+      });
+    }
+  }
+</script>
+</body>
+</html>
