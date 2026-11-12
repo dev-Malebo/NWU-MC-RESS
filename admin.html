@@ -6,6 +6,7 @@
 <title>Admin — NWU Residences Reviews</title>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -26,15 +27,16 @@
     box-shadow: 0 4px 16px rgba(45,31,84,0.08);
     border: 1px solid #e9deff;
   }
+  .gate label { display: block; font-size: 0.85rem; font-weight: 600; color: #4c3b73; margin-top: 10px; }
   .gate input {
     width: 100%;
     padding: 12px 16px;
     border-radius: 12px;
     border: 1px solid #d9cbfc;
     font-size: 1rem;
-    margin: 12px 0;
+    margin: 6px 0 0;
   }
-  .gate button, .actions button {
+  .gate button, .actions button, .toolbar button {
     background: #6b46c0;
     color: white;
     border: none;
@@ -42,8 +44,9 @@
     border-radius: 12px;
     font-weight: 600;
     cursor: pointer;
+    margin-top: 14px;
   }
-  .gate button:hover, .actions button:hover { background: #5a3aab; }
+  .gate button:hover, .toolbar button:hover { background: #5a3aab; }
   .hidden { display: none !important; }
   .review {
     background: white;
@@ -69,8 +72,8 @@
   .toolbar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
   .status { font-size: 0.85rem; color: #6b5b8c; }
   .err { color: #dc2626; margin-top: 8px; font-size: 0.85rem; }
+  .who { font-size: 0.8rem; color: #6b5b8c; margin-bottom: 12px; }
 </style>
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T1MY4MEC4J"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -82,20 +85,27 @@
 <body>
   <a class="back" href="index.html">← Back to site</a>
   <h1 style="margin-top:12px">Review admin</h1>
-  <p class="sub">Delete inappropriate comments. Password is only on this page (simple lock for you).</p>
+  <p class="sub">Sign in with your Firebase admin account to delete any review.</p>
+
   <div id="gate" class="gate">
-    <label for="pw">Admin password</label>
-    <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password">
-    <button type="button" id="unlockBtn">Unlock</button>
-    <p class="err hidden" id="gateErr">Wrong password</p>
+    <label for="email">Admin email</label>
+    <input id="email" type="email" value="maleboneomahlatsi@gmail.com" autocomplete="username">
+    <label for="pw">Password</label>
+    <input id="pw" type="password" placeholder="Firebase user password" autocomplete="current-password">
+    <button type="button" id="unlockBtn">Sign in</button>
+    <p class="err hidden" id="gateErr"></p>
   </div>
+
   <div id="panel" class="hidden">
+    <p class="who" id="who"></p>
     <div class="toolbar">
       <button type="button" id="refreshBtn">Refresh</button>
+      <button type="button" id="signOutBtn" style="background:#6b7280;">Sign out</button>
       <span class="status" id="status">Loading…</span>
     </div>
     <div id="list"></div>
   </div>
+
 <script>
   const firebaseConfig = {
     apiKey: "AIzaSyD7QHVH5hT0eURqXsJ0EXO_-BXUge5Iq_M",
@@ -108,36 +118,73 @@
   };
   firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
-  // Change this password to something only you know
-  const ADMIN_PASSWORD = "gg590806GG@1";
+  const auth = firebase.auth();
+
+  const ADMIN_EMAIL = "maleboneomahlatsi@gmail.com";
+
   const gate = document.getElementById("gate");
   const panel = document.getElementById("panel");
   const list = document.getElementById("list");
   const status = document.getElementById("status");
   const gateErr = document.getElementById("gateErr");
-  document.getElementById("unlockBtn").onclick = () => {
-    const v = document.getElementById("pw").value;
-    if (v === ADMIN_PASSWORD) {
-      sessionStorage.setItem("nwu_admin", "1");
-      gate.classList.add("hidden");
-      panel.classList.remove("hidden");
-      loadReviews();
-    } else {
+  const who = document.getElementById("who");
+
+  function showPanel(user) {
+    gate.classList.add("hidden");
+    panel.classList.remove("hidden");
+    who.textContent = "Signed in as " + (user.email || user.uid);
+    loadReviews();
+  }
+
+  function showGate(msg) {
+    panel.classList.add("hidden");
+    gate.classList.remove("hidden");
+    if (msg) {
+      gateErr.textContent = msg;
       gateErr.classList.remove("hidden");
+    } else {
+      gateErr.classList.add("hidden");
+    }
+  }
+
+  document.getElementById("unlockBtn").onclick = async () => {
+    const email = (document.getElementById("email").value || "").trim();
+    const password = document.getElementById("pw").value;
+    gateErr.classList.add("hidden");
+    try {
+      const cred = await auth.signInWithEmailAndPassword(email, password);
+      if ((cred.user.email || "").toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+        await auth.signOut();
+        showGate("This account is not the admin email in your Firestore rules.");
+        return;
+      }
+      showPanel(cred.user);
+    } catch (err) {
+      console.error(err);
+      showGate(err.message || "Sign-in failed");
     }
   };
+
   document.getElementById("pw").addEventListener("keydown", e => {
     if (e.key === "Enter") document.getElementById("unlockBtn").click();
   });
+
   document.getElementById("refreshBtn").onclick = loadReviews;
-  if (sessionStorage.getItem("nwu_admin") === "1") {
-    gate.classList.add("hidden");
-    panel.classList.remove("hidden");
-    loadReviews();
-  }
+  document.getElementById("signOutBtn").onclick = async () => {
+    await auth.signOut();
+    showGate();
+  };
+
+  auth.onAuthStateChanged(user => {
+    if (user && (user.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+      showPanel(user);
+    }
+  });
+
   function esc(s) {
     return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
   }
+
   async function loadReviews() {
     status.textContent = "Loading…";
     list.innerHTML = "";
@@ -161,8 +208,12 @@
         `;
         div.querySelector(".del").onclick = async () => {
           if (!confirm("Delete this review?")) return;
-          await db.collection("reviews").doc(doc.id).delete();
-          loadReviews();
+          try {
+            await db.collection("reviews").doc(doc.id).delete();
+            loadReviews();
+          } catch (err) {
+            alert("Delete failed: " + err.message);
+          }
         };
         list.appendChild(div);
       });
