@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#2d1f54">
+<meta name="description" content="Map of NWU Mahikeng accredited off-campus student residences, with distance from campus.">
+<title>NWU Residences Map — Purple Army</title>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
+<link rel="preconnect" href="https://tile.openstreetmap.org" crossorigin>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script defer src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; display: flex; flex-direction: column; height: 100vh; height: 100dvh; background: #f7f3ff; }
+  header { flex: none; background: linear-gradient(135deg, #2d1f54, #5a3e9b); color: #fff; padding: 10px 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; position: relative; z-index: 1000; }
+  header h1 { font-size: 1.05rem; font-weight: 700; white-space: nowrap; }
+  header a.back { color: #e9d5ff; text-decoration: none; font-size: 0.85rem; padding: 6px 12px; border: 1px solid rgba(255,255,255,.3); border-radius: 16px; white-space: nowrap; }
+  header a.back:hover { background: rgba(255,255,255,.15); }
+  .search-box { flex: 1; min-width: 150px; max-width: 300px; padding: 8px 12px; border: none; border-radius: 16px; font-size: 0.9rem; }
+  .bar { flex: none; display: flex; gap: 6px; align-items: center; padding: 7px 12px; background: #fff; border-bottom: 1px solid #e9deff; overflow-x: auto; white-space: nowrap; z-index: 999; position: relative; scrollbar-width: none; }
+  .bar::-webkit-scrollbar { display: none; }
+  .chip { border: 1px solid #d9cbfc; background: #faf8ff; color: #4c1d95; border-radius: 999px; padding: 5px 12px; font-size: 0.78rem; font-weight: 600; cursor: pointer; flex: none; }
+  .chip i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+  .chip.on { background: #6b46c0; color: #fff; border-color: #6b46c0; }
+  #count { margin-left: auto; font-size: 0.75rem; color: #6b5b8c; padding-left: 8px; flex: none; }
+  #map { flex: 1; min-height: 0; width: 100%; }
+
+  .marker-cluster-small, .marker-cluster-medium, .marker-cluster-large { background-color: rgba(139,92,246,.35); }
+  .marker-cluster-small div, .marker-cluster-medium div, .marker-cluster-large div { background-color: rgba(107,70,192,.92); color: #fff; font-weight: 700; }
+
+  .legend { background: #fff; padding: 10px 12px; border-radius: 8px; line-height: 1.5; font-size: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+  .legend i { width: 12px; height: 12px; display: inline-block; border-radius: 50%; margin-right: 6px; }
+  .locbtn { background: #fff; border: 2px solid rgba(0,0,0,.2); border-radius: 4px; width: 34px; height: 34px; font-size: 16px; cursor: pointer; }
+  .popup h3 { margin: 0 0 4px; font-size: 0.95rem; color: #2d1f54; }
+  .popup p { margin: 2px 0; font-size: 0.8rem; color: #444; }
+  .popup .tag { display: inline-block; font-size: 0.7rem; padding: 2px 8px; border-radius: 999px; background: #fef3c7; color: #92400e; margin: 3px 0; }
+  .popup .tag.ok { background: #dcfce7; color: #166534; }
+  .popup .tag.st { background: #ccfbf1; color: #115e59; }
+  .popup .row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .popup a.dir, .popup button.rep { border: 0; text-decoration: none; padding: 6px 12px; border-radius: 16px; font-size: 0.78rem; cursor: pointer; font-family: inherit; }
+  .popup a.dir { background: #1a73e8; color: #fff; }
+  .popup button.rep { background: #f1ecff; color: #4c1d95; }
+
+  #toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); background: #2d1f54; color: #fff; padding: 10px 16px; border-radius: 12px; font-size: 0.85rem; opacity: 0; pointer-events: none; transition: .25s; z-index: 3000; max-width: 90vw; text-align: center; }
+  #toast.show { opacity: 1; transform: translateX(-50%); }
+  #pickBanner { position: fixed; top: 110px; left: 50%; transform: translateX(-50%); background: #f97316; color: #fff; padding: 10px 14px; border-radius: 12px; z-index: 2500; font-size: 0.85rem; display: none; gap: 10px; align-items: center; box-shadow: 0 4px 16px rgba(0,0,0,.25); }
+  #pickBanner button { background: #fff; color: #c2410c; border: 0; border-radius: 8px; padding: 4px 10px; font-weight: 600; cursor: pointer; }
+
+  #rBack { position: fixed; inset: 0; background: rgba(20,10,40,.45); z-index: 2000; display: none; }
+  #rSheet { position: fixed; left: 50%; bottom: 0; transform: translateX(-50%); width: min(460px, 100%); max-height: 92dvh; overflow-y: auto; background: #fff; border-radius: 18px 18px 0 0; padding: 18px 16px calc(18px + env(safe-area-inset-bottom)); z-index: 2100; display: none; box-shadow: 0 -8px 30px rgba(0,0,0,.25); }
+  #rSheet h2 { font-size: 1.05rem; color: #2d1f54; }
+  #rSheet .sub { font-size: 0.82rem; color: #6b5b8c; margin: 2px 0 12px; }
+  #rSheet label { display: block; font-size: 0.78rem; font-weight: 600; color: #4c3b73; margin: 10px 0 4px; }
+  #rSheet select, #rSheet textarea, #rSheet input[type=text] { width: 100%; padding: 10px 12px; border: 1px solid #d9cbfc; border-radius: 10px; font-size: 0.9rem; font-family: inherit; }
+  #rSheet textarea { min-height: 70px; resize: vertical; }
+  .rbtns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .rb { background: #ede9fe; color: #4c1d95; border: 0; border-radius: 10px; padding: 9px 12px; font-weight: 600; font-size: 0.82rem; cursor: pointer; font-family: inherit; }
+  .rb.go { background: #6b46c0; color: #fff; flex: 1; }
+  .rb:disabled { opacity: .55; cursor: wait; }
+  #rSug { font-size: 0.8rem; color: #166534; margin-top: 6px; min-height: 1em; }
+  .hp { position: absolute; left: -9999px; height: 0; overflow: hidden; }
+
+  #edit { position: fixed; left: 10px; top: 120px; width: 340px; max-height: calc(100vh - 140px); background: #fff; border-radius: 14px; box-shadow: 0 6px 24px rgba(45,31,84,.28); z-index: 1100; display: flex; flex-direction: column; overflow: hidden; font-size: 0.82rem; }
+  #edit.collapsed #editBody { display: none; }
+  #editHead { background: #2d1f54; color: #fff; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  #editHead b { font-size: 0.9rem; }
+  #editHead button { background: rgba(255,255,255,.18); color: #fff; border: 0; border-radius: 8px; padding: 4px 10px; cursor: pointer; }
+  #editBody { display: flex; flex-direction: column; min-height: 0; }
+  .erow { padding: 8px 12px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+  .erow select, .erow input[type=search], .erow input[type=text] { flex: 1; min-width: 0; padding: 7px 9px; border: 1px solid #d9cbfc; border-radius: 8px; font-size: 0.82rem; }
+  .ebtn { background: #6b46c0; color: #fff; border: 0; border-radius: 8px; padding: 7px 11px; font-weight: 600; cursor: pointer; font-size: 0.8rem; }
+  .ebtn.sec { background: #ede9fe; color: #4c1d95; }
+  .ebtn.ok { background: #16a34a; }
+  .ebtn:disabled { opacity: .5; cursor: wait; }
+  #eList { overflow-y: auto; border-top: 1px solid #eee; flex: 1; min-height: 90px; max-height: 200px; }
+  .eitem { padding: 7px 12px; border-bottom: 1px solid #f1ecff; cursor: pointer; display: flex; gap: 8px; align-items: center; }
+  .eitem:hover { background: #f7f3ff; }
+  .eitem.on { background: #ede9fe; }
+  .eitem .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; background: #94a3b8; }
+  .eitem .dot.fixed { background: #16a34a; }
+  .eitem .dot.sus { background: #ef4444; }
+  .eitem small { color: #8a79b5; display: block; }
+  #eDetail { border-top: 1px solid #e9deff; background: #faf8ff; padding: 10px 12px; }
+  #eDetail .t { font-weight: 700; color: #2d1f54; }
+  #eDetail .a { color: #666; margin: 2px 0 6px; }
+  #eMsg { margin-top: 6px; color: #6b5b8c; min-height: 1.2em; }
+  #eMsg.bad { color: #dc2626; }
+  #eMsg.good { color: #16a34a; }
+
+  @media (max-width: 640px) {
+    header { padding: 8px 12px; gap: 8px; }
+    header h1 { font-size: 0.95rem; }
+    .search-box { max-width: 100%; order: 3; flex-basis: 100%; }
+    #edit { left: 0; right: 0; top: auto; bottom: 0; width: auto; max-height: 58vh; border-radius: 14px 14px 0 0; }
+    body.editing .legend { display: none; }
+    #pickBanner { top: 150px; }
+  }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T1MY4MEC4J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T1MY4MEC4J');
+</script>
+</head>
+<body>
+<header>
+  <h1>📍 NWU Residences Map</h1>
+  <input type="search" class="search-box" id="search" placeholder="Search name, street or suburb…" aria-label="Search residences" autocomplete="off">
+  <a class="back" href="index.html">← Back to list</a>
+</header>
+<div class="bar" id="bar" role="group" aria-label="Filter by distance">
+  <button type="button" class="chip on" data-band="all">All</button>
+  <button type="button" class="chip" data-band="3"><i style="background:#22c55e"></i>≤ 3 km</button>
+  <button type="button" class="chip" data-band="6"><i style="background:#eab308"></i>3–6 km</button>
+  <button type="button" class="chip" data-band="10"><i style="background:#f97316"></i>6–10 km</button>
+  <button type="button" class="chip" data-band="10+"><i style="background:#ef4444"></i>&gt; 10 km</button>
+  <span id="count"></span>
+</div>
+<div id="map" role="application" aria-label="Map of residences"></div>
+
+<div id="pickBanner"><span>Tap the exact spot on the map</span><button type="button" id="pickCancel">Cancel</button></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<div id="rBack"></div>
+<form id="rSheet" autocomplete="off">
+  <h2>Report a wrong location</h2>
+  <p class="sub"><b id="rName"></b><br><span id="rAddr"></span></p>
+  <label for="rType">What's wrong?</label>
+  <select id="rType">
+    <option value="pin">The pin is in the wrong place</option>
+    <option value="distance">The distance looks wrong</option>
+    <option value="address">The name or address is wrong</option>
+    <option value="other">Something else</option>
+  </select>
+  <label>Show us the right spot (best)</label>
+  <div class="rbtns">
+    <button type="button" class="rb" id="rUse">📡 I'm here now</button>
+    <button type="button" class="rb" id="rPick">👆 Tap on the map</button>
+  </div>
+  <div id="rSug"></div>
+  <label for="rNote">Notes (e.g. "behind the shop, blue gate")</label>
+  <textarea id="rNote" maxlength="500"></textarea>
+  <label for="rContact">WhatsApp / email (optional)</label>
+  <input type="text" id="rContact" maxlength="100">
+  <div class="hp" aria-hidden="true"><label>Website <input type="text" id="rWeb" tabindex="-1" autocomplete="off"></label></div>
+  <div class="rbtns" style="margin-top:14px">
+    <button type="button" class="rb" id="rCancel">Cancel</button>
+    <button type="submit" class="rb go" id="rSend">Send report</button>
+  </div>
+</form>
+
+<script>
+const CAMPUS = [-25.828889, 25.608889];
+/* [name, address, area, lat, lon, km, verified] */
+const RAW = [["Oteng Villa Riviera Park North","3387 Shark Street  Riviera Park North Mahikeng  North West  2745","Riviera Park North",-25.856375,25.665697,9.7,0],["Oteng Villa Unit 12","3807 Peace Street  Unit 12 Mmabatho  North West  2745","Unit 12",-25.853384,25.586875,3.5,0],["Oteng Villa Golfview","6 Dan Pienaar  Golfview Mahikeng  North West  2745","Golfview",-25.851117,25.649182,7.5,0],["Oteng Villa Riviera Park","13 Everest Street  Riviera Park Mahikeng  North West  2745","Riviera Park",-25.860065,25.663961,10.9,0],["Oteng Villa Unit 1","2557 Kgalegi Crescent  Unit 1 Mahikeng  North West  2745","Unit 1",-25.840351,25.61761,2.9,0],["Naledi Crest Student Residence","4784 MOKALA STREET UNIT 13 MMABATHO  North West  2735","Unit 13",-25.857973,25.573593,5.2,0],["PRIMROSE STUDENT VILLA","35 NELSON MANDELA DRIVE Mahikeng  Northwest Province  2745","Other",-25.846506,25.612633,7.1,0],["KIN RESIDANCE","HOUSE NUMBER 40060  PHOLA VILLAGE MAHIKENG  NORTH WEST  2745","Phola Village",-25.874775,25.655749,4.6,0],["KIN2","HOUSE NUMBER 50133  THOLO STREET MOSIANE VIEW MAHIKENG  NORTH WEST  2745","Mosiane View",-25.904554,25.688602,14.5,0],["ZA Maimane","2261 Kgalegi Crescent  Unit 2 Montshiwa Mafikeng  North West  2737","Montshiwa",-25.844468,25.623547,2.7,0],["Thutoentle Student Residence","1404 Robert Sobukwe Street Montshiwa 2735 Mmabatho  North West  2745","Montshiwa",-25.841009,25.623529,2.5,0],["SEFIDVASH 2 NARAGHI-ARANI","1494 MOSETLHI CLOSE UNIT 6 MMABATHO  NW  2735","Unit 6",-25.834723,25.597201,3.5,0],["KOPANO RESIDENCE","570 Lea mangope Avenue  Unit 2 Cul 19  Steve biko  Mmabatho 2790 Mmabatho  North West  2735","Steve Biko",-25.830817,25.614286,1.7,0],["TSHOLOFETSO RESIDENCE","687  MOTLHATSWAKGOTLA  UNIT 2  CUL 7  STEVE BIKO  UNIT 2 MMABATHO 2790 Mmabatho  North west  2735","Steve Biko",-25.832016,25.609964,1.6,0],["EJ Tullip","3390 Shark Street  Riviera Park North Mahikeng  North West  2745","Riviera Park North",-25.853481,25.666737,9.8,0],["Ko Lapeng","3389 Shark Street  Riviera Park North Mahikeng  North West  2745","Riviera Park North",-25.852851,25.666536,9.7,0],["Divine","1012 Motshegare Street  Unit 5 Mmabatho  North West  2745","Unit 5",-25.822634,25.608181,1.1,0],["Boitumelo Res","House no 2202  Sekame road unit 1 mmabatho  north west  2735","Unit 1",-25.83774,25.617393,2.9,0],["Lesedi Student Villa","836 Sol Plaatjie Drive  Unit 3 Mmabatho  North West  2735","Unit 3",-25.841407,25.606647,2.9,0],["Gilbert Res","707 cul 7  unit 2 mmabatho  north west  2735","Unit 2",-25.831613,25.613809,2.8,0],["BMD Villa Student Accommodation","Stand No 20053  Makgetla View Mahikeng  2745","Makgetla View",-25.850173,25.558856,7.3,1],["Elmsgate Accommodation","7538 Narium Crescent  Unit 15 Mafikeng  North west  2745","Unit 15",-25.857271,25.569023,4.7,0],["Thuto Boswa Student Accomodation","2033 Seleke Drive  Unit 8  Mmabatho Mahikeng  North-West  2745","Unit 8",-25.843053,25.588639,3.6,0],["Kelebigile Student Residence","35 South Street Mahikeng  North West Province  2745","Other",-25.846336,25.612899,7.9,0],["CAPITA RES \"A\"","1584 MAKHENE DRIVE  UNIT 6 MMABATHO  NW  2790","Unit 6",-25.83411,25.596005,2.7,0],["CAPITA RES \"B\"","2546 MOLALE STREET  UNIT 1 MMABATHO  NW  2745","Unit 1",-25.838676,25.618678,3.0,0],["Khonziwe Residences","1774 Unit 8 Motlhamme Street  1774 Unit 8 Motlhamme street Mmabatho  North West  2735","Unit 8",-25.843452,25.589351,3.3,0],["Renofund Student Villa","4551 Mohatlha Close  Unit 13 Mmabatho Mahikeng  North West  2735","Unit 13",-25.855817,25.573835,5.1,0],["Kaelo House","684 Cul 7 Road  Unit 2 Mmabatho  North West  2790","Unit 2",-25.831454,25.61274,2.8,0],["Londizwe","NO 80 WAGTAIL Morena Menor complex EXTENSION 39 Mmabatho  North West  2745","Other",-25.843854,25.613356,3.1,0],["BUDDY OPS (PTY LTD)","Unit 2  398 Cul 14 Mahikeng  North west  2735","Unit 2",-25.832603,25.610317,8.0,0],["BUDDY OPS (PTY LTD)","11478  MOCOSENG VILLAGE Mahikeng  North west  2735","Mocoseng",-25.8743,25.587448,8.0,0],["86 molopo","86 molopo road Mahikeng  north west  2745","Other",-25.844077,25.615285,7.9,0],["23 DK","23 DE KOCK Mahikeng  north west  2745","Other",-25.84362,25.616714,8.0,0],["THASAWA VILLA STUDENT ACCOMODATION","Stand Number 12606  Khibitshwane street   Mocoseng  Unit 13 Mmabatho  North West  2735","Mocoseng",-25.877339,25.583645,6.4,0],["MAK Accommodations","34 Dan Pienaar Street  Golfview Mahikeng  North West  2745","Golfview",-25.853161,25.647077,7.2,0],["Time Out","13 Havenga Street  Golfview Mahikeng  North West  2745","Golfview",-25.849785,25.646555,6.6,0],["Boitshenolo Student Accommodation","1312 Theletso Tawana  Montshiwa Mahikeng  North West  2745","Montshiwa",-25.842927,25.623882,1.2,0],["Emmanuel","1541 Setshedi Close  Unit 6 Mmabatho  North West  2745","Unit 6",-25.833522,25.598777,2.3,0],["RESREN UNIT 14","6340 SEDITSE STREET  UNIT 14 MMABATHO  NORTH WEST  2735","Unit 14",-25.860206,25.572073,6.1,0],["0","STAND NO 10425 LONELY PARK  STAND NO 10425 LONELY PARK MAHIKENG  2745","Lonely Park",-25.816267,25.638824,null,0],["Dumi & Mdu residence","8 Jupiter street Riviera Park MAHIKENG  North West  2745","Riviera Park",-25.859186,25.662307,9.3,0],["Reafenya Residence","13/901 Montgomery Street  Golfview Mafikeng  North West  2745","Golfview",-25.850011,25.648423,7.5,0],["Senzomanzi 5825","5825  Mamolongwana Close Mmabatho  North West  2790","Other",-25.846403,25.614497,5.9,0],["Tumza Rocks Pty Ltd","5587 Mabele Cres  5587 Mabele Cress Mmabatho  North west  2735","Other",-25.844952,25.617488,5.9,0],["Resren Unit 15","6722 Dombeya Street  Unit 15 Mmabatho  North West  2735","Unit 15",-25.857264,25.565955,4.5,0],["Eumarakh Trading Enterprise & Projects Student Accommodation","5717 Peba Street  unit 14 Mmabatho  North west  2745","Unit 14",-25.859363,25.568048,5.7,0],["Siyavula Residence","03 Clarendon Street  Golfview Mafikeng  North West  2745","Golfview",-25.852389,25.64946,6.5,0],["Monthati Onthatile Student Residence","Mocoseng Village  Mocoseng Stand 13r  2745  Mahikeng","Mocoseng",-25.875592,25.582818,8.0,0],["ReaKgetha Student Residence","586 Unit 2  Leah Mangope Avenue Mafikeng  North West  2735","Unit 2",-25.831854,25.614481,2.5,0],["Airport Villa Student Accommodation","229 Boeing 702 Avenue  Airport View  Mmabato Mafikeng  South Africa  2735","Airport View",-25.803196,25.557355,10.2,0],["Retshepileone","242 MONTSHIWA UNIT 1  242 MASHUGA STREET Mmabatho  North West  2735","Montshiwa",-25.840896,25.619557,4.2,0],["BOIPELO SOLUTIONS STUDENT ACCOMODATION","568 CUL 19 –UNIT 2 – MMABATHO MMABATHO  MAHIKENG  2735","Unit 2",-25.831815,25.612909,2.6,0],["0","583 Cul 20  Unit2 Mmabatho  Northwest  2790","Other",-25.844295,25.613834,null,0],["KnK Student Residence","3603 Cocktail Crescent   Unit 12 Mmabatho  North West  2790","Unit 12",-25.852326,25.586058,4.1,0],["Thandi's Residence","MOSHAWANE  MOSHAWENE HOUSE NO:30078 MAFIKENG  NORTH WEST  2745","Other",-25.842731,25.614769,6.9,0],["120 shippard","120 shippard street  10c First Avenue Mafikeng  NORTH WEST  2745","Other",-25.846183,25.616879,7.7,0],["loenly park","cnr nelson mandela and zeerust road  10c First Avenue Mafikeng  NORTH WEST  2745","Other",-25.846607,25.615003,5.8,0],["Gofaone Residence","4613 Mokala Street  Mmabatho Unit 13  Mmabatho  South Africa Mmabatho  North West  2790","Unit 13",-25.856147,25.577063,5.7,0],["DIVINE GRACE RESIDENCE","7630 Monsteria Street  Unit 15 Mmabatho  North West  2735","Unit 15",-25.854305,25.566992,4.7,0],["2505 Unit-9 Residence","2505 Makale Drive  Unit-9  Mmabatho Mahikeng  North West  2735","Other",-25.846736,25.615545,4.5,0],["Reatlegile Students Accommodation","5336 Tsamai Close  Unit 13  Mmabatho  2735 Mmabatho  North West  2735","Unit 13",-25.857803,25.576313,6.4,0],["MSHZ RES","68 Molopo Road  Golf View Mahikeng  North-West  2745","Golfview",-25.851848,25.649393,8.0,0],["OAUTLWA TRADING STUDENTS RESIDENCE","STAND NUMBER 40601  MAKGETLA VIEW Mafikeng  NORTH WEST  2745","Makgetla View",-25.853861,25.557526,7.3,1],["Reikobile trading enterprise pty ltd","37 Cul1 Unit 2 Mmabatho  North west  2735","Unit 2",-25.832879,25.609503,2.8,0],["IGMG","40602 Makgetla view/Tontonyane MAFIKENG  North West  2745","Makgetla View",-25.849439,25.563448,2.4,1],["De Don Residence","7155 Viola Street  Unit 15  Mmabatho Mahikeng  North-West  2745","Unit 15",-25.852855,25.565597,4.7,0],["SEKETE RESIDENCE","210 Steve Biko UNIT 2 CUL 8 MMABABATHO  210 Steve Biko UNIT 2 CUL 8 MMABABATHO MAFIKENG  NORTH WEST  2735","Steve Biko",-25.828342,25.613894,2.3,0],["SEKETE","274 UNIT 2 CUL 9 MMABATHO  274 UNIT 2 CUL 9 MMABATHO MAFIKENG  NORTH WEST  2735","Unit 2",-25.83421,25.611038,5.8,0],["Tshimologo Exclusive Estate and Student Accommodation","42002 Dihatshwane  42002 Dihatshwane Mafikeng  North West  2745","Other",-25.842765,25.61689,20.6,0],["0","7 Kruis Street Danville  7 Kruis Street Danville Mafikeng  North West  2745","Danville",-25.87807,25.667928,null,0],["NGAMOLE TACTICAL","783 MAKGETLA VIEW SECTION  AIPORT VIEW MAHIKENG  NORTH WEST  2739","Makgetla View",-25.84857,25.563534,6.5,1],["Vickotech Students Accomodations","5640  Extension 38  Imperial Mafikeng  North West  2735","Other",-25.843697,25.612846,16.0,0],["GRACE-B RES","3186 UNIT 10  MMABATHO Mafikeng  North West  2735","Unit 10",-25.846858,25.583329,4.8,0],["GRACE-B","7117 VITEX STREET  UNIT 15 MMABATHO MAFIKENG  North West  2735","Unit 15",-25.854751,25.567876,4.5,0],["IGMG","1384 SEREMANE STREET  MONTSHIOA MAFIKENG  North West  2745","Montshiwa",-25.849439,25.563448,2.4,0],["IGMG","752 STEVE BIKO DRIVE  UNIT 2 MAFIKENG  North West  2745","Steve Biko",-25.849439,25.563448,2.4,0],["Leagonglentle","STAND 10211 MOSHAWANA  Moshawana Mahikeng  Northwest Province  2735","Other",-25.843138,25.613825,16.0,0],["THOLO RES @ GATHOLO","Barolong Street  Unit 7 MMABATHO  NORTH WEST  2735","Unit 7",-25.839441,25.594616,2.7,0],["Amole- Villa","11112D Molelwane village Mafikeng  North west  2745","Other",-25.84385,25.615196,6.3,0],["GAE LE LENTLE","10 PEARL STREET  RIVIERA PARK MAFIKENG  NORTH WEST  2745","Riviera Park",-25.858941,25.660506,10.4,0],["GAE LA TLAMELO","20015 LONELY PARK  1ST HOUSE BEHIND GOLFVIEW POWER STATION - CNR MIMOSA & QUIGLEY STREET MAFIKENG  NORTH WEST  2745","Golfview",-25.851251,25.650476,7.8,0],["Gofaone Residence","5409 Khibitshwane Street Unit 13  Mmabatho Mmabatho  North West  2790","Unit 13",-25.857912,25.574691,5.7,0],["Dikgophu Student Accomodation","11126  Lonely Park Road Mahikeng  North West  2745","Lonely Park",-25.816377,25.638105,6.5,0],["Nhlonipho Residence","1752 Unit 8  Motlhamme Crescent Mmabatho  North West  2735","Unit 8",-25.841558,25.58919,3.1,0],["R H N Sounds Student Accomodations","B20021  Dibate Village Mmabatho  North West  2790","Other",-25.846399,25.613651,2.9,0],["PHOENIX CONSULTANCY","1840 RAMOSADI VILLAGE MMABATHO  NORTH WEST  2735","Ramosadi",-25.847344,25.622855,4.4,0],["The word estate","811 motlhabeng  The word estet  Mmabatho Mafikeng  North west  2735","Other",-25.845439,25.588715,3.1,1],["LEUNGO 1063","UNIT 5 1063  TAWANA STREET MMABATHO  NORTH WEST  2735","Unit 5",-25.822973,25.606645,0.9,0],["LEUNGO 1049 UNIT 5","UNIT 5 1049  BOTLHABA STREET  UNIT 5 1049  BOTLHABA STREET MMABATHO  NORTH WEST  2735","Unit 5",-25.827146,25.609798,1.1,0],["Sedibeng 1","803 Cnr. Steve Biko & Cul 14  Unit 2 Mmabatho  North West Province  2735","Steve Biko",-25.829155,25.61069,2.1,0],["Sedibeng 2","4110 Peace Crescent  Unit 12 Mmabatho  North West Province  2735","Unit 12",-25.853838,25.586571,3.3,0],["Sedibeng Gardens","100 Bray Road  Moletsamongwe Villa Mahikeng  North West Province  2745","Other",-25.844645,25.617178,13.3,0],["Airportview Hieghts","272 Airport View  Mmabatho Mafikeng  2147","Airport View",-25.803577,25.554863,2.7,0],["Senzomanzi 2","20039B  Moshawane Mafikeng  North-West  2745","Other",-25.846548,25.616537,6.5,0],["Matshidiso Residence","5867 Unit 14  Tshikitshane close Mmabatho  North West  2735","Unit 14",-25.860345,25.567985,5.9,0],["Seheri House","442 cul 15 unit2  leah mangope avenue mafikeng  north west  2735","Other",-25.845165,25.614618,2.0,0],["The Tsolo Residence","4104 Laura Close  Unit 12 Mmabatho  North west  2735","Unit 12",-25.851133,25.589145,3.5,0],["RTTB 1","4053 Monica Crescent  Unit 12  Mmabatho  Mahikeng  4053 Monica Crescent  Unit 12  Mmabatho  Mahikeng Mmabatho  North West  2735","Unit 12",-25.854008,25.590421,3.3,0],["Conrex Trading and Projects (Pty) Ltd","3407 Dreamland Street  Unit 10 Mmabatho Mahikeng  North West  2790","Unit 10",-25.845803,25.581513,5.0,0],["Thubisi Residence","7640 Ext 39  Mmabatho Mahikeng  North-West  2735","Other",-25.846257,25.616808,4.4,0],["Lesedi Student Village","1011A Moletsamongwe Village  Moletsamongwe Village Mahikeng  2745","Other",-25.845257,25.613451,12.7,0],["Kwa Agisanang Residence","STAND 11986  MOTSOSENG VILLAGE MAHIKENG  NORTH WEST PROVINCE  2735","Other",-25.846107,25.614609,7.1,0],["GAOPALELWE COMPLEX","H1 MMABATHO COMPLEX  MAHIKENG MAHIKENG  North West  2735","Other",-25.842884,25.613749,2.7,0],["ATTS STUDENTS ACCOMMODATION","14 IMPALA STREET  GOLFVIEW MAHIKENG  NORTH WEST  2745","Golfview",-25.850193,25.647716,8.1,0],["Rabi's Student Residence","23/883 Jan Smuts  Golfview Mafikeng  North West  2745","Golfview",-25.854247,25.648252,7.3,0],["Kletlaka Properties (PTY) LTD","17 Mothibi Street Montshiwa  2735","Montshiwa",-25.84032,25.624496,4.8,0],["Nkhatle Residence","20166  Dibate Mmabatho Mafikeng Mafikeng  North West  2745","Other",-25.842868,25.617345,2.9,0],["LEUNGO UNIT 1","2554 MOLALE STREET  2554 MOLALE STREET MONTSHIWA  NORTH WEST  2737","Montshiwa",-25.843668,25.623743,2.9,0],["Hubafa Apartments","00001  Lokaleng Village Mmabatho  North West  2735","Other",-25.846431,25.614928,5.0,0],["Leeto Residence","2080 SELEKE STREET  UNIT 8 MMABATHO  NORTH WEST  2735","Unit 8",-25.844207,25.589505,3.5,0],["Simasa Residence","2922 Joe Slovo Dr  Joe Slovo dr Mahikeng  North West  2735","Other",-25.842573,25.614395,16.0,0],["RESREN UNIT 12","4063 LAURA STREET  UNIT 12 MMABATHO  NORTH WEST  2735","Unit 12",-25.85058,25.586826,3.2,0],["KEAMASETHO","10168 MAGOGOE TLHABOLOGO VILLAGE MAHIKENG  NORTHWEST  2745","Other",-25.845385,25.614775,8.5,0],["NYALA STUDENT ACCOMODATION (1)","16  AERODROME CRESCENT  industrial Mahikeng  North West  South Africa 2745","Other",-25.842523,25.617287,4.9,0],["NYALA STUDENT ACCOMODATION (2)","20   Aerodrome crescent Industrial  MAhikeng","Other",-25.843908,25.615279,5.5,0],["RTTB 2","1240 Barolong Street  Unit 7  Mmabatho  Mahikeng  1240 Barolong Street  Unit 7  Mmabatho  Mahikeng Mmabatho  North West  2735","Unit 7",-25.839016,25.593274,2.6,0],["MOSIMEGE RESIDENCE","1575  TSHESEBE CLOSE MMABATHO UNIT 6  NORTH WEST  MAHIKENG 2735","Unit 6",-25.832604,25.600344,2.7,0],["RESREN GOLFVIEW","6526 BOIKETLO STREET  GOLFVIEW MAFIKENG  NORTH WEST  2745","Golfview",-25.85076,25.648211,8.2,0],["Keamasetho","House no 7875 Unit 6  Diutlwileng street Mahikeng  Northwest  2790","Unit 6",-25.832579,25.595786,2.4,0],["MVPINPRINT","1449 Safari  Safari Close Mafikeng  North West  2790","Other",-25.843236,25.615014,3.4,0],["ditla","715 aslagte road Mahikeng  north west  2745","Other",-25.842696,25.613287,6.5,0],["Malekmaintanance","49 tilard street  Golfview Mafikeng  Northwest  2745","Golfview",-25.853571,25.645901,7.4,0],["PLATNUM","859 Sol Plaatjie Drive  Leopard Park Ext 3  Mmabatho. Mahikeng  North West  2735","Other",-25.844124,25.615475,3.1,0],["THOLO RES @ COTTAGES","Barolong Street  Unit 7 MMABATHO  NORTH WEST  2735","Unit 7",-25.839901,25.593676,2.7,0],["Mabitso Residence","6778  Begonia street  Unit 15 Mmabatho  North West  2735","Unit 15",-25.856269,25.569951,4.7,0],["THUNDERDUST PROPERTI","9 Clarendon Street  Golf View Mahikeng  North West  2745","Golfview",-25.851403,25.648473,6.5,0],["914 The Venue","914 Boikanyo Street  Unit3 Mmabatho  North West  2735","Other",-25.844582,25.614596,2.5,0],["MACK DEVOS RESIDENCE","496 UNIT2  CUL  16 MMABATHO  NORTHWEST  2735","Other",-25.842826,25.615114,2.7,0],["KMan Student Residence","21 Churchill Street  Golfview Mahikeng  North West  2145","Golfview",-25.850919,25.646521,6.8,0],["Gae Student Residence","Erf2243 Montshioa  Unit 2  Mmabatho  2243 Kgalegi Crescent  Mmabatho Mahikeng  North West  2145","Montshiwa",-25.842521,25.620693,2.8,0],["Sunshine Estate","63 Molopo Street  Golfview Mahikeng  North West  2745","Golfview",-25.853,25.648858,8.0,0],["Bokamoso student accomodation","7390 ext 39 mmabatho Mahikeng  northwest  2745","Other",-25.843741,25.614081,4.4,0],["Bokamoso student villa","40068 mmutla road  mosiane view Mahikeng  North West  mafikeng","Mosiane View",-25.905209,25.687863,15.5,0],["Gontle Residence","3335 Unit 10  lobelia Mmabatho  North West  2735","Unit 10",-25.84252,25.584492,4.8,0],["Nthabiseng Montshiwa Res","302 Cul 10 Unit 2 Mmabatho  302 Cul 10 Unit 2 Mmabatho Mafikeng  North West  2790","Unit 2",-25.833434,25.609866,2.8,0],["Menscave student accommodation","499 Unit 2 Cul 16 Mmabatho  North west  2735","Unit 2",-25.829834,25.610826,2.7,0],["KF Trust","2 Gordon Street  Golfview Mahikeng  North West  2745","Golfview",-25.850104,25.649904,7.7,0],["Tab","2674 Ditaole Street  Montshiwa Mahikeng  North West  2745","Montshiwa",-25.843711,25.621348,2.5,0],["BAHURUTSHE FLATS","1757 MOTLHAMME CRESC  UNIT 8 MAHIKENG  NORTH WEST  2735","Unit 8",-25.840982,25.591669,2.2,0],["Dimpho","3314 Abelia Street  Unit 10 Mmabatho  North West  2745","Unit 10",-25.842564,25.582558,4.9,0],["LEMOGA ODIRE TRADING ENTERPRISE- THAKGA VILLA","6981 LUNARIA CLOSE  UNIT 15 MMABATHO  NORTH WEST  2735","Unit 15",-25.857461,25.56877,5.6,0],["M T student Accomadtion","No 32 south street Mafikeng  South Africa  2745","Other",-25.846003,25.616586,7.9,0],["Tshiamo Residence","1551 Magonare Close Street  Unit 6 Mmabatho  North West  2735","Unit 6",-25.830805,25.598817,4.2,0],["Tshiamo Residence","7515 Tillia Street  Unit 15 Mmabatho  North West  2735","Unit 15",-25.856923,25.566171,4.2,0],["M T Student accommodation","No 2  South street Mafikeng  North west  2745","Other",-25.844734,25.613035,7.6,0],["Moloku Student Residence","20 Akasia Street  Golf view Mahikeng  North West  2745","Golfview",-25.851476,25.646862,8.2,0],["Bontleng Student Accommodation","23 Karee street  Golf-View Mahikeng  North West  2745","Other",-25.846482,25.616088,7.8,0],["Godisang Villa","1548 Magonare close unit 6  Mmabatho Mafikeng  NORTH WEST  2735","Unit 6",-25.83418,25.598671,2.6,0],["Monakaladi Student Accommodation","2415 Molale Str Montshioa Unit 1 Mmabatho Mmabatho  Mahikeng  2735","Montshiwa",-25.839973,25.621943,5.7,0],["Monakaladi Student Accommodation","5734 Peba Street   Unit 14   Mmabatho  unit 14 Mmabatho  North west  2735","Unit 14",-25.862039,25.571731,5.7,0],["108 SHIPPARD","108 SHIPPARD STREET Mahikeng  north west  2745","Other",-25.846117,25.614618,8.4,0],["G R Student Accommodation 2","21 olienhout street  Golf view Mahikeng  North west  2745","Golfview",-25.850644,25.645518,7.5,0],["GR Student accommodation","18 olienhout street  Golf view Mahikeng  North west  2745","Golfview",-25.85319,25.648686,7.8,0],["DI PRIME RESIDENCE","36 EMERALD STREET  RIVIERA PARK  GOLFVIEW MAHIKENG  NORTH WEST  2745","Riviera Park",-25.857742,25.663206,2.7,0],["DI PRIME RESIDENCE","14 FLEMMING STREET  RIVIERA PARK  GOLFVIEW MAHIKENG  NORTH WEST  2745","Riviera Park",-25.860452,25.661638,2.7,0],["DI PRIME RESIDENCE","21 IMPALA STREET  GOLFVIEW MMABATHO  NORTH WEST  2745","Golfview",-25.850084,25.645876,2.7,0],["KRAFT","13 QUIGLEY STREET Mahikeng  north west  2745","Other",-25.844772,25.61702,7.7,0],["Gameli","2437 Molale Street  Unit 1 Mmabatho  North West  2745","Unit 1",-25.837587,25.619673,5.2,0],["Tshiamo Residence","10127 Kopano Street  Setumo Park Mafikeng  North West  1055","Other",-25.846863,25.61324,4.2,0],["orapeleng student home","3420 UNIT 10 DREAMLAND STREET Mahikeng  north west  2745","Unit 10",-25.843005,25.581041,4.9,0],["KF Trust","53 Molopo  Golfview Mahikeng  North West  2745","Golfview",-25.850196,25.649481,7.7,0],["BAHURUTSHE FLATS","1518 DIUTLWILENG STREET  UNIT 6 MAHIKENG  NORTH WEST  2735","Unit 6",-25.83445,25.599995,2.2,0],["Sylvester","3784 Peace Street  Unit 12 Mmabatho  North West  2745","Unit 12",-25.853986,25.586748,3.5,0],["Resego","523 Cul 18  Unit 2 Mmabatho  2745  2745","Unit 2",-25.830079,25.613401,2.7,0],["DI PRIME RESIDENCE","1476 MAKHENE STREET  UNIT 6 MMABATHO  NORTH WEST  2735","Unit 6",-25.832397,25.597532,2.7,0],["DI PRIME RESIDENCE","6877 IRIS STREET  UNIT 15 MMABATHO  NORTH WEST  2735","Unit 15",-25.852851,25.566273,2.7,0],["DI PRIME RESIDENCE","7633 MONSTERA STREET  UNIT 15 MMABATHO  NORTH WEST  2735","Unit 15",-25.852619,25.569823,2.7,0],["DI PRIME RESIDENCE","NO 7 TLOTLI ACRES  UNIT 3 MMABATHO  NORTH WEST  2735","Unit 3",-25.840093,25.606554,2.7,0],["DI PRIME RESIDENCE","1545 MAGONARE STREET  UNIT 6 MMABATHO  NORTH WEST  2735","Unit 6",-25.831817,25.595624,2.7,0],["DI PRIME RESIDENCE","7264 CALLICAPA STREET  UNIT 15 MMABATHO  NORTH WEST  2735","Unit 15",-25.852846,25.567161,2.7,0],["DI PRIME RESIDENCE","4895 LORWANA STREET  UNIT 13 MMABATHO  NORTH WEST  2735","Unit 13",-25.85618,25.576511,2.7,0],["DI PRIME RESIDENCE","2371 MOKITIME STREET  UNIT 8 MMABATHO  NORTH WEST  2735","Unit 8",-25.843166,25.591554,2.7,0],["Meloding Residence","26 South Street  Mafikeng Mafikeng  North West  2745","Other",-25.84696,25.616437,7.6,0],["Molopo Student Accommadation","8 Molopo Road  Cbd Mahikeng  North West","Other",-25.843207,25.616861,7.5,0],["DI PRIME RESIDENCE","746 STEVE BIKO STREET  UNIT 2 MMABATHO  NORTH WEST  2735","Steve Biko",-25.828417,25.610612,2.7,0],["DI PRIME RESIDENCE","1338 BATLOKWA STREET  UNIT 7 MMABATHO  NORTH WEST  2735","Unit 7",-25.838974,25.594802,2.7,0],["Moosa Trading Services","6507 Ntserane Street  Unit 14 Mahikeng  North West  2745","Unit 14",-25.861362,25.571477,6.5,0],["Aquila Student Residence","1911 Tire Street  Unit 8  Mmabatho Mahikeng  North West  2735","Unit 8",-25.843534,25.587618,3.2,0],["AQUILA STUDENT RESIDENCE","1093 SEREKO STREET  MONTSHIWA MAHIKENG  NORTH WEST  2735","Montshiwa",-25.840178,25.621141,2.5,0],["Ontiretse Residence","1182 D.M Kole Street  Montshioa Mahikeng  North West  2737","Montshiwa",-25.843104,25.624334,4.4,0],["MARANG RESIDENCE","341 UNIT 2  CUL 13 MMABATHO  NORTH WEST  2735","Unit 2",-25.832502,25.612707,3.3,0],["MARANG RESIDENCE","1856 UNIT 8  PHUTI STREET MMABATHO  NORTH WEST  2735","Unit 8",-25.841819,25.592406,3.3,0],["Kav Villa 3","2000 Motlhamme Crescent  Unit 8 Mahikeng  North West  2790","Unit 8",-25.843923,25.592196,3.5,0],["Kav Villa 2","1753 Motlhamme Crescent  Unit 8 Mahikeng  North West  2790","Unit 8",-25.843607,25.592352,3.0,0],["PK Villa","1874 Kgokong Drive  Unit 8 Mmabatho  North West  2735","Unit 8",-25.843173,25.592313,3.1,0],["34 south street","34 south street  mafikeng Mahikeng  North-West  2745","Other",-25.845327,25.613042,7.6,0],["Legae Larona","2460 Dr Mokgobo Avenue  Mmabatho Mahikeng  North West  2745","Other",-25.845932,25.616143,0.8,0],["Marang Res","662 Steve Biko Street Cul 7  unit 2 Mmabatho Mahikeng  North West  2735","Steve Biko",-25.829943,25.612531,1.5,0],["Banturush Africa","1026 Motshegare street  unit 5 Mmabatho  north west  2735","Unit 5",-25.850598,25.562096,2.7,0],["Banturush Africa","1045 Botlhaba Street  Mmabatho  1045 Botlhaba Street  Mmabatho Mmabatho  north west  2735","Other",-25.850598,25.562096,2.7,0],["Banturush Africa","1054 Botlhaba Street  Mmabatho  1054 Botlhaba Street  Mmabatho Mmabatho  north west  2735","Other",-25.850598,25.562096,2.7,0],["Banturush Africa","1058 Botlhaba Street  Mmabatho  1058 Botlhaba Street  Mmabatho Mmabatho  north west  2735","Other",-25.850598,25.562096,2.7,0],["RU Villa 1","2311 Tholo Street  Unit 8 Mmabatho  North West  2790","Unit 8",-25.841617,25.589426,3.5,0],["Banturush Africa","1047 Botlhaba Street  Mmabatho  1047 Botlhaba Street  Mmabatho Mmabatho  north west  2735","Other",-25.850598,25.562096,2.7,0],["MATHER RESIDENCE","23 SOUTH STREET MAHIKENG  NORTH WEST  2745","Other",-25.843956,25.613774,8.0,0],["K AND M ACCOMDATION","10331 MONTSHIWA STADT VILLAGE  MONTSHIWA STADT MAHIKENG  NORTH WEST  2745","Montshiwa",-25.839872,25.619508,2.5,0],["MSM Accomodation","12 Duiker Street  Golf View Mahikeng  North West  2745","Golfview",-25.850903,25.648192,7.9,0],["FAHREEZ RESIDENCE","07 ANDERSIET STREET  RIVIERIA PARK Mafikeng  North West  2745","Other",-25.844147,25.61621,9.4,0],["M & N Residence","22 South Street Mahikeng  2745","Other",-25.84715,25.614321,7.6,0],["Shaikh enterprise","3459 crocodile street  Riviera park Mafikeng  North west  2745","Riviera Park",-25.858849,25.662821,9.5,0],["Snazzy Res","Cnr Main and Robinson street  Mafiekng MAFIKENG  NORTH WEST  2745","Other",-25.84326,25.61407,7.2,0],["RU Villa 2","1869 Kgokong Drive  Unit 8 Mmabatho  North West  2790","Unit 8",-25.842998,25.591099,3.4,0],["TSWELELOPELE RES 1","40 ASTER STREET  DANVILLE MAFIKENG  North West  2745","Danville",-25.878458,25.669046,9.0,0],["LEVUTSHA PROPERTIES RESIDENCE","425 AIRPORT VIEW MOLETSAMONGWE  703 BOIEING STREET MAFIKENG  NORTH WEST  2745","Airport View",-25.806022,25.554512,6.0,0],["Greyspace Student11 Residence","18 Lantana Ave  Rivera Park Mahikeng  North West  2745","Other",-25.845398,25.613136,10.6,0],["Nthutang Student Accomodation Facilities","7874 Unit 6  Makhene Street MMABATHO  North West  2735","Unit 6",-25.832113,25.600202,3.2,0],["Nthutang Student Accomodation Facilities","1109 Unit 3  Solplaatjie Street MMABATHO  North West  2735","Unit 3",-25.841422,25.607014,3.2,0],["ANCHOR RESIDENCE","10621 MOSHAWANA VILLAGE MAFIKENG  NORTH WEST  2745","Other",-25.84476,25.614005,6.5,0],["SEFIDVASH 2 NARAGHI-ARANI","1455 SAFARI CLOSE UNIT 6 MMABATHO  NW  2735","Unit 6",-25.834065,25.595502,3.5,0],["Siyaphela","20 DF Malan  Libertas Mahikeng  North West  2745","Libertas",-25.8476,25.637649,6.3,0],["Tugela Student Accommodation","47 Tillard Street  Golfview Mahikeng  North West  2745","Golfview",-25.852175,25.648774,7.4,0],["Mathole","2348 Mokitime  Unit 8 Mahikeng  North West  2745","Unit 8",-25.843431,25.589711,8.1,0],["Mountains","2688 Hendrick Tlou Street  Montshiwa Mahikeng  North West  2745","Montshiwa",-25.839994,25.621866,4.3,0],["Kav Villa 1","1833 Gopane Street  Unit 8 Mahikeng  North West  2790","Unit 8",-25.843652,25.59148,2.9,0],["The Stay Hub Villa 1","1916 AB MOTHUSI STREET  Unit 8 Mmabatho  Mafikeng  2735","Unit 8",-25.841923,25.587924,3.2,0],["KEKOPANTSWE E HOSPITALILTY AND GARDERNING SERVICES(PTY)LTD","20174 Dibate Village Mahikeng  North West  2745","Other",-25.845824,25.615665,2.9,0],["Danvillebuild Accommodation","1562 Magonare street unit 6 Mmabatho  North West  2790","Unit 6",-25.831744,25.599592,2.6,0],["Raphela","25 South Street  Mahikeng CBD Mahikeng  North West  2745","Other",-25.846377,25.615864,7.6,0],["Shiva@12","3976 Gypsy Crescent Street  Unit 12 Mmabatho North West  2735","Unit 12",-25.854378,25.586496,3.6,0],["Dimpho","7640 Monstera  Unit 15 Mmabatho  North West  2745","Unit 15",-25.855124,25.566724,4.9,0],["Lilly woods urban village","40136 Phola village MAFIKENG  2745","Phola Village",-25.877136,25.656749,4.4,0],["Blue Roof","20172B Blue Roof  Dibate Mmabatho  North West  2745","Other",-25.844351,25.614572,2.9,0],["Wakanda Student Accommodation 3","39 CLARENDON STREET  GOLF VIEW MAHIKENG  North West  2745","Golfview",-25.851018,25.646472,7.1,0],["MASEKO RESIDENCE","2291  Thite street Unit1 Mmabatho  NW  2735","Other",-25.84628,25.614972,2.7,0],["Maya@9","2901 Ockie Ackerman Crescent Street  Unit 9 ext North West  2735","Unit 9",-25.850472,25.58578,5.9,0],["Best Choice Student Accommodation","5 Middle Street  Danville Mafikeng  North West  2745","Danville",-25.87665,25.671255,9.4,0],["ZeeTee","70 Shippard Street  Golfview Mahikeng  North West  2745","Golfview",-25.852374,25.646033,7.7,0],["SAUDHA STUDENT ACCOMMODATION","16 MOLOPO ROAD MAHIKENG  NORTH WEST  2745","Other",-25.84271,25.613379,7.4,0],["Lefika Student Accomodation","42 Proctor Avenue  Libertas Mahikeng  North West  2745","Libertas",-25.850249,25.63809,6.7,0],["White House","1582 Thesebe Close Cnr 3097 Dwitluleng Street  Unit 6  1582 Thesebe Close Cnr 3097 Dwitluleng Street  Unit 6 Mmabatho  NORTH WEST  2735","Unit 6",-25.831258,25.596746,1.6,0],["Lakaz Student Home","21 Jan Viljoen  Golf view North West  Mafikeng","Golfview",-25.850493,25.647782,6.4,0],["MoonStudent 1","514 Cul 18  Unit 2 Mmabatho  North West  2790","Unit 2",-25.829561,25.612838,2.5,0],["Akasia Residence","27 Akasia Street  Golf View Mafikeng  North West  2745","Golfview",-25.84975,25.648477,8.2,0],["MOISE STUDENT ACCOMMODATION","1447  UNIT 6  THEKISHO STREET MMABATHO  NORTH WEST  2735","Unit 6",-25.832437,25.599957,5.7,0],["MOISE STUDENT ACCOMMODATION","4923 Lorwana Close  Unit 13 Mmabatho MMABATHO  NORTHWEST  2735","Unit 13",-25.857976,25.576096,5.7,0],["MOISE STUDENT ACCOMMODATION","71 CARRINGTON  CARRINGTON STREET TOWN CBD MAHIKENG  NORTH WEST  2745","Other",-25.844761,25.616653,5.7,0],["MOISE STUDENT ACCOMMODATION","3441 SHARK STREET  riviera park MAHIKENG  NORTH WEST  2745","Riviera Park",-25.856782,25.663986,5.7,0],["Goosebako","37 Pearl Street  Reviera Park mafikeng  North west  2745","Other",-25.846204,25.614873,9.9,0],["Maano Guests and Events","16 Jupiter Avenue  Riviera Park Mahikeng  North West  2745","Riviera Park",-25.857312,25.660736,9.3,0],["4948 SEGWAGWA STREET","4948 SEGWAGWA STREET  UNIT 13 MAFIKENG  2745","Unit 13",-25.857894,25.576329,5.6,0],["Mandix Management Service","2606 Unit 9  Zweli Ntuli Street Mafikeng  North -West  2745","Unit 9",-25.849127,25.585634,4.6,0],["M.B.A. Residence","565 Airport View  airport view MMABATHO  Northwest Territories  2790","Airport View",-25.806071,25.552887,4.2,0],["Chapels Nest Student Accommodation","85B Lokaleng Rd  Unit 5  Mmabatho  Mahikeng  Northwest Province  2745","Unit 5",-25.825901,25.606859,0.3,0],["Libertas House","01 Cecil Rhodes  Libertas Mahikeng  North West  2745","Libertas",-25.849808,25.638201,6.2,0],["New era residence","20114 Zobo Road  Dibate Village Mahikeng  North West  2735","Other",-25.84403,25.613656,2.4,0],["Proctor Residence","46 Proctor Avenue  Libertas Mafikeng  North West  2745","Libertas",-25.850179,25.639032,6.7,0],["JR VILLA 3","3538 Carina Street  Mmabatho Unit 12 Mahikeng  North West  2790","Unit 12",-25.851787,25.587538,4.3,0],["TSWELELOPELE RES 2","3362 STOCKROOS STREET  DANVILLE MAFIKENG  NORTH WEST  2745","Danville",-25.879466,25.669579,9.2,0],["JR VILLA 2","3511 Modisaotsile Seodi Blvd  Mmabatho Unit 12 Mahikeng  North West  2790","Unit 12",-25.849976,25.587601,4.1,0],["GV Student Com","38 Akasia Street  38 Mahikeng  North West  2745","Other",-25.844022,25.61542,8.4,0],["MOTLHABI PROPERTY","UNIT 14  5930 LOTLHAKA CLOSE MMABATHO  NORTH WEST  2735","Unit 14",-25.858672,25.571784,5.8,0],["Polla's Res","15 Dianthus street Danville Mafikeng  North West  2745","Danville",-25.880471,25.669402,9.0,0],["Kgolagano Residence","4651 Motswetswejane Crescent  Unit 13  Mmabatho Mafikeng  North West  2790","Unit 13",-25.856733,25.574259,5.1,0],["SEMIEN STUDENT ACCOMODATION","1008 TAWANA CRESCENT  UNIT 5  MMABATHO MAHIKENG  NORTH WEST  2735","Unit 5",-25.822733,25.609767,1.1,0],["Unistay","3646 kiaat street  Danville North West  Mahikeng","Danville",-25.876762,25.669595,9.7,0],["JR VILLA 4","414 Lea Mangope Ave  Unit 2 Mmabatho  Cul 14 Mahikeng  North West  2790","Unit 2",-25.831484,25.612231,2.4,0],["Salvation Accommodation","33 Rose Street  Danville  33 Rose Street  Danville Mafikeng  North West  2745","Danville",-25.879403,25.668603,9.3,0],["Tsoane Student Accomodation","19 End Street  Danville Mahikeng  North West  2745","Danville",-25.880355,25.669679,8.7,0],["JR VILLA 1","475 Steven Biko Ave  Unit 2 Cul 16 Mmabatho Mahikeng  North West  2790","Unit 2",-25.831104,25.611181,2.3,0],["JR VILLA 5","1448 Makhene Road  Mmabatho Unit 6 Mahikeng  North West  2790","Unit 6",-25.834675,25.597522,3.3,0],["B G Res","6 New Street Mafikeng  North west  2745","Other",-25.846862,25.614837,7.6,0],["MUHRAH STUDENTS","CORNER SHIPPARD & ROBISON STR  MAHIKENG MAHIKENG  NORTH WEST  2745","Other",-25.847365,25.615611,7.8,0],["STUDENT LEARNING AND ACCOMODATION CENTER","20032  DIBATE  MMABATHO  2735  20032 DIBATE MMABATHO 2735 MAHIKENG  MMABATHO  NORTH WEST  2735","Other",-25.844678,25.61447,2.9,0],["Orchards","7 Shippard street Mafikeng  north west  2745","Other",-25.844286,25.612636,7.3,0],["MVPINPRINT 3","Unit 15  7051 bCrex Street Mafikeng  North West  2735","Unit 15",-25.855192,25.566178,4.6,0],["LEANWELL HOLDINGS (PTY)LTD","1400 Barolong Street  Unit 7  Mmabatho  2745  1400 Barolong Street  Unit 7  Mmabatho  2745 Mmabatho  North West  2745","Unit 7",-25.838604,25.592751,2.6,0],["BOTSHELO RESIDENCE","682 Unit 2  Cul 7 Mahikeng  North West  2790","Unit 2",-25.832866,25.610558,2.5,0],["Nkagi Villa","724 unit 2  Cul 7 Mafikeng  North west  2735","Unit 2",-25.832604,25.613306,16.0,0],["Mtotoba Residence","1843 Kgokong Drive Unit 8 Mmabatho  1843 Kgokong Drive unit 8 Mmabatho  North West  2735","Unit 8",-25.84034,25.59126,3.1,0],["Khanya Residence","97 Lea Mangope street  Unit 2  Mmabatho Mafikeng  Northwest  2790","Unit 2",-25.83409,25.610761,2.0,0],["Khanya Residence 2","6208 Kokolofitwe street  Unit 14  Mmabatho Mafikeng  Northwest  2790","Unit 14",-25.859803,25.567597,6.3,0],["Dinaledi Villa","211 Dinaledi Street  Block L  Makgetlaview Mafikeng  North West  2745","Makgetla View",-25.85265,25.560254,7.6,1],["MVPINPRINT 2","267 CUL 9  Unut 2 Mafikeng  North West  2735","Other",-25.84575,25.6175,2.5,0],["MVPINPRINT 6","1378 Bahurutse Street  Unit 7 Mafikeng  North West  2735","Unit 7",-25.836594,25.595751,null,0],["MVPINPRINT 4","1798 Gopane Street  Unit 8 Mafikeng  North West  2735","Unit 8",-25.840729,25.590759,3.0,0],["MVPINPRINT 5","2193 Malotle Street  Unit 8 Mafikeng  North West  2735","Unit 8",-25.843503,25.592248,3.6,0],["Lesego Residence","03 Makgetla view Mmabatho  North West  2735","Makgetla View",-25.849671,25.562397,7.3,1],["Banturush Africa","1501  UNIT 6  MMABATHO Mmabatho  north west  2735","Unit 6",-25.850598,25.562096,2.7,0],["Eden Lodge Student Accomodation","1 Mokala road  Tontonyane MAHIKENG  NORTH WEST  2745","Other",-25.846738,25.612602,6.4,0],["Study@4115","House No. 4115 Desiree Street  Unit 12 Mmabatho  2735","Unit 12",-25.851153,25.586131,3.2,0],["ROYAL STUDENT ACCOMODATION","NO.2 OLIENHOUT STREET  GOLFVIEW MAHIKENG  NORT WEST  2745","Golfview",-25.85341,25.64832,7.8,0],["NAMZITO STUDENT ACCOMMODATION","2900 OCKIE ACKERMAN CRESCENT  UNIT 9 MMABATHO  NORTH WEST  2790","Unit 9",-25.846666,25.585997,5.0,0],["AA Evolve Student Residence","2346 Tshite Street  Mmabatho Mahikeng  North West  2737","Other",-25.844464,25.613339,2.7,0],["KM Student Residence","351 Cul 13  Unit 2 Mmabatho  North West  2735","Unit 2",-25.833927,25.61324,2.5,0],["Tong`s Residence","1984 Motlhamme Street Mmabatho  North West","Other",-25.842676,25.616597,3.3,0],["Pule Investment Trust Properties","1189 Beirut rd  Unit 5 Mafikeng  North West Province  2790","Unit 5",-25.827372,25.60604,2.5,0],["Pule Investment Trust Properties","654 Cul 06  Unit 2 Mafikeng  North West Province  2790","Unit 2",-25.831113,25.61106,2.5,0],["Pule Investment Trust Properties","493 cul 16  Unit 2 Mafikeng  North West Province  2790","Unit 2",-25.832517,25.614291,2.5,0],["Matlholapula Residence","4683 Motswetswejane crescent  Unit 13 Mafikeng  Northwest  2735","Unit 13",-25.86012,25.576075,5.2,0],["MONACO JACOBS ESTATE","27 KIRSTENBOSCH STREET  RIVIERAPARK MAFIKENG  NORTH WEST  2745","Other",-25.844364,25.615953,10.3,0],["Salvation Accommodation 2","3597 Maroela Street  Danville Extension  3597 Maroela Street  Danville Extension Mahikeng  North West  2745","Danville",-25.876638,25.66801,9.4,0],["Reatlaretse Legae Projects (PTY) LTD","85 Steve Biko Avenue  Unit 2  Cul 3  Mmabathoh6 Mahikeng  North west9  2735","Steve Biko",-25.829498,25.613751,1.5,0],["RESIDENTIAL PROPERTY","10196 QUIGLEY STREET  SIGNAL HILL MAHIKENG  NORTH WEST  2745","Signal Hill",-25.815581,25.648105,2.6,0],["RESIDENTIAL PROPERTY","1397 BATLOKWA CLOSE  UNIT 7 MMABATHO  NORTH WEST  2735","Unit 7",-25.838764,25.596413,2.6,0],["boipelo solutions","Cul 2 55 Unit2  Mmabatho  2735  mahikeng Mahikeng  North West  2735","Other",-25.845647,25.614642,2.5,0],["OREGANO RESIDENCE","759 STEVE BIKO AVENUE  UNIT 2 MMABATHO  NW  273","Steve Biko",-25.830794,25.61203,2.2,0],["LEBONE RESIDENCE","476 CUL 16  UNIT 2 MMABATHO  NW  2735","Unit 2",-25.830388,25.613748,2.7,0],["GMD PROJECTS","UNIT 2 417  STEVE BIKO MAHIKENG  NORTH WEST  MMABATHO","Steve Biko",-25.827696,25.610028,8.6,0],["Bokako Residence","310 Steve Biko  Unit 2 Mmabatho  North West  2735","Steve Biko",-25.828356,25.612678,3.3,0],["Qenya villa","484 unit 2 cul 16  steve biko drive Mafikeng  mmabatho  2745","Steve Biko",-25.830323,25.613037,1.6,0],["340 CUL 13","340 CUL 13  MORAK AVENUE UNIT 2  CUL 13  MAHIKENG NORTH WEST","Unit 2",-25.829673,25.613169,2.8,0],["Mdakane Student Residence Phase 1","10629 Lonely Park  Zeerust Road Mahikeng  North west  2745","Lonely Park",-25.813459,25.63885,6.1,0],["Mdakane Student Residence Phase 2","11748 Lonely Park  Zeerust Road Mahikeng  2745","Lonely Park",-25.815083,25.640191,6.5,0],["Mametha Trading and Projects","1040 Hendrick Tlou  Montshioa Mafikeng  North-West  2737","Montshiwa",-25.840845,25.621678,4.0,0],["LES SOLUTIONS","401 CULL 14  UNIT 2 MMABATHO  NORTH WEST  2735","Unit 2",-25.830241,25.610842,5.1,0],["House No: 403","403 Seroke Street  Montshiwa Mafikeng  North West  2790","Montshiwa",-25.844067,25.623654,4.1,0],["Ivy House","2216 Sekame street  Montshiwa unit 2 Mmabatho  North West  2735","Montshiwa",-25.843281,25.623908,2.7,0],["ZIPHIWOZONKE ENTERPRISE","HOUSE NUMBER 407 UNIT 02 cul 14 Mmabatho  CUL 14 MMABATHO MAHIKENG  NORTH WEST  2790","Other",-25.844448,25.614824,2.7,0],["Bone Lwaabo Unit 2","212 Unit 2 Mmabatho  Steve Biko Mahikeng  2790","Steve Biko",-25.832357,25.611395,2.8,0],["Gilindoda Residence","1542 Diutlwileng Street  Unit 6 Mahikeng  North West  2735","Unit 6",-25.834591,25.599755,2.3,0],["Nala Bokamoso","1403 Barolong Street  Unit 7 Mmabatho  North West  2735","Unit 7",-25.836511,25.593561,2.7,0],["Mamk student Accommodation","2336 unit 1  kgalegi crescent Montshioa mafikeng  North west  2745","Montshiwa",-25.840098,25.621202,2.7,0],["MB Mdhluli Student Residence","7325 Viola Street  Unit 15 Mmabatho  2790","Unit 15",-25.856119,25.569006,4.6,0],["Molaolwe Residence","671 Steven Biko Avenue  Unit 2 Mmabatho MAHIKENG  North West  2735","Unit 2",-25.82976,25.609551,2.3,0],["MoonStudents 2","670 Cul 7  Unit 2 Mmabatsho  North West  2790","Unit 2",-25.8309,25.609928,22.0,0],["Jacaranda Student Residence","2347 Thite Street  Montshiwa Unit 2 Mahikeng  North West  2735","Montshiwa",-25.840709,25.621943,2.7,0],["Glo Leb Student Accomodation","3443 Crocodile Street Mafikeng  North West  2745","Other",-25.84427,25.615953,9.6,0],["Dzan sTUDIO","755  Steve Biko  Unit 2 MMABATHO  North West  2790","Steve Biko",-25.828535,25.611954,2.3,0],["Mogaetsho General Tradind","701 Cul 7  UNIT 2 MMABATHO  north west  2035","Unit 2",-25.833392,25.609965,2.8,0],["Gameli","511 Steve Biko  Cul 17  Unit 2 Mmabatho  North West  2745","Steve Biko",-25.830969,25.612959,5.2,0],["Saban Estates","28 Emerald street  Riviera Park Mafikeng  North west  2745","Riviera Park",-25.858134,25.662408,10.0,0],["MIDO PROPERTY CONSULTING","843 Unit3  14 Boipelo Street Mmabatho  North West  2735","Other",-25.845372,25.615155,4.6,0],["J & J Residence","1679 Maisantwa Road  Unit 6 Mmabatho Mahikeng  North West  2335","Unit 6",-25.833846,25.59923,3.5,0],["Mokoto Residance","2367 Robert sobukwe street  Unit 1 MMabatho  North Wesr  2735","Unit 1",-25.839145,25.619014,2.7,0],["Maruping Estates","578 Cul 20  Unit 2 Mmabatho  2735  2735","Unit 2",-25.833897,25.610757,1.7,0],["FB REAL ESTATES","ERF 7912  MAKHENE STREET UNIT 6 MAFIKENG  NORTH WEST  2746","Unit 6",-25.834902,25.596463,2.9,0],["NONE","23 PEARL RIVERIA PARK  NORTH WEST  2745","Other",-25.843689,25.615179,null,0],["FB REAL ESTATES","1462  MOKGOTHU STREET UNIT 6 MAFIKENG  NORTH WEST  2746","Unit 6",-25.834418,25.596426,2.9,0],["FB REAL ESTATES","7892  MAKHENE STREET UNIT 6 MAFIKENG  NORTH WEST  2746","Unit 6",-25.831877,25.597921,2.9,0],["Cedar House","1680 Maisantwa road  Unit 6  Mmabatho Mahikeng  North West  2735","Unit 6",-25.832877,25.600383,3.5,0],["MOMMYS STUDENTS HOUSE","24 HAVENGA STREET  GOLFVIEW MAHIKENG  NORTH WEST  2745","Golfview",-25.853997,25.646915,6.4,0],["Crown Villa Students Estate","39 Cul 1  Unit 2  Molatlhwa Drive Mmabatho  North West  2735","Unit 2",-25.833363,25.610471,2.5,0],["SONTIE'S PLACE","1554 MAGONARE CLOSE UNIT 6  1554 MAGONARE CLOSE UNIT 6 MMABATHO  NORTH WEST  2735","Unit 6",-25.835429,25.596397,2.7,0],["Semien Student Accommodation 2","387 Cul 14  Steve Biko Drive  Unit 2  Cull 14  Steve Biko Drive  2 Mahikeng  North West  2735","Steve Biko",-25.831128,25.612171,6.5,0],["20 Everest Drive","20 Everest Drive  Riviera Park  Riviera Park Mahikeng  2196","Riviera Park",-25.857733,25.664371,10.9,0],["19 Everest","19 Everest Drive  Riviera Park Mahikeng  North West  2745","Riviera Park",-25.859869,25.662987,10.7,0],["Thunderdust 2","House nr 24 Impala street  Golf view Mafikeng  North West  2745","Golfview",-25.852046,25.649842,8.2,0],["Icon Towers","1287 Tamenti Street   Montshioa Mahikeng  North West  2745","Montshiwa",-25.84163,25.623864,7.5,0],["Teselex T/A La familia Student Accomodation","18 Jan Smuts Avenue  Golf View Mahikeng  North West  2745","Golfview",-25.852298,25.647847,7.4,0],["MOISE STUDENT ACCOMMODATION","N0 3 DUIKER STREET  GOLFVIEW MAHIKENG  NORTH WEST  2745","Golfview",-25.854243,25.646422,5.7,0],["Everest Student Hone","16 Everest Drive  Riviera park Mafikeng  North west  2745","Riviera Park",-25.858111,25.664205,10.8,0],["BASEMA RESIDENCE","1160 kole street montshiwa  1160 kole street montshiwa Mahikeng  North west  2737","Montshiwa",-25.842496,25.623611,4.5,0],["BAKANG STUDENT ACCOMMODATION","304  Unit 2  Cul 10 Mmabatho  North West  2790","Unit 2",-25.831353,25.60987,2.5,0],["MAKAMA STUDENT RESIDENCE","1755 MOTLHAMME CRESCENT  UNIT 08 MMABATHO  NORTH WEST  2735","Other",-25.846754,25.612768,3.0,0],["Masina Residence","11547D Mocoseng Village Mafikeng  Northwest  2745","Mocoseng",-25.875981,25.585314,6.5,0],["Swartz Accommodation (PTY)LTD","10429 Kgolagano Cresent Lonely Park  10429 Kgolagano Cresent Lonely Park Mahikeng  North West  2745","Lonely Park",-25.816908,25.64247,6.5,0],["KARABOKITSO RESIDENCE","6285 MARETLWA STREET  UNIT 14 MMABATHO  NORTH WEST  2745","Unit 14",-25.859468,25.571322,6.2,0],["GAETSHO RESIDENCE","507 STEVE BIKO AVENUE  UNIT 2 MMABATHO  NORTH WEST  2735","Steve Biko",-25.831372,25.613454,2.0,0],["MOSALAS REST (PTY)LTD","30350 MOTLHABENG VILLAGE  MAFIKENG Mafikeng  NORTH WEST  2745","Other",-25.845247,25.615113,4.6,0],["Kitsoemolemo Residence","31287 Motlhabeng Village Mahikeng  North West  0186","Other",-25.843199,25.614714,4.6,0],["Bekwa Residence","DIBATE VILLAGE STAND NO:20230  DIBATE VILLAGE STAND NO:20230 Mafikeng  North West  2735","Other",-25.845973,25.61745,6.9,0],["0","1983 Motlhamme Crescent  Unit 8 Mahikeng  North West","Unit 8",-25.841452,25.590605,null,0],["MP Lekena Residence","house number 3489  Ramosadi Village mafikeng  north west  2745","Ramosadi",-25.845762,25.6262,4.4,0],["VEREWOOD DIBATE 2","20068 DIBATE MMABATHO  NORTH WEST  2745","Other",-25.846445,25.613539,2.9,0],["6410 Logala Close","6410 Logala Close  Unit 14 Mmabatho  2735","Unit 14",-25.861715,25.570802,6.3,0],["Ikanyeng guesthouse","16 Churchill ave  Golf View Mafikeng  North West  2745","Golfview",-25.854125,25.646369,6.8,0],["MGV ESTATES","HOUSE 552  CUL 19  UNIT 2  MMABATHO  STEVE BIKO AVE MMABATHO  NORTH WEST  2735","Steve Biko",-25.830247,25.609513,2.1,0],["Mothokgo Residence","4612 Mokala Street  Unit 13 Mmabatho  North West  2790","Unit 13",-25.859044,25.575469,5.2,0],["Icon Towers","5 Clarendon Street  Golfview Mahikeng  North West  2745","Golfview",-25.850965,25.646657,7.5,0],["angel’s rest","7310 ilex street Mafikeng  North West  2735","Other",-25.84523,25.616015,4.5,0],["Ostrich Nest","2741 Ditaola Street  Montshiwa Mahikeng  North West  2745","Montshiwa",-25.83988,25.622937,2.5,0],["Peo-entle Residence","692 Cul 7  Unit 2 Mmabatho  Northwest  2735","Unit 2",-25.831375,25.613439,2.7,0],["Mahsam","25 Proctor Street  Golfview Mahikeng  North West  2745","Golfview",-25.849832,25.648806,7.4,0],["MVPINPRINT 7","1653 Joel Mahila Street  Montshiwa Mafikeng  North West  2735","Montshiwa",-25.841777,25.621626,3.0,0],["Geramium Student Res","13 Geranium Street  Riviera Park Mahikeng  NorthWest  2745","Riviera Park",-25.855958,25.662738,10.9,0],["Tshepelong","6741 Sapium Close Unit 15 Mmabatho  North West  2735","Unit 15",-25.857143,25.569633,4.6,0],["Gameli","4316 Nicklaaus Street  Leopard Park Mahikeng  North West  2745","Other",-25.845962,25.61333,5.2,0],["Iponeng Res","7071 Tamarix Street  Mmabatho Unit 15 Mahikeng  North West Province  2735","Unit 15",-25.854654,25.569245,4.4,0],["Lerato Student Res","Erf 5906 Motswetswejane Crescent  Mmabatho Unit 14 Mahikeng  North West Province  2735","Unit 14",-25.861878,25.568943,5.8,0],["Motaba Student Res","ERF 3084 Portion 36  Captain Sentletse Crescent  Mmabatho Unit 9 Mahikeng  North West Province  2735","Unit 9",-25.847001,25.585943,4.5,0],["BOIPELO SOLUTIONS STUDENT ACCOMODATION","1216 BATAUNG STREET–UNIT 7 – MMABATHO MMABATHO  MAHIKENG  2735","Unit 7",-25.837998,25.597213,2.6,0],["Prosperity house","7518  Tecoma close unit 15 Mmabatho Mahikeng  North west  2735","Unit 15",-25.857098,25.567969,4.9,0],["Rakish Residence","863 Sol Plaatje Road  Unit 3 Mmabatho  North West  2790","Unit 3",-25.84234,25.602699,2.7,0],["Tswelelo House","No. 1 Totius Avenue  Riviera Park Mahikeng  North West  2745","Riviera Park",-25.859248,25.661112,9.9,0],["MKANDAWIRE'S PLACE","1549 CNR KUBU AND MAGONARE CLOSE UNIT 6  1549 CNR KUBU AND MAGONARE CLOSE UNIT 6 MMABATHO  NORTH WEST  2735","Unit 6",-25.83069,25.595957,2.6,0],["Bokamaso","995 Mosii Street  Unit 5 Mmabatho  North West  2745","Unit 5",-25.824624,25.60968,1.5,0],["1309 STUDENT HOUSE","1309 UNIT 7  BAROLONG STREET MMABATHO  NORTHWEST  2790","Unit 7",-25.835502,25.597254,2.6,0],["1313 STUDENT HOUSE","1313 unit7  BAROLONG STREET MMABATHO  NORTHWEST  2790","Other",-25.846152,25.615861,2.6,0],["Amogelang Student Accomodation","7126 IIex Street  Unit 15  Mmabatho 2735 Mahikeng  North-West  2745","Unit 15",-25.853719,25.565701,4.6,0],["DGV Flats","DGV Flats 20138  Dibate Village Mahikeng  North West  2735","Other",-25.844242,25.614853,2.9,0],["TMD Student Accommodation","226 Cul 8 Unit 2  Steve Biko Drive Mmabatho  North West  2735","Steve Biko",-25.831593,25.61408,6.1,0],["VEREWOOD UNIT 2","19 MOSHOESHOE UNIT 2 MMABATHO  NORTH WEST  2745","Unit 2",-25.831326,25.612427,2.8,0],["TMD Student Accommodation","11162 Lonely Park  Zeerust Road Mafikeng  North West  2745","Lonely Park",-25.817044,25.639959,6.1,0],["Lethabo","2259 Mokala Street  Unit 8 Mmabatho  North West  2745","Unit 8",-25.842833,25.58924,3.5,0],["AI Bareki Residence","725 Cul 7  Unit 2 Mmabatho  North West  2090","Unit 2",-25.830211,25.612851,2.8,0],["Thebe Sebo Residence","531 Cul 18  Unit 2 Mmabatho  North West  2090","Unit 2",-25.831032,25.611149,2.8,0],["KF Trust","73 Molopo Street  Golfview Mahikeng  North West  2745","Golfview",-25.849774,25.646941,7.7,0],["Wakanda Student Accommodation 1","6 Chuchill Avenue  Golf View Mafikeng  North West  2745","Golfview",-25.85175,25.649568,7.5,0],["Wakanda Student Accommodation 2","10 Jan Smuts Avenue  Golf View Mafikeng  North West  2745","Golfview",-25.852927,25.647774,7.5,0],["Ebenezer","2455 Tawana Street  Unit 5 Mmabatho  North West  2745","Unit 5",-25.822649,25.607116,1.4,0],["MHC RESIDENCE 4","2467 jerry reid street  Monthsiwa unit 2 Mahikeng  Northwest  2790","Unit 2",-25.831927,25.611521,2.9,0],["Moosa Residence","7212  Sophora Street  Mmabatho Mahikeng  North West  2745","Other",-25.844212,25.617441,4.3,0],["KUTLWANO STUDENT RESIDENT","4885 LORWANA CLOSE MMABATHO  NORTH WEST  2735","Other",-25.845434,25.615213,5.8,0],["Pulaneo","490 Cul 16 unit 2  Steve Biko Drive Mmabatho  North West  2745","Steve Biko",-25.830691,25.610438,2.6,0],["Keneilwe Legae Student Accommodation","1414 Batlokwa Close  Unit 7 Mmabatho Mafikeng  North West  2735","Unit 7",-25.837373,25.596282,3.2,0],["Precious Jewels Student Accomodation","989 MOSII STREET-UNIT 5-MMABATHO  MOSII STREET UNIT 5  North West  2735","Unit 5",-25.826482,25.6093,1.6,0],["Precious Jewels Student Accommodation","1737 TLHOALE STREET  MONTSHIWA Mafikeng  North West  2735","Montshiwa",-25.839862,25.622246,2.7,0],["KADIRI RESIDENCE","9 PROCTOR STREET  GOLFVIEW MAHIKENG  NORTH WEST  2745","Golfview",-25.851009,25.647691,7.7,0],["Serenity student Living","50250 Lokaleng village Mafikeng  North west  2745","Other",-25.842634,25.613107,5.0,0],["VEREWOOD DIBATE 1","20037 DIBATE VILLAGE MMABATHO  NORTH WEST  2745","Other",-25.846304,25.615544,2.9,0],["Morongoa Student Accomodation","3532 Locos street  Unit 12 Mmabatho  2735","Unit 12",-25.851746,25.586292,4.1,0],["Bothale Investmenst","216 Unit 2  Cul 8 Mmmabatho  North West  2735","Unit 2",-25.834034,25.612261,2.5,0],["BOTHALE INVESTMENTS","6278 MMAMOLONGWANA STREET  UNIT14 Mmmabatho  NORTH WEST  2735","Other",-25.842935,25.617461,6.9,0],["BOTHALE INVESTMENTS","6228 Kgatlhampane Close  UNIT14 Mmmabatho  2735","Other",-25.846913,25.614807,6.9,0],["BOTHALE INVESTMENTS","6635  Tshetlho Street Mmmabatho  NORTH WEST  2735","Other",-25.845008,25.616661,6.9,0],["Thuto Housing","2950 Ockie Ackerman Crescent  Unit 9 Mmabatho  North West  2735","Unit 9",-25.847956,25.586083,4.9,0],["Siyaphila Residence","CUL 16 486  Unit 2 Mmbatho  North West  2735","Unit 2",-25.830326,25.610867,2.7,0],["GALAXY VENTURES","27 SOUTH STREET  MAFIKENG MAHIKENG  NORTH WEST  2745","Other",-25.846281,25.617401,8.0,0],["Golden Globe Residence","1164 Unit 5  Beriut Mahikeng  North West  2745","Unit 5",-25.825582,25.608256,0.3,0],["Masego Student House","1880 Kgokong Drive  Unit 8 Mmabatho  Northwest  2745","Unit 8",-25.841959,25.592109,3.2,0],["New home students accommodation","291 morena manor  Kingfisher street extension 39 Mafikeng  North west  2735","Other",-25.84318,25.616897,3.1,0],["Ukugxila Residence","2190 Podile Street  Unit 8 Mmabatho  North West  2790","Unit 8",-25.84055,25.588881,3.6,0],["Cozy Commune","1996 Motlhamme Crescent  Unit 8 Mahikenng  NW  2745","Unit 8",-25.839829,25.589575,3.4,0],["Amber Estates","2690 John Bosigo Cres  Mmabatho Unit 9 Mahikeng  North West  2790","Unit 9",-25.846397,25.585039,4.6,0],["ROYAL STUDENT ACCOMODATION 2","1624 JOEL MAHILA STREET  MONTSHIWAH UNIT 4","Montshiwa",-25.843007,25.620914,3.2,0],["MONACO JACOBS ESTATE","39A KIRSTENBOSCH STREET  RIVIERAPARK MAFIKENG  NORTH WEST  2745","Other",-25.842505,25.615435,10.3,0],["Lwanogano Commune","5902 Lotlhaka Close  Unit 14 Mmabatho  North West  2735","Unit 14",-25.861757,25.569948,6.0,0],["Motshwane family","1011 Tawana Crescent  Unit 5 Mahikeng  North West  2790","Unit 5",-25.825774,25.608193,1.0,0],["OBRA STUDENT HOUSING","Stand Number 40  Moletsamongwe Mahikeng  NORTH WEST  2745","Other",-25.844783,25.61526,12.7,0],["Gen Z Student Res","Stand 103 Molelwane  Signal Hill Mafikeng  North West  2791","Signal Hill",-25.818891,25.649777,5.8,0],["Mashiane Lekata Student Accomodation","754 Unit 2 Steve Biko Avenue Mmabatho  North West  2735","Steve Biko",-25.829013,25.610443,1.6,0],["Makhuzeni Campus","3742 Amalia Cresent  Amalia Cresent MMABATHO  NORTH WEST  2735","Other",-25.846332,25.615359,3.9,0],["HENDRICKS ACCOMODATION","10 RUS STREET  DANVILLE MAHIKENG  NORTH WEST  2745","Danville",-25.880282,25.671378,9.5,0],["Kago-Entle Student Accomodation","3638 Amalia Crescent  Unit 12 Mmabatho  2790","Unit 12",-25.850974,25.589224,4.0,0],["BP Student Residence","1056 Botlhaba Street  Unit 5 Mmabatho  North West  2735","Unit 5",-25.82557,25.609557,1.0,0],["Bokamoso Residence","31250 Motlhabeng Village  Mahikeng Mahikeng  North West  2745","Other",-25.843396,25.615818,2.6,0],["Gae Trading enterprise","30215 Phuduhudu street  Mosiane view Mafikeng  North West  2745","Mosiane View",-25.905023,25.692404,12.1,0],["Banturush Africa","STAND A  MAKGETLA VIEW MMABATHO Mmabatho  north west  2735","Makgetla View",-25.850598,25.562096,2.7,1],["Central Perk Accommodation","3658 Kiaat Street  Danville Mafikeng  North West  2745","Danville",-25.877989,25.667685,9.7,0],["Mmela Estates","Stand number 065  Airportview Mmabatho  North West  2735","Airport View",-25.803151,25.555451,10.7,0],["MATSHAI STUDENT VILLAGE","314 Airport View  Airport View Mahikeng  NORTH WEST  2745","Airport View",-25.805298,25.556871,6.0,0],["SIMPLY Student accommodation","Unit 5 981 mossii Street mmabatho  University road 981 unit 5 Mahikeng  North west  2745","Unit 5",-25.825215,25.60813,0.7,0],["EMMANUEL HOME 1108","1108 SOL PLAATJIE DRIVE  UNIT 3 MMABATHO MAHIKENG  NORTHWEST  2745","Unit 3",-25.84245,25.606112,2.6,0],["AmoleT -Villa 02","10037  Kgosi Setumo Road Mafikeng  North west  2745","Other",-25.846728,25.615774,4.8,0],["Boisego Estates","Stand 073 Airportview  Mmabatho Mafikeng  North West  2735","Airport View",-25.802654,25.554847,4.2,0],["N/A","778 LEAH MANGOPE  UNIT 2 Mahikeng  2735","Unit 2",-25.831036,25.611193,null,0],["Lot23","113 Mothibi Street  Montshiwa Mahikeng  2745","Montshiwa",-25.840241,25.622749,4.8,0],["Wil- Bee","7112 Vitex Street  Unit 15 Mmabatho  North West  2735","Unit 15",-25.853203,25.569762,4.5,0],["Sankofa Property Investment Holdings Pty Ltd","1750 Motlhamme Crescent  Unit 08 Mmabatho  North West  2735","Other",-25.845917,25.6144,2.9,0],["WELLS OF SALVATION","1003  TAWANA CRES MAHIKENG  NORTHWEST  2745","Other",-25.843703,25.616094,1.2,0],["Banturush Africa","1043 Botlhaba Street  Mmabatho  1043  Botlhaba Street  Mmabatho Mmabatho  north west  2735","Other",-25.850598,25.562096,2.7,0],["Banturush Africa","2907 Ockieackermanscres  Mmabatho  2907 Ockieackermanscres  Mmabatho Mmabatho  north west  2735","Other",-25.850598,25.562096,2.7,0],["Green House","7569 Lavendula  Unit 15 Mmabatho  North West  2790","Unit 15",-25.857321,25.569862,4.3,0],["0","2571 Boet Joubert Street   unit 9 Mmabatho  North West","Unit 9",-25.847344,25.582842,null,0],["MOISE STUDENT ACCOMMODATION","1222 MOKALE STREET UNIT 7  UNIT 7 MMABATHO MMABATHO  NORTHWEST  2735","Unit 7",-25.835513,25.597105,5.7,0],["MOISE STUDENT ACCOMMODATION","5150 LINK ROAD  UNIT 13 - MMABATHO MMABATHO  NORTH WEST  2735","Unit 13",-25.85833,25.576234,5.7,0],["Kgobakgetse Residence","30260 LOKALENG VILLAGE MAFIKENG 2745 mafikeng  North West  2745","Other",-25.844331,25.612992,5.0,0],["Phakalane view","Stand 43/44 phase 2  Airport view Mahikeng  North-west  2745","Airport View",-25.805282,25.556863,6.0,0],["TLT Properties","6036 Dipabi Street  Unit 14 Mahikeng  North West  2745","Unit 14",-25.857983,25.57097,6.5,0],["Morkz Enterprise students accommodation","5088 Lephutsi close  Unit 13 Mmabatho  Nw  2735","Unit 13",-25.856519,25.57273,5.7,0],["Ontlametse Student Accommodation","2031 Seleke drive  Unit 8 Mafikeng  North West  2745","Unit 8",-25.842626,25.588967,3.6,0],["LEBOGANG DINEO","5662 mabele crescent unit 14  5662 Mabele crescent unit 14 Mmabatho  North West  2735","Unit 14",-25.859844,25.568228,5.9,0],["TGSHEPO LK TRADING","2149 SELLO THOE STREET  UNIT 8 MMABATHO MAHIKENG  NORTH WEST  2745","Unit 8",-25.840537,25.59033,3.7,0],["@24 Student Accommodation","24 Cul 1  Unit 2 Mahikeng  2735","Unit 2",-25.834105,25.61035,16.0,0],["786 Sello Sekokope","786 Cul 17  Unit 2 Mmabatho  Northwest  2735","Unit 2",-25.831401,25.613854,2.7,0],["DT Student Accomodation","12135B Mokala Street  Mocoseng Village Mmabatho  North west  2735","Mocoseng",-25.872936,25.583704,6.3,0],["SIKO VILLA RESIDENCE","2909 OCKIE ACKERMAN  UNIT 9 MMABATHO  NW  2735","Unit 9",-25.848194,25.583216,4.9,0],["DM Phalatse Reseidence","192  Unit 2 Steven Biko Ave Mmabatho  North West  2790","Unit 2",-25.833223,25.61077,1.6,0],["Pulaneo","2331 Kgalegi Crescent  Unit 1 Mmabatho  North West  2745","Unit 1",-25.836477,25.615547,2.6,0],["EST RESIDENCE","30 (2727) ANDESITE DRIVE  RIVIERA PARK MAHIKENG  NORTH WEST  2745","Riviera Park",-25.857112,25.664006,9.8,0],["TREJEN RESIDENCE","70160 Mosiane View  Mosiane view Mahikeng  North West  2745","Mosiane View",-25.905291,25.68829,15.5,0],["Atlegang Student Residence","465 Stive Biko Ave  Unit 2 Mmabatho  North-West  2735","Unit 2",-25.831562,25.611228,4.5,0],["Persevere Content SA","1777 MOTLHAMME CRESCENT  1777 MOTLHAMME CRESCENT Mahikeng  North West  2735","Other",-25.845378,25.615695,3.3,0],["VHUKHANYI","1382 BAHURUTSHE STREET  UNIT 7 MMABATHO MAFIKENG  NORTH WEST  2735","Unit 7",-25.836273,25.59375,2.6,0],["Dinaledi","3539  Cnr Lobelia and Locos Str. Unit12 Mmabatho  North West  2735","Other",-25.845577,25.613496,4.3,0],["MOIPOLAI RESIDENCE 1","1381 BAHURUTSHI CLOSE  UNIT 7 MMABATHO  NORTH WEST  2735","Unit 7",-25.839314,25.594916,2.7,0],["MOIPOLAI RESIDENCE 2","4084 PEACE CRESCENT  UNIT 12 MMABATHO  North West  2735","Unit 12",-25.851626,25.58836,3.3,0],["MOIPOLAI RESIDENCE 5","3989 MONICA CRESCENT  UNIT 12 MM  North West  2735","Unit 12",-25.853024,25.590463,3.2,0],["MOIPOLAI RESIDENCE 4","4001 MONICA CRESCENT  UNIT 12 MMABATHO  North West  2735","Unit 12",-25.851209,25.59039,3.3,0],["MOIPOLAI RESIDENCE 3","3851 PEACE CRESCENT  UNIT 12 MMABATHO  North West  2735","Unit 12",-25.85167,25.586872,3.2,0],["MOIPOLAI RESIDENCE 6","2254 MOKALE DRIVE  UNIT 8 MMABATHO  North West  2735","Unit 8",-25.840777,25.590929,3.4,0],["Bone Lwaabo Unit 9 Ext","31 Unit 9 Ext  Mmabatho Mahikeng  nw  2790","Unit 9",-25.847468,25.582745,4.5,0],["RB Residence","1009 Tawana Crescent  Mmabatho unit 5 Mafikeng  North West  2745","Unit 5",-25.822979,25.607984,1.1,0],["Rainbow Student Accommodation","Corner Hatchard  Tillard and Robinson Street Mafikeng  North West  2745","Other",-25.843506,25.613931,7.4,0],["MUZIKHAYA","4974 LETLAMETLO STREET  UNIT 13 MMABATHO  2745","Unit 13",-25.858738,25.575535,5.9,0],["TLT Properties","6250 Kgantlapane Crescent  Unit 14 Mahikeng  North West  2745","Unit 14",-25.859396,25.570683,6.5,0],["Tlamelo Mercy Residential","2011 Tlhagale street unit 8 Mmabatho Mafikeng  North West  2745","Unit 8",-25.840895,25.590889,3.7,0],["THUTOPELE STUDENT RESIDENCE","7 LANTANA AVE RIVERA PARK  7LANTANA MAFIKENG  North Western Province  2745","Other",-25.843308,25.615796,10.4,0],["magonare student villa","7902 unit 6  magonare park mmabatho  north west  2735","Unit 6",-25.830983,25.598641,2.6,0],["Masego Student Accommodation","9 1st Street  Industrial Sites Mafikeng  North West  2745","Other",-25.845955,25.615732,5.5,0],["Maseko Residence","10115D  Lonely park Mafikeng  Nw  2739","Lonely Park",-25.814602,25.639704,6.5,0],["Naotsakagiso student Accommodation","3341 Van debrink street unit 10 Mmabatho  Van Debrink street Mmabatho  North West  ZAR","Unit 10",-25.847049,25.583162,4.8,0],["Lukataedi GC Student residence","7388 Unit 15  Mmabatho Mafikeng  NorthWest  2735","Unit 15",-25.853763,25.566976,4.6,0],["Lorako Lodge Student Accommodation","274 DP Kgotleng Street  Montshioa Mahikeng  North West  2745","Montshiwa",-25.843839,25.620378,3.7,0],["MATLAKALA MATTHEWS","1710 MOILA STREET UNIT 6 MMABATHO  1710 MOILA STREET UNIT 6 MMABATHO MAHIKENG  NORTH WEST  2735","Unit 6",-25.830643,25.598197,3.3,0],["Kgosiwarona","2353  Thite street  Montshioa Unit 2 Mmabatho  North West  Mahikeng","Montshiwa",-25.839933,25.622154,3.1,0],["Motlalepule Taile","ERF 1851  Unit 8 Mmabatho  North West  2735","Unit 8",-25.843215,25.591652,3.7,0],["Ratanang villa","3279 Unit 10  Acorus street Mafikeng  North west  2735","Unit 10",-25.845091,25.583623,4.6,0],["0","1194 Molathwa drive  unit 5 Mmabatho Mmabatho  NW  2735","Unit 5",-25.823767,25.609532,null,0],["91 Molopo","91 Molopo road Mafikeng   south africa  NW  2745","Other",-25.846924,25.614194,8.1,0],["Corban Student Commune","34807 Makgetla View  Tontonyane Mahikeng  North West  2745","Makgetla View",-25.851312,25.565144,7.3,1],["0","UNIT 12  3595 MMABATHO mafikeng  2745","Unit 12",-25.853796,25.590314,null,0],["Ga-Tholo Suppliers 4","1304 Barolong Street  Unit 7 Mmabatho  North West  2735","Unit 7",-25.836199,25.597333,2.7,0],["Ga-Tholo Suppliers 3","543 Manyaapelo Street Montshwa  North West  2737","Other",-25.8426,25.616121,2.5,0],["Pinkridge Holdings (Pty) Ltd","985  Mosii Street  Unit 5 Mmabatho  North West","Unit 5",-25.823477,25.610336,2.9,0],["GMD ACCOMMODATION","5378 unit 13 mafikeng  NORTH WEST  2745","Unit 13",-25.856547,25.574329,5.9,0],["GMD PROJECTS","33 BARDEN POWELL  BARDEN POWELL mafikeng  NORTH WEST  2745","Other",-25.844817,25.61257,8.6,0],["Pinkridge Holdings (Pty) Ltd","479  Cul 16  Unit 2 Mmabatho  North West","Unit 2",-25.831136,25.611774,2.9,0],["Vinary 2","757 Nelson Mandela Drvive  Nelson Mandela drive Mahikeng  north west  2745","Other",-25.844577,25.615862,6.3,0],["Ga-Tholo Suppliers 2","662 Robert Sobukwe Street Montshwa  North West  2737","Other",-25.842799,25.616612,2.5,0],["ROLIHLAHLA  STUDENT RESIDENCE","12452 MOCOSENG  21st JUMPSTREET mahikeng  nw  2745","Mocoseng",-25.876331,25.583042,6.5,0],["Vinary 1","5691  Mabele crescent MMABATHO  north west  2735","Other",-25.843079,25.612625,6.1,0],["Deep moon Commune","334 Morena manor  Kingfisher street Mafikeng  NW  2735","Other",-25.842924,25.615307,3.1,0],["Pinkridge Holdings (Pty) Ltd","2449  Jerry Reid Avenue  Unit 1 Mmabatho  North West","Unit 1",-25.840184,25.616607,2.9,0],["MHC RESIDENCE 3","7512 Tilia close unit 15  Mmabatho Mahikeng  Northwest  2790","Unit 15",-25.852953,25.569619,5.0,0],["GMD PROJECTS","LOKALENG LODGE  LOKALENG MAHIKENG  NORTH WEST  MMABATHO","Other",-25.845459,25.614011,8.6,0],["GMD PROJECTS","10666 MAGOGOE KOIKOI  MAHIKENG MAHIKENG  NORTH WEST  MMABATHO","Other",-25.842769,25.613199,8.6,0],["KEAMOGETSE STUDENT ACCOMMODATION","1060 Botlhaba Cul  UNIT 5 Mmabatho  NORTH WEST  Mahikeng","Unit 5",-25.825037,25.607022,1.0,0],["MHC RESIDENCE 2","6262 Maretlwa close unit 14  Mmabatho Mahikeng  Northwest  2790","Unit 14",-25.858064,25.567986,6.2,0],["Pinkridge Holdings (Pty) Ltd","2246  Kgalegi Cresent Montshiwa  North West","Montshiwa",-25.842232,25.620178,2.9,0],["Mhc residence 1","5595 lephoi close  Unit 14 Mmabatho  Northwest  2790","Unit 14",-25.858784,25.570852,5.8,0],["ORERUTE STUDENT RES","10538 MOSHAWANE VILLAGE  MOLELWANE  MAFIKENG MAFIKENG  NORTH WEST  2745","Other",-25.845404,25.61723,6.5,0],["Ponontle Villa","15 Boipelo Street  Unit 3  Mmabatho Mahikeng  NW  2735","Unit 3",-25.843727,25.606211,3.1,0],["LADY K Village","House 7532 UNIT 15  WEIGELA CLOSE Mmabatho  North west  2790","Unit 15",-25.857005,25.567574,5.7,0],["LESEGO STUDENT ACCOMMODATION","1044 BOTLHABA CUL  UNIT 5 Mmabatho  NORTH WEST  Mahikeng","Unit 5",-25.825459,25.607947,1.0,0],["Kearabetswe Student Residence","962 Mosheshoe Drive  Unit 5 Mmabatho  North West  Mahikeng","Unit 5",-25.827336,25.610258,2.7,0],["MOREMOGOLO","1168 BERIUT  MMABATHO UNIT 5 MMABATHO  NORTH WEST  MAFIKENG","Unit 5",-25.825283,25.607353,0.3,0],["Winzor Res And Accomodation","1264 Ramushu Tawana Str Montshiwa  1264 Ramushu Tawana 2737","Montshiwa",-25.840223,25.624253,3.1,0],["Arise and shine","64 Dibate  Dibate village Mmabatho  2735","Other",-25.844072,25.612997,2.9,0],["Selina Moses Student Res","14345 Magogoe Tar Village  Mahikeng Mahikeng  North West  2745","Other",-25.842611,25.615222,8.6,0],["MAARMAN BUSINESS SOLUTIONS (MBS RES)","10294 George Molokwane Street  LONELY PARK MAFIKENG  NORTH WEST  2745","Lonely Park",-25.815509,25.639293,4.9,0],["Kgosiwarona","1815 Unit 8  Motlhamme Crescent Mmabathi  North West  Mahikeng","Unit 8",-25.843889,25.588449,3.1,0],["OMOGOLO GUEST LODGE AND PROJECTIS","2366 ROBERT SOBUKWE RD MONTSHIWA  OMOGOLO GUEST LODGE AND PROJECTIS MAHIKENG  NORTH-WEST  2735","Montshiwa",-25.842226,25.62374,16.0,0],["KOPANA DISTRIBUTORS","1713 THOSI SETILOANE  MONTSHIWA UNIT 2 MAFIKENG  NORTH WEST  2745","Montshiwa",-25.841291,25.622814,7.5,0],["Kaone & Laone Accommodation","1947 Gopane street  1947 Gopane Street  Unit 8 Mafikeng  North West  2745","Unit 8",-25.844393,25.590486,3.1,0],["WINNER MAN PLACE","2425 MOLALE STREET UNIT 01 MAFIKEN  NORTH WEST  2725","Other",-25.846282,25.616434,2.8,0],["Redline Collective Accomodation","4416 Motswetswejane Crersent  Unit 13 Mmabatho  North West  2735","Unit 13",-25.857677,25.57313,5.5,0],["Morobi Residence","2309 Tholo street  Tholo Street 2745","Other",-25.843674,25.612843,3.7,0],["Sweetmeis PTY","5986 Mokhasi Close  Unit 14 Mmabatho  North West  2735","Unit 14",-25.86142,25.568536,6.0,0],["STUDY PRIORITY RESIDENCE","388 SEROKE STREET  MONTSHIWA MAFIKENG  2745","Montshiwa",-25.842857,25.623848,4.7,0],["RISING STAR STUDENT HOME","2777 SID GORDON STREET  UNIT 9 MAHIKENG  NORTH WEST  2745","Unit 9",-25.845997,25.583238,4.6,0],["Makhobosi Residence","697 Cul 7  Unit 2 Mmabatho  North West  2790","Unit 2",-25.830208,25.609514,2.5,0],["Lotus villa","2520 Solomon mpedi street  Unit 9 Mmabatho Mahikeng  Northwest  2745","Unit 9",-25.84985,25.583223,4.0,0],["MOLAOLWE RESIDENCE","6071 MARETLWA STREET  UNIT 14 MAHIKENG  NORTH WEST  2735","Unit 14",-25.861628,25.568753,5.7,0],["Minatlou Trading 688 CC","5536 Kgaka Close  Unit 14 Mmabatho  North West  2735","Unit 14",-25.862371,25.570805,2.5,0],["LES SOLUTIONS","4732 MOKALA STREET  UNIT 13 MMABATHO  NORTH WEST  2735","Unit 13",-25.85655,25.572574,5.1,0],["Atlegang Student Residence","2809 Stoffellangburg  Unit 9 Mmabatho  North-West  2735","Unit 9",-25.848881,25.58369,4.5,0],["Glen accommodation","2512 mokale drive unit 9 mmabatho  2512 mokale drive unit 9 mmabatho Mahikeng  North west  2745","Unit 9",-25.850238,25.583371,3.8,0],["Soo residence","1904 Tire Street  Unit 8 Mmabatho  North west  2735","Unit 8",-25.84187,25.591209,3.1,0],["Life Student Accomodation","2635 Tebogo Tau Street  Montshiwa Mahikeng  North West  2735","Montshiwa",-25.842119,25.623228,12.8,0],["Mothupi Villa 02","No 20385A  Dibate Village MAFIKENG  NW  2745","Other",-25.844934,25.61639,2.9,0],["1046 Unit 5","1046 Botlhaba Street  Unit 5 Mmabatho  2745","Unit 5",-25.824981,25.606045,1.1,0],["ONNEILE KABO RESIDENCE","26111 Molelwane Village  Molelwane Mafikeng  MOLELWANE MAFIKENG  NORTH WEST  2745","Other",-25.847283,25.617227,6.1,0],["Minatlou Trading 688 CC","2784 Boet Joubert Close  Unit 9 Mmabatho  North West  2735","Unit 9",-25.846165,25.586416,2.5,0],["Mannini Student Accommodation","2607 Andries Bloem Cul  Unit 9 Mahikeng  North West  2735","Unit 9",-25.84821,25.585107,4.8,0],["Botshelo Residence","1254 MOTLHABENG VILLAGE  MMABATHO Mmabatho  North West  2735","Other",-25.847196,25.61732,4.6,0],["Mothupi Villa 1","20081 TLHWARE STREET  MOSIANE VIEW MAFIKENG  NW  2745","Mosiane View",-25.905492,25.689895,15.4,0],["Minatlou Trading 688 CC","1905 Tire Street  Unit 8 Mmabatho  North West  2735","Unit 8",-25.842049,25.59093,2.5,0],["LETHABONG RES","2883 OCKIE AKKERMAN  UNIT 9 MMABATHO  NORTH WEST  2735","Unit 9",-25.850133,25.587049,5.0,0],["Abubakr. A Residence","3513 Modisaotsile seodi blvd  Unit 12 mmabatho MAHIKENG  North west  2745","Unit 12",-25.851459,25.585904,4.1,0],["SINAH AND SONS","20158  Moshawane village Mafikeng  North west  2730","Other",-25.846125,25.612828,6.5,0],["Minatlou Trading 688 CC","213 Cul 8  Unit 2 Mmabatho  North West  2735","Unit 2",-25.831758,25.612665,2.5,0],["Letladi Residence","22 Impala Street  Golfview Mahikeng  North West  2745","Golfview",-25.849527,25.647126,8.2,0],["Kwena Student Accommodation","2160 Hendrick Tlou Street Mafikeng  North West  2735","Other",-25.845231,25.615153,4.2,0],["Masego Residence","1666 Thekiso Street  Unit 6 Mahikeng  North West  2745","Unit 6",-25.835004,25.598527,5.6,0],["Lesawana Property Pty Ltd","40414  Motlhabeng village Mahikeng  North west  2735","Other",-25.843236,25.616009,4.6,0],["UniStay Accommodation","89 Molopo Road Mafikeng  North West  2745","Other",-25.843655,25.615755,7.9,0],["Mokwena Student Residence","558 Phase two Airport View  558 Phase two Airport View Mahikeng  North west  2745","Airport View",-25.806425,25.556104,6.0,0],["Boitumelo Residence","Reviera Park  56 Langenhoven Drive Mahikeng, 2745","Other",-25.846358,25.614758,10.9,0],["Malome Ali Residence","36 Jan Smuts Avenue  Golfview Mafikeng  North West  2745","Golfview",-25.852233,25.647195,7.0,0],["One Love student Home","16088/01  Mocoseng Mmabatho  2735","Mocoseng",-25.877025,25.58458,7.3,0],["Refilwe Letlotlo Properties","1756 Motlhamme Street  Unit 8 Mmabatho  North West  2735","Unit 8",-25.841174,25.589634,3.0,0],["NOMA'S RES","5373 UNIT 13  THEPE STREET MAHIKENG  NW  2745","Unit 13",-25.859737,25.574372,6.4,0],["MABITLE RESIDENCE","5673 KATSE CLOSE UNIT 14 Mmabatho  North West  2735","Unit 14",-25.862164,25.572115,6.1,0],["Bokgoni Residence","2727 Motshe Close  Monthsioa Extension Mafikeng  North West  2745","Other",-25.847034,25.616659,4.7,0],["Kentsenao Student Villa","House No. 12892  Mocoseng Mahikeng  North West  2745","Mocoseng",-25.873806,25.582983,7.2,0],["KE TSHIMOLOGO RES","11170  Lomanyaneng Village  LOMANYANENG VILLAGE MAHIKENG  NORTH WEST PROVINCE  2735","Other",-25.844718,25.616559,10.3,0],["Villa@88","Erf 88 Majola Flats Mmabatho  North West  2735","Other",-25.844692,25.615432,2.7,0],["0","7045 Albizia Str  Unit 15 Mmabatho","Unit 15",-25.856889,25.567148,null,0],["TJ Student Accommodation","2971 UNIT 9  Ockie Ockerman Mmabatho  North West  2790","Unit 9",-25.847173,25.584268,4.8,0],["Villa@30","House no 30 Cul 1 Unit 2 Mmabatho  North West  2735","Unit 2",-25.83016,25.613251,2.7,0],["Villa@53","House no 53 Cul 2 Unit 2 Mmabatho  North West  2735","Unit 2",-25.829658,25.613105,2.7,0],["KG Residence","1351 Montshiwa MAFIKENG  North West  2737","Montshiwa",-25.842742,25.622502,2.5,0],["TJ Student Accommodation","2985 UNIT 9  De Villiers Tekana Street Mmabatho  North West  2790","Unit 9",-25.849436,25.58539,4.8,0],["QUEEN ELIZABETH","666 CUL 7  UNIT 2 MMABATHO  2735","Unit 2",-25.833379,25.612784,2.5,0],["LADY K Village","6936 Gardenia close  Unit 15 Mmabatho  North west  2735","Unit 15",-25.853273,25.566041,5.7,0],["BOO PUDUMO RESIDENCE","BOO PUDUMO BOTLHABA CUL RES  1057 BOTLHABA CUL UNIT 5 MMABATHO MAHIKENG  NORTH WEST  2745","Unit 5",-25.823687,25.607338,1.0,0],["Warona Morena Residence","86 wagtail Street Mmabatho  2735","Other",-25.843464,25.615371,3.2,0],["Villa@21","House 21 Cul 1 unit 2 Mmabatho  North west  2735","Unit 2",-25.829627,25.613726,2.5,0],["Sekhutlong Student House","1479 Makhene Road  Unit 6 Mmabatho  North West  2735","Unit 6",-25.832432,25.599592,2.9,0],["SRJ Res","4804 Moseme CI   Mmabatho Unit 13  Mafikeng  Mmabatho  North West  2735","Unit 13",-25.860369,25.575713,5.4,0],["MOREMOGOLO","1167 BERIUT  MMABATHO UNIT 5 MAFIKENG  NORTH WEST  MAFIKENG","Unit 5",-25.823353,25.610145,0.3,0],["TS Student Res","3839 Peace Crescent street  Unit 12 Mmabatho  North West  2735","Unit 12",-25.853598,25.586837,3.2,0],["WE STAY RESIDENCE","3843 PEACE CRESCENT  UNIT 12 MMABATHO  2735","Unit 12",-25.852955,25.589013,3.2,0],["shakes residence","CUL 21  CUL 21  591 MMABATHO  NORTH WEST  2735","Other",-25.847469,25.614199,2.7,0],["David’s Ress","House no 9  Airport View Aviation Road MAFIKENG  North West  2737","Airport View",-25.804668,25.556849,6.5,0],["BEETEE Residence","7737 Monstera street  Unit 15 Mmabatho Mahikeng  North West  2735","Unit 15",-25.856791,25.567504,4.9,0],["Nene Student Accommodation","300 Cul 10  Unit 2 Mmabatho  North West  2735","Unit 2",-25.834347,25.612666,2.5,0],["Masite residence","354 cul13  unit 2 mmabatho Mafikeng  Northwest  2745","Unit 2",-25.833424,25.613231,2.5,0],["Kgali Residence","Cul 6  618 Mmabatho Unit 2 Mahikeng","Unit 2",-25.832796,25.611599,2.2,0],["Joe Mahila","1633 Joe Mahila Street  Montshioa Mmabatho  North West  2735","Montshiwa",-25.840892,25.62135,3.1,0],["1213","1213 Petso Street  Montshioa Mmabatho  North West  2735","Montshiwa",-25.841662,25.623384,3.4,0],["Mathi Holding","7088 Popilus Street  Unit 15 Mmabatho  North West  2735","Unit 15",-25.857237,25.565925,4.1,0],["LEBONE APARTMENTS","1 Moshawane village  Moshawane village Moshawane  Mahikeng  2735","Other",-25.844411,25.613287,6.5,0],["Harmony House (Unit 9)","2750 Boet Joubert Close  Unit 9 Mmabatho  North West  2790","Unit 9",-25.849139,25.58587,4.6,0],["Moroeng","1421 Moroeng Street  Montshioa Mmabatho  North West  2735","Montshiwa",-25.842072,25.62281,3.1,0],["0","5873 EXT 38 MAFIKENG  MAHIENG MAHIKENG  North West  2745","Other",-25.846134,25.61471,null,0],["Lev Res","20228 Dibate Village  Mmabatho Mafikeng  North West  2745","Other",-25.846931,25.616275,2.9,0],["MTR VISION 30 (2)","5538 Kgaka Close  Kgaka Close MAHIKENG  NORTH WEST  2735","Other",-25.846084,25.61465,6.0,0],["MTR VISION 30 (3)","3250 UNIT 10  COCKTAIL STREET MAHIKENG  NORTH WEST  2735","Unit 10",-25.845067,25.582892,4.8,0],["MTR VISION 30 (1)","6733 UNIT 15 OLEA CLOSE  MMABATHO MAFIKENG  NORTH WEST  2735","Unit 15",-25.857273,25.568836,4.5,0],["Ga-Tholo Suppliers 1","30344 Motlhabeng Village Mahikeng  North West  2745","Other",-25.844503,25.614476,4.6,0],["setshedile investment","1602 molamu st  montshiwa mahikeng  north west  2745","Montshiwa",-25.842993,25.619538,3.1,0],["The Rose Villa","31154 MOTLHABENG VILLAGE  Motlhabeng Mahikeng  North West  2745","Other",-25.846814,25.613556,4.7,0],["Harmony House (Unit 3)","33 Sol Plaatjie Drive  Unit 3 Mmabatho  North West  2790","Unit 3",-25.842859,25.603778,3.2,0],["REDIKO ENTERPRISES (PTY) LTD","30235 MOTLHABENG VILLAGE  MMABATHO MAHIKENG  NORTH WEST  2735","Other",-25.843765,25.612539,4.9,0],["KGATLISO PROPERTIES","STAND 40753  TONTONYANE VILLAGE MAHIKENG  NORTH WEST","Other",-25.845599,25.613378,6.5,0],["Wakanda Student Accommodation 4","15 CHURCHILL AVENUE  Golf View MAHIKENG  North West  2745","Golfview",-25.851999,25.649018,7.3,0],["Kings & Queens Residence","51842B  Seweding Village Mahikeng  North West  2745","Other",-25.843469,25.616667,7.6,0],["Manqane students res","House no. 20257  Dibate village mahikeng  north west  2745","Other",-25.843191,25.61286,6.9,0],["RORISANG STUDENT ACCOMMODATION","13 cecil Rodes Avenue  Golfview mahikeng  Nw  2740","Golfview",-25.854406,25.645712,9.4,0],["Otlotleng Residence","548 Airportview  Totonyane Mafikeng  North West  2745","Airport View",-25.803189,25.557106,6.0,0],["Mako enterprise","20264 Dihatshwana Mafikeng  Nw  Mafikeng","Other",-25.844633,25.615379,20.6,0],["Partikon 1","11744 Caroline Crescent  Lonely Park Mafikeng  North West  2745","Lonely Park",-25.815412,25.641047,6.5,0],["SELEBOGO RESIDENCE","202 unit 2  STEVE BIKO STREET MAHIKENG  NORTH WEST  2735","Steve Biko",-25.832396,25.610076,16.0,0],["SAMMY’S ACCOMDATION","20184  MOSIANE VIEW MAHIKENG  NORTH WEST  2745","Mosiane View",-25.903493,25.689124,15.4,0],["Lorako Lodge Student Accommodation - Setumo","10352 George Molokwane Street  Setumo park Mahikeng  North West  2745","Other",-25.84334,25.615591,4.9,0],["RORISANG STUDENT ACCOMMODATION","12 Andersiet Drive  Reveira park mahikeng  Northwest  2740","Riviera Park",-25.860059,25.664099,9.4,0],["MOKGWARE STUDENT ACCOMMODATION","12946 Signal Hill  Mahikeng Signal hill  North West  2737","Signal Hill",-25.819283,25.651722,6.9,0],["ELPARK RESIDENCE","10237 LONELY PARK  MAHIKENG","Lonely Park",-25.81488,25.640444,6.3,0],["Mpelegeng Student Residence","658 Cul 6 Unit 2  Steve Biko Avenue Mmabatho  North West  2735","Steve Biko",-25.830949,25.611479,2.1,0],["Ga-Nkomo","2890 Ockie Ackermen  Unit 9 Mmabatho  North West  2735","Unit 9",-25.848835,25.584198,4.9,0],["Jumpers","2952 Ockie Ackermen Crescent  Unit 9 Mmabatho  North West  2735","Unit 9",-25.847948,25.583341,4.9,0],["MABONENG STUDENT RESIDENCE","5942 Lotlhaka Close  Unit 14 Mmabatho  North West  2735","Unit 14",-25.85995,25.56807,6.1,0],["Royal Tlou Country Estate","ERF 30 SEITSHIRO STREET  Royal Tlou Country Estate Ramatlabama  North West  2756","Other",-25.845753,25.61703,16.3,0],["Pink House","3095 Mosii Street  Unit 5 Mmabatho  North West  2735","Unit 5",-25.823405,25.609137,1.6,0],["White House","980 Mosii Street  Unit 5 Mmabatho  North West  2735","Unit 5",-25.826319,25.609575,1.6,0],["Shelly","3482 Veronica Crescent  Unit 10 Mmabatho  2735  2735","Unit 10",-25.846514,25.580232,5.2,0],["2759","2759 Unit 9  Sid Gordon Street Mmabatho  Northwest  2745","Unit 9",-25.846699,25.585512,4.7,0],["KOPANA DISTRIBUTORS","71 MOLOPO ROAD  MAFIKENG MAFIKENG  NORTH WEST  2745","Other",-25.846614,25.615778,7.5,0]];
+</script>
+<script>
+window.addEventListener('DOMContentLoaded', main);
+
+function main() {
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  const EDIT = new URLSearchParams(location.search).has('edit');
+  const FIX_KEY = 'nwuPinFixes_v1';
+  const keyOf = r => (r.name || '') + '|' + (r.address || '');
+
+  const RESIDENCES = RAW.map((a, i) => ({
+    _i: i, name: a[0], address: a[1], area: a[2], lat: a[3], lon: a[4], km: a[5], exact: !!a[6],
+    _hay: (a[0] + ' ' + a[1] + ' ' + a[2]).toLowerCase()
+  }));
+
+  function toast(t, ms) {
+    const e = $('toast'); e.textContent = t; e.classList.add('show');
+    clearTimeout(toast._t); toast._t = setTimeout(() => e.classList.remove('show'), ms || 3200);
+  }
+
+  /* ---------- Map ---------- */
+  const map = L.map('map').setView(CAMPUS, 13);
+  const streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap', maxZoom: 19 }).addTo(map);
+  const satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { attribution: 'Tiles &copy; Esri', maxZoom: 19 });
+  L.control.layers({ 'Streets': streets, 'Satellite': satellite }, null, { position: 'topright' }).addTo(map);
+  if (EDIT) { map.removeLayer(streets); satellite.addTo(map); document.body.classList.add('editing'); }
+
+  const campusIcon = L.divIcon({ className: '', iconSize: [28, 28], iconAnchor: [14, 14],
+    html: '<div style="background:#2d1f54;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:14px;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4)">🎓</div>' });
+  L.marker(CAMPUS, { icon: campusIcon, zIndexOffset: 500, title: 'NWU Mahikeng Campus' }).addTo(map)
+    .bindPopup('<div class="popup"><h3>NWU Mahikeng Campus</h3><p>Origin for all distances</p></div>');
+
+  // Locate-me button
+  let meMarker = null;
+  const LocateCtl = L.Control.extend({
+    onAdd() {
+      const b = L.DomUtil.create('button', 'locbtn');
+      b.type = 'button'; b.title = 'Show my location'; b.setAttribute('aria-label', 'Show my location'); b.textContent = '📍';
+      L.DomEvent.disableClickPropagation(b);
+      b.onclick = () => map.locate({ setView: true, maxZoom: 16, enableHighAccuracy: true });
+      return b;
+    }
+  });
+  new LocateCtl({ position: 'topleft' }).addTo(map);
+  map.on('locationfound', e => {
+    if (meMarker) map.removeLayer(meMarker);
+    meMarker = L.circleMarker(e.latlng, { radius: 8, color: '#fff', weight: 3, fillColor: '#2563eb', fillOpacity: 1 }).addTo(map);
+  });
+  map.on('locationerror', () => toast('Could not get your location. Check location permission.'));
+
+  const legend = L.control({ position: 'bottomright' });
+  legend.onAdd = () => {
+    const d = L.DomUtil.create('div', 'legend');
+    d.innerHTML = '<strong>Drive from campus</strong><br><i style="background:#22c55e"></i>≤ 3 km<br><i style="background:#eab308"></i>3–6 km<br><i style="background:#f97316"></i>6–10 km<br><i style="background:#ef4444"></i>&gt; 10 km<br><i style="background:#8b5cf6"></i>Estimate only<br><span style="font-size:.75rem;color:#666">Blue ring = verified spot · Teal ring = street-level (within a few hundred metres) · others = approximate area</span>';
+    return d;
+  };
+  legend.addTo(map);
+
+  /* ---------- Markers ---------- */
+  function pinColor(km) {
+    if (km == null) return '#8b5cf6';
+    if (km <= 3) return '#22c55e';
+    if (km <= 6) return '#eab308';
+    if (km <= 10) return '#f97316';
+    return '#ef4444';
+  }
+  function makeIcon(r, selected) {
+    let ring = r.exact ? 'box-shadow:0 0 0 3px #fff,0 0 0 5px #2563eb;' : (r._street ? 'box-shadow:0 0 0 3px #fff,0 0 0 5px #14b8a6;' : 'box-shadow:0 1px 4px rgba(0,0,0,.4);');
+    if (selected) ring = 'box-shadow:0 0 0 3px #fff,0 0 0 7px #f97316;';
+    const size = selected ? 18 : 14;
+    return L.divIcon({ className: '', iconSize: [size, size], iconAnchor: [size / 2, size / 2],
+      html: `<div style="background:${pinColor(r.km)};width:${size}px;height:${size}px;border-radius:50%;border:2px solid #fff;${ring}"></div>` });
+  }
+  function popupHtml(r) {
+    const dest = r.exact ? (r.lat + ',' + r.lon) : ((r.address || r.name) + ', Mahikeng, South Africa');
+    const url = 'https://www.google.com/maps/dir/?api=1&origin=' + encodeURIComponent('North-West University Mahikeng Campus, Mmabatho') + '&destination=' + encodeURIComponent(dest);
+    const km = r.km != null ? `<p><strong>${r.km} km</strong> drive from campus</p>` : '<p>Tap directions for exact distance</p>';
+    const tag = r.exact ? '<span class="tag ok">✔ Verified location</span>' : (r._street ? '<span class="tag st">≈ Street-level location</span>' : '<span class="tag">≈ Approximate pin</span>');
+    return `<div class="popup"><h3>${esc(r.name)}</h3><p>${esc(r.area)}</p><p>${esc(r.address)}</p>${km}${tag}
+      <div class="row"><a class="dir" href="${url}" target="_blank" rel="noopener">🗺️ Directions</a>
+      <button type="button" class="rep" data-i="${r._i}">⚑ Wrong spot?</button></div></div>`;
+  }
+
+  const cluster = L.markerClusterGroup({ chunkedLoading: true, maxClusterRadius: 45, showCoverageOnHover: false }).addTo(map);
+
+  function buildMarker(r) {
+    r._m = L.marker([r.lat, r.lon], { icon: makeIcon(r), title: r.name, alt: r.name });
+    r._m.bindPopup(() => popupHtml(r), { maxWidth: 260 });
+  }
+
+  /* ---------- Corrections (pin-fixes.json) ---------- */
+  let fixes = {};
+  function applyFix(r, f) {
+    r.lat = f.lat; r.lon = f.lon;
+    if ('km' in f) r.km = f.km;
+    r._suspect = false;
+    if (f.precision === 'street') { r.exact = false; r._fixed = false; r._street = true; }
+    else if (f.precision === 'approx') { r.exact = false; r._fixed = false; r._street = false; }
+    else { r.exact = true; r._fixed = true; r._street = false; }
+  }
+  function haversine(a, b, c, d) {
+    const p = Math.PI / 180, x = Math.sin((c - a) * p / 2) ** 2 + Math.cos(a * p) * Math.cos(c * p) * Math.sin((d - b) * p / 2) ** 2;
+    return 12742 * Math.asin(Math.sqrt(x));
+  }
+  async function loadFixes() {
+    let remote = {}, local = {};
+    try { const res = await fetch('pin-fixes.json', { cache: 'no-cache' }); if (res.ok) remote = await res.json(); } catch (e) {}
+    if (EDIT) { try { local = JSON.parse(localStorage.getItem(FIX_KEY) || '{}'); } catch (e) {} }
+    return Object.assign({}, remote, local);
+  }
+
+  /* ---------- Filtering & search ---------- */
+  let band = 'all', query = '', editing = null;
+  function inBand(r) {
+    if (band === 'all') return true;
+    if (r.km == null) return false;
+    if (band === '3') return r.km <= 3;
+    if (band === '6') return r.km > 3 && r.km <= 6;
+    if (band === '10') return r.km > 6 && r.km <= 10;
+    return r.km > 10;
+  }
+  function applyFilters() {
+    const list = RESIDENCES.filter(r => r !== editing && inBand(r) && (!query || r._hay.includes(query)));
+    cluster.clearLayers();
+    cluster.addLayers(list.map(r => r._m));
+    $('count').textContent = list.length + ' of ' + RESIDENCES.length;
+    return list;
+  }
+  let st;
+  $('search').addEventListener('input', e => { clearTimeout(st); st = setTimeout(() => { query = e.target.value.trim().toLowerCase(); applyFilters(); }, 150); });
+  $('search').addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    e.preventDefault();
+    query = e.target.value.trim().toLowerCase();
+    const list = applyFilters();
+    if (list.length === 1) { map.setView([list[0].lat, list[0].lon], 17); list[0]._m.openPopup(); }
+    else if (list.length > 1 && list.length <= 80) map.fitBounds(L.latLngBounds(list.map(r => [r.lat, r.lon])).pad(0.2));
+    else if (!list.length) toast('No residence matches that.');
+    e.target.blur();
+  });
+  $('bar').addEventListener('click', e => {
+    const b = e.target.closest('.chip'); if (!b) return;
+    band = b.dataset.band;
+    document.querySelectorAll('.chip').forEach(c => c.classList.toggle('on', c === b));
+    applyFilters();
+  });
+
+  /* ---------- Report a wrong location ---------- */
+  const FB_CONFIG = {
+    apiKey: "AIzaSyD7QHVH5hT0eURqXsJ0EXO_-BXUge5Iq_M", authDomain: "nwu-residences-81b8b.firebaseapp.com",
+    projectId: "nwu-residences-81b8b", storageBucket: "nwu-residences-81b8b.firebasestorage.app",
+    messagingSenderId: "979946386540", appId: "1:979946386540:web:da1c423bdf9be046445449", measurementId: "G-T1MY4MEC4J"
+  };
+  let fbP = null;
+  const loadScript = src => new Promise((ok, bad) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = bad; document.head.appendChild(s); });
+  function getFb() {
+    if (!fbP) fbP = (async () => {
+      const b = 'https://www.gstatic.com/firebasejs/10.14.1/';
+      await loadScript(b + 'firebase-app-compat.js');
+      await Promise.all([loadScript(b + 'firebase-firestore-compat.js'), loadScript(b + 'firebase-auth-compat.js')]);
+      if (!firebase.apps.length) firebase.initializeApp(FB_CONFIG);
+      const auth = firebase.auth();
+      if (!auth.currentUser) await auth.signInAnonymously();
+      return { db: firebase.firestore(), uid: auth.currentUser.uid };
+    })().catch(e => { fbP = null; throw e; });
+    return fbP;
+  }
+
+  let repR = null, repSug = null, picking = false, pickMarker = null;
+  const showSheet = on => { $('rBack').style.display = on ? 'block' : 'none'; $('rSheet').style.display = on ? 'block' : 'none'; };
+  function setSug(lat, lon, acc, how) {
+    repSug = { lat, lon, acc: acc || null };
+    $('rSug').textContent = '✔ Spot saved' + (how ? ' (' + how + ')' : '') + ': ' + lat.toFixed(5) + ', ' + lon.toFixed(5);
+    if (pickMarker) map.removeLayer(pickMarker);
+    pickMarker = L.circleMarker([lat, lon], { radius: 9, color: '#fff', weight: 3, fillColor: '#f97316', fillOpacity: 1 }).addTo(map);
+  }
+  function openReport(r) {
+    repR = r; repSug = null;
+    if (pickMarker) { map.removeLayer(pickMarker); pickMarker = null; }
+    $('rName').textContent = r.name; $('rAddr').textContent = r.address || r.area || '';
+    $('rNote').value = ''; $('rContact').value = ''; $('rWeb').value = ''; $('rType').value = 'pin'; $('rSug').textContent = '';
+    showSheet(true);
+    getFb().catch(() => {});
+  }
+  map.on('popupopen', e => {
+    const b = e.popup.getElement() && e.popup.getElement().querySelector('.rep');
+    if (b) b.onclick = () => { map.closePopup(); openReport(RESIDENCES[+b.dataset.i]); };
+  });
+  $('rCancel').onclick = $('rBack').onclick = () => { showSheet(false); if (pickMarker) { map.removeLayer(pickMarker); pickMarker = null; } };
+  $('rUse').onclick = () => {
+    if (!navigator.geolocation) { toast('Location is not available on this device.'); return; }
+    $('rSug').textContent = 'Getting your location…';
+    navigator.geolocation.getCurrentPosition(
+      p => setSug(p.coords.latitude, p.coords.longitude, p.coords.accuracy, '±' + Math.round(p.coords.accuracy) + ' m'),
+      () => { $('rSug').textContent = ''; toast('Could not get your location. Try "Tap on the map".'); },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
+  };
+  $('rPick').onclick = () => {
+    picking = true; showSheet(false); $('pickBanner').style.display = 'flex';
+    map.flyTo([repR.lat, repR.lon], Math.max(map.getZoom(), 17));
+    if (!map.hasLayer(satellite)) { map.removeLayer(streets); satellite.addTo(map); }
+  };
+  $('pickCancel').onclick = () => { picking = false; $('pickBanner').style.display = 'none'; showSheet(true); };
+  map.on('click', e => {
+    if (!picking) return;
+    picking = false; $('pickBanner').style.display = 'none';
+    setSug(e.latlng.lat, e.latlng.lng, null, 'from map'); showSheet(true);
+  });
+  $('rSheet').addEventListener('submit', async e => {
+    e.preventDefault();
+    if ($('rWeb').value) return; // honeypot
+    const note = $('rNote').value.trim();
+    if (!repSug && !note) { toast('Show us the right spot or add a note.'); return; }
+    if (Date.now() - (+localStorage.getItem('nwuLastReport') || 0) < 15000) { toast('Please wait a few seconds between reports.'); return; }
+    const btn = $('rSend'); btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      const { db, uid } = await getFb();
+      const r = repR, safe = keyOf(r).replace(/[\/#?[\]]/g, '_').slice(0, 100);
+      await db.collection('location_reports').doc(uid + '__' + safe).set({
+        residenceName: r.name, address: r.address || '', area: r.area || '', key: keyOf(r),
+        currentLat: r.lat, currentLon: r.lon, currentKm: r.km == null ? null : r.km, wasVerified: !!r.exact,
+        suggestedLat: repSug ? +repSug.lat.toFixed(6) : null, suggestedLon: repSug ? +repSug.lon.toFixed(6) : null,
+        accuracyM: repSug && repSug.acc ? Math.round(repSug.acc) : null,
+        type: $('rType').value, note: note.slice(0, 500), contact: $('rContact').value.trim().slice(0, 100) || null,
+        source: 'map', status: 'open', userId: uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      try { localStorage.setItem('nwuLastReport', String(Date.now())); } catch (x) {}
+      showSheet(false); if (pickMarker) { map.removeLayer(pickMarker); pickMarker = null; }
+      toast('Thanks! Your report was sent. 💜', 4000);
+    } catch (err) {
+      console.error(err);
+      toast('Could not send. Check your connection and try again.', 4500);
+    }
+    btn.disabled = false; btn.textContent = 'Send report';
+  });
+
+  /* ---------- Boot ---------- */
+  loadFixes().then(f => {
+    fixes = f;
+    RESIDENCES.forEach(r => {
+      const x = fixes[keyOf(r)];
+      if (x) applyFix(r, x);
+      else { const s = haversine(CAMPUS[0], CAMPUS[1], r.lat, r.lon); r._suspect = !r.exact && r.km != null && (s > r.km + 0.5 || r.km > 2.2 * s + 1.5); }
+      buildMarker(r);
+    });
+    applyFilters();
+    if (EDIT) initEditor();
+  });
+
+  /* ---------- Pin editor (map.html?edit=1) ---------- */
+  function initEditor() {
+    const box = document.createElement('div');
+    box.id = 'edit';
+    box.innerHTML = `
+      <div id="editHead"><b>📌 Pin fixer <span id="eProg"></span></b><button type="button" id="eCollapse">–</button></div>
+      <div id="editBody">
+        <div class="erow">
+          <select id="eFilter"><option value="sus">Likely wrong first</option><option value="todo">Not fixed yet</option><option value="fixed">Fixed</option><option value="all">All</option></select>
+          <input type="search" id="eSearch" placeholder="Search…">
+        </div>
+        <div id="eList"></div>
+        <div id="eDetail"><span class="a">Pick a residence from the list.</span></div>
+        <div class="erow"><button type="button" class="ebtn sec" id="eExport">⬇ Export fixes</button><button type="button" class="ebtn sec" id="eReset">Reset mine</button></div>
+      </div>`;
+    document.body.appendChild(box);
+    $('eCollapse').onclick = () => box.classList.toggle('collapsed');
+
+    let sel = null, pending = null, visible = [], editMarker = null;
+    const msg = (t, cls) => { const e = $('eMsg'); if (e) { e.textContent = t; e.className = cls || ''; } };
+    const inRange = (la, lo) => la < -25.6 && la > -26.1 && lo > 25.3 && lo < 25.9;
+
+    function renderList() {
+      const mode = $('eFilter').value, q = $('eSearch').value.trim().toLowerCase();
+      visible = RESIDENCES.filter(r => {
+        if (q && !r._hay.includes(q)) return false;
+        if (mode === 'fixed') return r._fixed;
+        if (mode === 'todo') return !r._fixed;
+        if (mode === 'sus') return !r._fixed && r._suspect;
+        return true;
+      });
+      const L2 = $('eList'); L2.innerHTML = '';
+      visible.forEach(r => {
+        const d = document.createElement('div');
+        d.className = 'eitem' + (r === sel ? ' on' : '');
+        d.innerHTML = `<span class="dot ${r._fixed ? 'fixed' : (r._suspect ? 'sus' : '')}"></span><div>${esc(r.name)}<small>${esc(r.address || r.area)}</small></div>`;
+        d.onclick = () => select(r);
+        L2.appendChild(d);
+      });
+      if (!visible.length) L2.innerHTML = '<div class="eitem"><small>Nothing in this filter 🎉</small></div>';
+      $('eProg').textContent = '· ' + RESIDENCES.filter(r => r._fixed).length + '/' + RESIDENCES.length + ' fixed';
+    }
+
+    function deselect() {
+      if (editMarker) { map.removeLayer(editMarker); editMarker = null; }
+      editing = null; sel = null; applyFilters();
+    }
+    function select(r) {
+      if (editMarker) { map.removeLayer(editMarker); editMarker = null; }
+      sel = r; editing = r; pending = { lat: r.lat, lon: r.lon };
+      applyFilters();
+      editMarker = L.marker([r.lat, r.lon], { draggable: true, icon: makeIcon(r, true), zIndexOffset: 2000 }).addTo(map);
+      editMarker.on('dragend', () => {
+        const p = editMarker.getLatLng(); pending = { lat: p.lat, lon: p.lng };
+        $('eCoords').value = p.lat.toFixed(6) + ', ' + p.lng.toFixed(6);
+        msg('Pin moved. Press Save when it is on the right building.');
+      });
+      map.flyTo([r.lat, r.lon], Math.max(map.getZoom(), 17));
+      const g = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent((r.address || r.name) + ', Mahikeng, South Africa');
+      $('eDetail').innerHTML = `
+        <div class="t">${esc(r.name)}</div>
+        <div class="a">${esc(r.address)}${r.km != null ? ' · ' + r.km + ' km' : ''}</div>
+        <div class="erow" style="padding:0 0 6px"><a href="${g}" target="_blank" rel="noopener" class="ebtn sec" style="text-decoration:none">🔎 Find in Google Maps</a><button type="button" class="ebtn sec" id="eAuto">Auto-locate</button></div>
+        <div class="erow" style="padding:0 0 6px"><input type="text" id="eCoords" placeholder="Paste lat, lon from Google Maps"><button type="button" class="ebtn sec" id="eSet">Set</button></div>
+        <div class="erow" style="padding:0"><label style="flex:1"><input type="checkbox" id="eKm" checked> Update driving km</label><button type="button" class="ebtn ok" id="eSave">Save &amp; next</button></div>
+        <div id="eMsg">Drag the orange pin, tap the map, or paste coordinates.</div>`;
+      $('eCoords').value = r.lat.toFixed(6) + ', ' + r.lon.toFixed(6);
+      $('eSet').onclick = setFromInput;
+      $('eCoords').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); setFromInput(); } });
+      $('eAuto').onclick = autoLocate;
+      $('eSave').onclick = save;
+      renderList();
+    }
+    function moveTo(lat, lon, note) {
+      if (!sel) return;
+      if (!inRange(lat, lon)) { msg("That's outside Mahikeng. Did lat/lon get swapped?", 'bad'); return; }
+      pending = { lat, lon }; editMarker.setLatLng([lat, lon]);
+      $('eCoords').value = lat.toFixed(6) + ', ' + lon.toFixed(6);
+      map.panTo([lat, lon]);
+      msg(note || 'Pin placed. Check it on satellite, then Save.', 'good');
+    }
+    function setFromInput() {
+      const m = $('eCoords').value.match(/(-?\d+(?:\.\d+)?)\s*[, ]\s*(-?\d+(?:\.\d+)?)/);
+      if (!m) { msg('Could not read that. Format: -25.8412, 25.6071', 'bad'); return; }
+      moveTo(parseFloat(m[1]), parseFloat(m[2]));
+    }
+    async function autoLocate() {
+      const btn = $('eAuto'); btn.disabled = true; msg('Searching OpenStreetMap…');
+      const clean = (sel.address || '').replace(/\s+/g, ' ').trim();
+      const num = (clean.match(/^\d+/) || [''])[0];
+      const street = (clean.match(/\b([A-Za-z' ]+(?:Street|Str|Drive|Road|Crescent|Close|Avenue|Ave|Way))\b/i) || [])[1];
+      const tries = [clean + ', South Africa'];
+      if (street) tries.push((num + ' ' + street + ' ' + (sel.area || '') + ' Mahikeng').trim(), street + ' Mahikeng');
+      for (const q of tries) {
+        try {
+          const res = await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&viewbox=25.45,-25.75,25.80,-26.00&bounded=1&q=' + encodeURIComponent(q));
+          const j = await res.json();
+          if (j.length) { btn.disabled = false; moveTo(parseFloat(j[0].lat), parseFloat(j[0].lon), 'Best guess: ' + j[0].display_name.slice(0, 80) + '. Street-level only, confirm on satellite.'); return; }
+        } catch (e) {}
+        await new Promise(r => setTimeout(r, 1100));
+      }
+      btn.disabled = false;
+      msg('OpenStreetMap does not know this address. Use "Find in Google Maps", right-click the spot, copy the coordinates, paste them here.', 'bad');
+    }
+    async function drivingKm(lat, lon) {
+      try {
+        const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), 8000);
+        const res = await fetch(`https://router.project-osrm.org/route/v1/driving/${CAMPUS[1]},${CAMPUS[0]};${lon},${lat}?overview=false`, { signal: ctl.signal });
+        clearTimeout(t);
+        const j = await res.json();
+        if (j.routes && j.routes[0]) return Math.round(j.routes[0].distance / 100) / 10;
+      } catch (e) {}
+      return null;
+    }
+    async function save() {
+      if (!sel || !pending) return;
+      const btn = $('eSave'); btn.disabled = true;
+      const f = { lat: +pending.lat.toFixed(6), lon: +pending.lon.toFixed(6) };
+      if ($('eKm').checked) { msg('Calculating driving distance…'); const km = await drivingKm(f.lat, f.lon); if (km != null) f.km = km; }
+      fixes[keyOf(sel)] = f;
+      try { localStorage.setItem(FIX_KEY, JSON.stringify(fixes)); } catch (e) {}
+      const r = sel;
+      applyFix(r, f);
+      r._m.setLatLng([r.lat, r.lon]); r._m.setIcon(makeIcon(r));
+      deselect(); renderList();
+      const next = visible.find(x => !x._fixed);
+      if (next) select(next); else $('eDetail').innerHTML = '<span class="a">All done in this filter 🎉 Export your fixes.</span>';
+    }
+
+    map.on('click', e => { if (sel && !picking) moveTo(e.latlng.lat, e.latlng.lng, 'Pin placed where you tapped. Check it, then Save.'); });
+    $('eFilter').onchange = renderList;
+    $('eSearch').oninput = renderList;
+    $('eExport').onclick = () => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(fixes, null, 1)], { type: 'application/json' }));
+      a.download = 'pin-fixes.json'; a.click();
+      alert('Saved pin-fixes.json. Upload it to GitHub next to map.html and the public map will use it.');
+    };
+    $('eReset').onclick = () => { if (confirm('Clear all fixes saved in THIS browser? (Fixes already published in pin-fixes.json stay.)')) { localStorage.removeItem(FIX_KEY); location.reload(); } };
+    renderList();
+
+    // Open straight to a reported residence: map.html?edit=1&fix=<key>&lat=..&lon=..
+    const p = new URLSearchParams(location.search), fk = p.get('fix');
+    if (fk) {
+      const r = RESIDENCES.find(x => keyOf(x) === fk);
+      if (r) {
+        select(r);
+        const la = parseFloat(p.get('lat')), lo = parseFloat(p.get('lon'));
+        if (isFinite(la) && isFinite(lo)) moveTo(la, lo, 'Pin placed at the reported spot. Check on satellite, then Save.');
+      }
+    }
+  }
+}
+</script>
+</body>
+</html>
