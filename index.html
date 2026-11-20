@@ -1318,16 +1318,27 @@
             <div class="gal-thumbs">${galleryThumbsHtml(p, c)}</div>
         </div>`;
     }
-    function showPhoto(name, i) {
-        const p = RESIDENCE_PHOTOS[name]; i = (i + p.length) % p.length; galIndex[key] = i;
+    function showPhoto(name, i, address) {
+        const addr = address || '';
+        const key = name + '||' + addr;
+        const p = getPhotosFor(name, addr);
+        if (!p || !p.length) return;
+        i = ((i % p.length) + p.length) % p.length;
+        galIndex[key] = i;
         document.querySelectorAll('.gallery').forEach(g => {
             if (g.dataset.gname !== name) return;
-            const m = g.querySelector('.gal-main'); m.src = p[i].src; m.alt = p[i].alt;
-            g.querySelector('.gal-count').textContent = `${i+1} / ${p.length}`;
+            if ((g.dataset.gaddr || '') !== addr) return;
+            const m = g.querySelector('.gal-main');
+            if (m) { m.src = p[i].src; m.alt = p[i].alt; }
+            const count = g.querySelector('.gal-count');
+            if (count) count.textContent = `${i+1} / ${p.length}`;
             const strip = g.querySelector('.gal-thumbs');
             if (strip) strip.innerHTML = galleryThumbsHtml(p, i);
         });
-        if (lbName === name) document.getElementById('lbImg').src = p[i].src;
+        if (lbName === name && (lbAddr || '') === addr) {
+            const lbImg = document.getElementById('lbImg');
+            if (lbImg) lbImg.src = p[i].src;
+        }
     }
     function closeLb(){ document.getElementById('lightbox').classList.remove('open'); lbName = null; lbAddr = null; }
     document.addEventListener('click', e => {
