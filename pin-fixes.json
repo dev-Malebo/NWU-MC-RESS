@@ -1,1218 +1,3145 @@
 {
  "Oteng Villa Riviera Park North|3387 Shark Street  Riviera Park North Mahikeng  North West  2745": {
-  "lat": -25.856246,
-  "lon": 25.661959,
-  "precision": "street"
+  "lat": -25.85683,
+  "lon": 25.661496,
+  "km": 11.1
  },
  "Oteng Villa Unit 1|2557 Kgalegi Crescent  Unit 1 Mahikeng  North West  2745": {
-  "lat": -25.8396,
-  "lon": 25.615131,
-  "precision": "street"
+  "lat": -25.840022,
+  "lon": 25.616397,
+  "km": 2.6
  },
  "Naledi Crest Student Residence|4784 MOKALA STREET UNIT 13 MMABATHO  North West  2735": {
-  "lat": -25.859375,
-  "lon": 25.569408,
-  "precision": "street"
+  "lat": -25.856881,
+  "lon": 25.575399,
+  "km": 4.9
  },
  "PRIMROSE STUDENT VILLA|35 NELSON MANDELA DRIVE Mahikeng  Northwest Province  2745": {
-  "lat": -25.769085,
-  "lon": 25.62305,
-  "precision": "street"
+  "lat": -25.861696,
+  "lon": 25.645037,
+  "km": 8.1
  },
  "ZA Maimane|2261 Kgalegi Crescent  Unit 2 Montshiwa Mafikeng  North West  2737": {
-  "lat": -25.8396,
-  "lon": 25.615131,
-  "precision": "street"
+  "lat": -25.840188,
+  "lon": 25.617678,
+  "km": 2.4
  },
  "Thutoentle Student Residence|1404 Robert Sobukwe Street Montshiwa 2735 Mmabatho  North West  2745": {
-  "lat": -25.847345,
-  "lon": 25.620241,
-  "precision": "street"
+  "lat": -25.8384,
+  "lon": 25.615162,
+  "km": 2.5
  },
  "SEFIDVASH 2 NARAGHI-ARANI|1494 MOSETLHI CLOSE UNIT 6 MMABATHO  NW  2735": {
-  "lat": -25.8194,
-  "lon": 25.626673,
-  "precision": "street"
+  "lat": -25.819521,
+  "lon": 25.627379,
+  "km": 2.9
  },
  "EJ Tullip|3390 Shark Street  Riviera Park North Mahikeng  North West  2745": {
-  "lat": -25.856246,
-  "lon": 25.661959,
-  "precision": "street"
+  "lat": -25.856444,
+  "lon": 25.660906,
+  "km": 11.1
  },
  "Ko Lapeng|3389 Shark Street  Riviera Park North Mahikeng  North West  2745": {
-  "lat": -25.856246,
-  "lon": 25.661959,
-  "precision": "street"
+  "lat": -25.856668,
+  "lon": 25.661354,
+  "km": 11.1
  },
  "Divine|1012 Motshegare Street  Unit 5 Mmabatho  North West  2745": {
-  "lat": -25.83039,
-  "lon": 25.60491,
-  "precision": "street"
+  "lat": -25.830388,
+  "lon": 25.606781,
+  "km": 0.4
  },
  "Kelebigile Student Residence|35 South Street Mahikeng  North West Province  2745": {
-  "lat": -25.867853,
-  "lon": 25.645684,
-  "precision": "street"
+  "lat": -25.866897,
+  "lon": 25.647032,
+  "km": 8.9
  },
  "CAPITA RES \"B\"|2546 MOLALE STREET  UNIT 1 MMABATHO  NW  2745": {
-  "lat": -25.838213,
-  "lon": 25.621718,
-  "precision": "street"
+  "lat": -25.838429,
+  "lon": 25.621293,
+  "km": 2.6
  },
  "Renofund Student Villa|4551 Mohatlha Close  Unit 13 Mmabatho Mahikeng  North West  2735": {
-  "lat": -25.854367,
-  "lon": 25.57547,
-  "precision": "street"
+  "lat": -25.854679,
+  "lon": 25.575857,
+  "km": 4.8
  },
  "86 molopo|86 molopo road Mahikeng  north west  2745": {
-  "lat": -25.864754,
-  "lon": 25.649273,
-  "precision": "street"
+  "lat": -25.863641,
+  "lon": 25.651994,
+  "km": 9.2
  },
  "23 DK|23 DE KOCK Mahikeng  north west  2745": {
-  "lat": -25.864514,
-  "lon": 25.652334,
-  "precision": "street"
+  "lat": -25.86414,
+  "lon": 25.652506,
+  "km": 9.3
  },
  "Emmanuel|1541 Setshedi Close  Unit 6 Mmabatho  North West  2745": {
-  "lat": -25.822955,
-  "lon": 25.623064,
-  "precision": "street"
+  "lat": -25.82205,
+  "lon": 25.623745,
+  "km": 2
  },
  "RESREN UNIT 14|6340 SEDITSE STREET  UNIT 14 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.856374,
-  "lon": 25.569565,
-  "precision": "street"
+  "lat": -25.856498,
+  "lon": 25.570448,
+  "km": 5.7
  },
  "Reafenya Residence|13/901 Montgomery Street  Golfview Mafikeng  North West  2745": {
-  "lat": -25.8567,
-  "lon": 25.650079,
-  "precision": "street"
+  "lat": -25.85541,
+  "lon": 25.652451
  },
  "Tumza Rocks Pty Ltd|5587 Mabele Cres  5587 Mabele Cress Mmabatho  North west  2735": {
-  "lat": -25.853889,
-  "lon": 25.568422,
-  "precision": "street"
+  "lat": -25.850535,
+  "lon": 25.569677,
+  "km": 5.4
  },
  "Resren Unit 15|6722 Dombeya Street  Unit 15 Mmabatho  North West  2735": {
-  "lat": -25.841314,
-  "lon": 25.578989,
-  "precision": "street"
+  "lat": -25.84186,
+  "lon": 25.579236,
+  "km": 4.2
  },
  "Eumarakh Trading Enterprise & Projects Student Accommodation|5717 Peba Street  unit 14 Mmabatho  North west  2745": {
-  "lat": -25.851496,
-  "lon": 25.57051,
-  "precision": "street"
+  "lat": -25.851362,
+  "lon": 25.570398,
+  "km": 5.4
  },
  "ReaKgetha Student Residence|586 Unit 2  Leah Mangope Avenue Mafikeng  North West  2735": {
-  "lat": -25.83628,
-  "lon": 25.597303,
-  "precision": "street"
+  "lat": -25.831552,
+  "lon": 25.59759,
+  "km": 1.3
  },
  "Airport Villa Student Accommodation|229 Boeing 702 Avenue  Airport View  Mmabato Mafikeng  South Africa  2735": {
-  "lat": -25.897626,
-  "lon": 25.582746,
-  "precision": "street"
+  "lat": -25.831927,
+  "lon": 25.537501,
+  "km": 9.9
  },
  "Retshepileone|242 MONTSHIWA UNIT 1  242 MASHUGA STREET Mmabatho  North West  2735": {
-  "lat": -25.85236,
-  "lon": 25.622607,
-  "precision": "street"
+  "lat": -25.852179,
+  "lon": 25.621583,
+  "km": 3.9
  },
  "120 shippard|120 shippard street  10c First Avenue Mafikeng  NORTH WEST  2745": {
-  "lat": -25.861305,
-  "lon": 25.653026,
-  "precision": "street"
+  "lat": -25.864163,
+  "lon": 25.647374
  },
  "Gofaone Residence|4613 Mokala Street  Mmabatho Unit 13  Mmabatho  South Africa Mmabatho  North West  2790": {
-  "lat": -25.859375,
-  "lon": 25.569408,
-  "precision": "street"
+  "lat": -25.856381,
+  "lon": 25.575373,
+  "km": 4.9
  },
  "Reatlegile Students Accommodation|5336 Tsamai Close  Unit 13  Mmabatho  2735 Mmabatho  North West  2735": {
-  "lat": -25.861209,
-  "lon": 25.569139,
-  "precision": "street"
+  "lat": -25.862358,
+  "lon": 25.566774,
+  "km": 6.2
  },
  "MSHZ RES|68 Molopo Road  Golf View Mahikeng  North-West  2745": {
-  "lat": -25.864754,
-  "lon": 25.649273,
-  "precision": "street"
+  "lat": -25.864614,
+  "lon": 25.650036,
+  "km": 8.9
  },
  "De Don Residence|7155 Viola Street  Unit 15  Mmabatho Mahikeng  North-West  2745": {
-  "lat": -25.847086,
-  "lon": 25.580983,
-  "precision": "street"
+  "lat": -25.845965,
+  "lon": 25.581676,
+  "km": 4.5
  },
  "0|7 Kruis Street Danville  7 Kruis Street Danville Mafikeng  North West  2745": {
-  "lat": -25.876305,
-  "lon": 25.655371,
-  "precision": "street"
+  "lat": -25.877293,
+  "lon": 25.657452,
+  "km": 10.6
  },
  "GRACE-B|7117 VITEX STREET  UNIT 15 MMABATHO MAFIKENG  North West  2735": {
-  "lat": -25.848206,
-  "lon": 25.579976,
-  "precision": "street"
+  "lat": -25.847913,
+  "lon": 25.579673,
+  "km": 4.2
  },
  "IGMG|1384 SEREMANE STREET  MONTSHIOA MAFIKENG  North West  2745": {
-  "lat": -25.843287,
-  "lon": 25.620541,
-  "precision": "street",
-  "km": null
+  "lat": -25.843539,
+  "lon": 25.620828,
+  "km": 2.8
  },
  "THOLO RES @ GATHOLO|Barolong Street  Unit 7 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.838561,
-  "lon": 25.5994,
-  "precision": "street"
+  "lat": -25.837824,
+  "lon": 25.599802,
+  "km": 1.9
  },
  "GAE LE LENTLE|10 PEARL STREET  RIVIERA PARK MAFIKENG  NORTH WEST  2745": {
-  "lat": -25.861646,
-  "lon": 25.660999,
-  "precision": "street"
+  "lat": -25.862717,
+  "lon": 25.659515,
+  "km": 11.8
  },
  "GAE LA TLAMELO|20015 LONELY PARK  1ST HOUSE BEHIND GOLFVIEW POWER STATION - CNR MIMOSA & QUIGLEY STREET MAFIKENG  NORTH WEST  2745": {
-  "lat": -25.825648,
-  "lon": 25.652364,
-  "precision": "street"
+  "lat": -25.834465,
+  "lon": 25.650571,
+  "km": 6.6
  },
  "Sedibeng 2|4110 Peace Crescent  Unit 12 Mmabatho  North West Province  2735": {
-  "lat": -25.843666,
-  "lon": 25.596983,
-  "precision": "street"
+  "lat": -25.845561,
+  "lon": 25.593661,
+  "km": 3.7
  },
  "Seheri House|442 cul 15 unit2  leah mangope avenue mafikeng  north west  2735": {
-  "lat": -25.83628,
-  "lon": 25.597303,
-  "precision": "street"
+  "lat": -25.836326,
+  "lon": 25.593628,
+  "km": 2.4
  },
  "RTTB 1|4053 Monica Crescent  Unit 12  Mmabatho  Mahikeng  4053 Monica Crescent  Unit 12  Mmabatho  Mahikeng Mmabatho  North West  2735": {
-  "lat": -25.845737,
-  "lon": 25.594641,
-  "precision": "street"
+  "lat": -25.845398,
+  "lon": 25.594096,
+  "km": 3.7
  },
  "Conrex Trading and Projects (Pty) Ltd|3407 Dreamland Street  Unit 10 Mmabatho Mahikeng  North West  2790": {
-  "lat": -25.854016,
-  "lon": 25.585201,
-  "precision": "street"
+  "lat": -25.854185,
+  "lon": 25.585725,
+  "km": 4.8
  },
  "ATTS STUDENTS ACCOMMODATION|14 IMPALA STREET  GOLFVIEW MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.853521,
-  "lon": 25.659136,
-  "precision": "street"
+  "lat": -25.853929,
+  "lon": 25.657879,
+  "km": 10.5
  },
  "Kletlaka Properties (PTY) LTD|17 Mothibi Street Montshiwa  2735": {
-  "lat": -25.854909,
-  "lon": 25.626377,
-  "precision": "street"
+  "lat": -25.853998,
+  "lon": 25.627983,
+  "km": 4.7
  },
  "LEUNGO UNIT 1|2554 MOLALE STREET  2554 MOLALE STREET MONTSHIWA  NORTH WEST  2737": {
-  "lat": -25.838213,
-  "lon": 25.621718,
-  "precision": "street"
+  "lat": -25.838286,
+  "lon": 25.622527,
+  "km": 2.7
  },
  "Leeto Residence|2080 SELEKE STREET  UNIT 8 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.844114,
-  "lon": 25.587905,
-  "precision": "street"
+  "lat": -25.843988,
+  "lon": 25.587659,
+  "km": 3.2
  },
  "RESREN UNIT 12|4063 LAURA STREET  UNIT 12 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.844379,
-  "lon": 25.595603,
-  "precision": "street"
+  "lat": -25.844382,
+  "lon": 25.595671,
+  "km": 3.6
  },
  "NYALA STUDENT ACCOMODATION (1)|16  AERODROME CRESCENT  industrial Mahikeng  North West  South Africa 2745": {
-  "lat": -25.843894,
-  "lon": 25.638249,
-  "precision": "street"
+  "lat": -25.843372,
+  "lon": 25.637585,
+  "km": 6.5
  },
  "NYALA STUDENT ACCOMODATION (2)|20   Aerodrome crescent Industrial  MAhikeng": {
-  "lat": -25.843894,
-  "lon": 25.638249,
-  "precision": "street"
+  "lat": -25.844519,
+  "lon": 25.638091,
+  "km": 7
  },
  "RTTB 2|1240 Barolong Street  Unit 7  Mmabatho  Mahikeng  1240 Barolong Street  Unit 7  Mmabatho  Mahikeng Mmabatho  North West  2735": {
-  "lat": -25.838561,
-  "lon": 25.5994,
-  "precision": "street"
+  "lat": -25.84047,
+  "lon": 25.598435,
+  "km": 2.4
  },
  "MOSIMEGE RESIDENCE|1575  TSHESEBE CLOSE MMABATHO UNIT 6  NORTH WEST  MAHIKENG 2735": {
-  "lat": -25.820642,
-  "lon": 25.622434,
-  "precision": "street"
+  "lat": -25.821537,
+  "lon": 25.621659,
+  "km": 2.4
  },
  "MVPINPRINT|1449 Safari  Safari Close Mafikeng  North West  2790": {
-  "lat": -25.816687,
-  "lon": 25.631089,
-  "precision": "street"
+  "lat": -25.816478,
+  "lon": 25.631335,
+  "km": 3.1
  },
  "THOLO RES @ COTTAGES|Barolong Street  Unit 7 MMABATHO  NORTH WEST  2735": {
   "lat": -25.838561,
   "lon": 25.5994,
-  "precision": "street"
+  "km": 2
  },
  "914 The Venue|914 Boikanyo Street  Unit3 Mmabatho  North West  2735": {
-  "lat": -25.823291,
-  "lon": 25.625793,
-  "precision": "street"
+  "lat": -25.822589,
+  "lon": 25.627231,
+  "km": 2.2
  },
  "Gae Student Residence|Erf2243 Montshioa  Unit 2  Mmabatho  2243 Kgalegi Crescent  Mmabatho Mahikeng  North West  2145": {
-  "lat": -25.8396,
-  "lon": 25.615131,
-  "precision": "street"
+  "lat": -25.838739,
+  "lon": 25.614891,
+  "km": 1.6
  },
  "Bokamoso student villa|40068 mmutla road  mosiane view Mahikeng  North West  mafikeng": {
-  "lat": -25.891949,
-  "lon": 25.674798,
-  "precision": "street"
+  "lat": -25.85036,
+  "lon": 25.560545,
+  "km": 6.7
  },
  "KF Trust|2 Gordon Street  Golfview Mahikeng  North West  2745": {
-  "lat": -25.861583,
-  "lon": 25.654498,
-  "precision": "street"
+  "lat": -25.861586,
+  "lon": 25.654492,
+  "km": 9.4
  },
  "Dimpho|3314 Abelia Street  Unit 10 Mmabatho  North West  2745": {
-  "lat": -25.853373,
-  "lon": 25.586885,
-  "precision": "street"
+  "lat": -25.853109,
+  "lon": 25.586608,
+  "km": 4.8
  },
  "LEMOGA ODIRE TRADING ENTERPRISE- THAKGA VILLA|6981 LUNARIA CLOSE  UNIT 15 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.850363,
-  "lon": 25.574408,
-  "precision": "street"
+  "lat": -25.851094,
+  "lon": 25.574313,
+  "km": 5.3
  },
  "M T student Accomadtion|No 32 south street Mafikeng  South Africa  2745": {
-  "lat": -25.867853,
-  "lon": 25.645684,
-  "precision": "street"
+  "lat": -25.867435,
+  "lon": 25.646847,
+  "km": 8.9
  },
  "Tshiamo Residence|1551 Magonare Close Street  Unit 6 Mmabatho  North West  2735": {
-  "lat": -25.82194,
-  "lon": 25.622221,
-  "precision": "street"
+  "lat": -25.82247,
+  "lon": 25.621591,
+  "km": 2.4
  },
  "M T Student accommodation|No 2  South street Mafikeng  North west  2745": {
-  "lat": -25.867853,
-  "lon": 25.645684,
-  "precision": "street"
+  "lat": -25.868639,
+  "lon": 25.644194,
+  "km": 9.2
  },
  "Moloku Student Residence|20 Akasia Street  Golf view Mahikeng  North West  2745": {
-  "lat": -25.852383,
-  "lon": 25.661788,
-  "precision": "street"
+  "lat": -25.852782,
+  "lon": 25.658782,
+  "km": 9.5
  },
  "Bontleng Student Accommodation|23 Karee street  Golf-View Mahikeng  North West  2745": {
-  "lat": -25.854726,
-  "lon": 25.65485,
-  "precision": "street"
+  "lat": -25.854355,
+  "lon": 25.654941,
+  "km": 9.1
  },
  "Godisang Villa|1548 Magonare close unit 6  Mmabatho Mafikeng  NORTH WEST  2735": {
-  "lat": -25.82194,
-  "lon": 25.622221,
-  "precision": "street"
+  "lat": -25.822193,
+  "lon": 25.622498,
+  "km": 2.3
  },
  "Monakaladi Student Accommodation|5734 Peba Street   Unit 14   Mmabatho  unit 14 Mmabatho  North west  2735": {
-  "lat": -25.851496,
-  "lon": 25.57051,
-  "precision": "street"
+  "lat": -25.851509,
+  "lon": 25.570179,
+  "km": 5.4
  },
  "108 SHIPPARD|108 SHIPPARD STREET Mahikeng  north west  2745": {
-  "lat": -25.861305,
-  "lon": 25.653026,
-  "precision": "street"
+  "lat": -25.861243,
+  "lon": 25.653378
  },
  "G R Student Accommodation 2|21 olienhout street  Golf view Mahikeng  North west  2745": {
-  "lat": -25.855197,
-  "lon": 25.653889,
-  "precision": "street"
+  "lat": -25.854491,
+  "lon": 25.6533
  },
  "GR Student accommodation|18 olienhout street  Golf view Mahikeng  North west  2745": {
-  "lat": -25.855197,
-  "lon": 25.653889,
-  "precision": "street"
+  "lat": -25.854514,
+  "lon": 25.653537,
+  "km": 8.9
  },
  "DI PRIME RESIDENCE|36 EMERALD STREET  RIVIERA PARK  GOLFVIEW MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.860897,
-  "lon": 25.660634,
-  "precision": "street",
-  "km": null
+  "lat": -25.859975,
+  "lon": 25.662715,
+  "km": 11.2
  },
  "DI PRIME RESIDENCE|21 IMPALA STREET  GOLFVIEW MMABATHO  NORTH WEST  2745": {
-  "lat": -25.853521,
-  "lon": 25.659136,
-  "precision": "street",
-  "km": null
+  "lat": -25.853456,
+  "lon": 25.658677,
+  "km": 10.6
  },
  "KRAFT|13 QUIGLEY STREET Mahikeng  north west  2745": {
   "lat": -25.825648,
-  "lon": 25.652364,
-  "precision": "street"
+  "lon": 25.652364
  },
  "Gameli|2437 Molale Street  Unit 1 Mmabatho  North West  2745": {
-  "lat": -25.838213,
-  "lon": 25.621718,
-  "precision": "street",
-  "km": null
+  "lat": -25.838226,
+  "lon": 25.622998,
+  "km": 3
  },
  "orapeleng student home|3420 UNIT 10 DREAMLAND STREET Mahikeng  north west  2745": {
-  "lat": -25.854016,
-  "lon": 25.585201,
-  "precision": "street"
+  "lat": -25.853839,
+  "lon": 25.584766,
+  "km": 4.7
  },
  "DI PRIME RESIDENCE|6877 IRIS STREET  UNIT 15 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.847696,
-  "lon": 25.576988,
-  "precision": "street",
-  "km": null
+  "lat": -25.848449,
+  "lon": 25.576145,
+  "km": 4.6
  },
  "DI PRIME RESIDENCE|7633 MONSTERA STREET  UNIT 15 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.849611,
-  "lon": 25.576877,
-  "precision": "street",
-  "km": null
+  "lat": -25.849275,
+  "lon": 25.577044,
+  "km": 4.5
  },
  "DI PRIME RESIDENCE|2371 MOKITIME STREET  UNIT 8 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.863201,
-  "lon": 25.587835,
-  "precision": "street",
-  "km": null
+  "lat": -25.841353,
+  "lon": 25.593271,
+  "km": 3.1
  },
  "Meloding Residence|26 South Street  Mafikeng Mafikeng  North West  2745": {
-  "lat": -25.867853,
-  "lon": 25.645684,
-  "precision": "street"
+  "lat": -25.868185,
+  "lon": 25.644953,
+  "km": 9.1
  },
  "Molopo Student Accommadation|8 Molopo Road  Cbd Mahikeng  North West": {
-  "lat": -25.864754,
-  "lon": 25.649273,
-  "precision": "street"
+  "lat": -25.867738,
+  "lon": 25.643379
  },
  "Aquila Student Residence|1911 Tire Street  Unit 8  Mmabatho Mahikeng  North West  2735": {
-  "lat": -25.840745,
-  "lon": 25.590993,
-  "precision": "street"
+  "lat": -25.841184,
+  "lon": 25.591535,
+  "km": 2.9
  },
  "MARANG RESIDENCE|1856 UNIT 8  PHUTI STREET MMABATHO  NORTH WEST  2735": {
-  "lat": -25.841074,
-  "lon": 25.592678,
-  "precision": "street"
+  "lat": -25.841081,
+  "lon": 25.592498,
+  "km": 3
  },
  "34 south street|34 south street  mafikeng Mahikeng  North-West  2745": {
-  "lat": -25.867853,
-  "lon": 25.645684,
-  "precision": "street"
+  "lat": -25.86862,
+  "lon": 25.6442,
+  "km": 9.2
  },
  "Legae Larona|2460 Dr Mokgobo Avenue  Mmabatho Mahikeng  North West  2745": {
-  "lat": -25.831821,
-  "lon": 25.610965,
-  "precision": "street"
+  "lat": -25.833669,
+  "lon": 25.608603,
+  "km": 0.6
  },
  "Banturush Africa|1026 Motshegare street  unit 5 Mmabatho  north west  2735": {
-  "lat": -25.830299,
-  "lon": 25.605356,
-  "precision": "street",
-  "km": null
+  "lat": -25.829974,
+  "lon": 25.606944,
+  "km": 0.4
  },
  "MATHER RESIDENCE|23 SOUTH STREET MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.867853,
-  "lon": 25.645684,
-  "precision": "street"
+  "lat": -25.867552,
+  "lon": 25.645749,
+  "km": 9
  },
  "MSM Accomodation|12 Duiker Street  Golf View Mahikeng  North West  2745": {
-  "lat": -25.853747,
-  "lon": 25.655508,
-  "precision": "street"
+  "lat": -25.854203,
+  "lon": 25.655752,
+  "km": 9.2
  },
  "M & N Residence|22 South Street Mahikeng  2745": {
-  "lat": -25.867853,
-  "lon": 25.645684,
-  "precision": "street"
+  "lat": -25.868232,
+  "lon": 25.644962,
+  "km": 9.1
  },
  "Shaikh enterprise|3459 crocodile street  Riviera park Mafikeng  North west  2745": {
-  "lat": -25.85406,
-  "lon": 25.666504,
-  "precision": "street"
+  "lat": -25.85459,
+  "lon": 25.665753,
+  "km": 10.9
  },
  "TSWELELOPELE RES 1|40 ASTER STREET  DANVILLE MAFIKENG  North West  2745": {
-  "lat": -25.872238,
-  "lon": 25.648846,
-  "precision": "street"
+  "lat": -25.872203,
+  "lon": 25.648965,
+  "km": 9.6
  },
  "Greyspace Student11 Residence|18 Lantana Ave  Rivera Park Mahikeng  North West  2745": {
-  "lat": -25.863407,
-  "lon": 25.661944,
-  "precision": "street"
+  "lat": -25.863588,
+  "lon": 25.662424,
+  "km": 11.9
  },
  "SEFIDVASH 2 NARAGHI-ARANI|1455 SAFARI CLOSE UNIT 6 MMABATHO  NW  2735": {
-  "lat": -25.816687,
-  "lon": 25.631089,
-  "precision": "street"
+  "lat": -25.81687,
+  "lon": 25.630573,
+  "km": 3.2
  },
  "Siyaphela|20 DF Malan  Libertas Mahikeng  North West  2745": {
-  "lat": -25.849869,
-  "lon": 25.645398,
-  "precision": "street"
+  "lat": -25.850005,
+  "lon": 25.645122,
+  "km": 7.3
  },
  "Tugela Student Accommodation|47 Tillard Street  Golfview Mahikeng  North West  2745": {
-  "lat": -25.859223,
-  "lon": 25.649389,
-  "precision": "street"
+  "lat": -25.859218,
+  "lon": 25.648899,
+  "km": 8.6
  },
  "Mountains|2688 Hendrick Tlou Street  Montshiwa Mahikeng  North West  2745": {
-  "lat": -25.853674,
-  "lon": 25.620219,
-  "precision": "street"
+  "lat": -25.854926,
+  "lon": 25.620207,
+  "km": 4
  },
  "The Stay Hub Villa 1|1916 AB MOTHUSI STREET  Unit 8 Mmabatho  Mafikeng  2735": {
-  "lat": -25.841892,
-  "lon": 25.591646,
-  "precision": "street"
+  "lat": -25.841262,
+  "lon": 25.591081,
+  "km": 2.9
  },
  "Raphela|25 South Street  Mahikeng CBD Mahikeng  North West  2745": {
-  "lat": -25.867853,
-  "lon": 25.645684,
-  "precision": "street"
+  "lat": -25.868217,
+  "lon": 25.64499,
+  "km": 9.1
  },
  "Maya@9|2901 Ockie Ackerman Crescent Street  Unit 9 ext North West  2735": {
-  "lat": -25.852364,
-  "lon": 25.580203,
-  "precision": "street"
+  "lat": -25.860504,
+  "lon": 25.602984,
+  "km": 4.9
  },
  "Best Choice Student Accommodation|5 Middle Street  Danville Mafikeng  North West  2745": {
-  "lat": -25.874172,
-  "lon": 25.655986,
-  "precision": "street"
+  "lat": -25.877283,
+  "lon": 25.653765,
+  "km": 10.4
  },
  "ZeeTee|70 Shippard Street  Golfview Mahikeng  North West  2745": {
-  "lat": -25.861305,
-  "lon": 25.653026,
-  "precision": "street"
+  "lat": -25.863649,
+  "lon": 25.649148,
+  "km": 8.7
  },
  "SAUDHA STUDENT ACCOMMODATION|16 MOLOPO ROAD MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.866865,
-  "lon": 25.645074,
-  "precision": "street"
+  "lat": -25.867398,
+  "lon": 25.64438,
+  "km": 9
  },
  "Akasia Residence|27 Akasia Street  Golf View Mafikeng  North West  2745": {
-  "lat": -25.852383,
-  "lon": 25.661788,
-  "precision": "street"
+  "lat": -25.852323,
+  "lon": 25.659608,
+  "km": 10.8
  },
  "MOISE STUDENT ACCOMMODATION|4923 Lorwana Close  Unit 13 Mmabatho MMABATHO  NORTHWEST  2735": {
-  "lat": -25.860163,
-  "lon": 25.5718,
-  "precision": "street"
+  "lat": -25.856809,
+  "lon": 25.572476,
+  "km": 5.3
  },
  "MOISE STUDENT ACCOMMODATION|71 CARRINGTON  CARRINGTON STREET TOWN CBD MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.856586,
-  "lon": 25.637273,
-  "precision": "street"
+  "lat": -25.860132,
+  "lon": 25.639127,
+  "km": 8.6
  },
  "MOISE STUDENT ACCOMMODATION|3441 SHARK STREET  riviera park MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.856246,
-  "lon": 25.661959,
-  "precision": "street"
+  "lat": -25.856405,
+  "lon": 25.660951,
+  "km": 11.1
  },
  "Goosebako|37 Pearl Street  Reviera Park mafikeng  North west  2745": {
-  "lat": -25.861646,
-  "lon": 25.660999,
-  "precision": "street"
+  "lat": -25.860303,
+  "lon": 25.662901,
+  "km": 11.3
  },
  "Maano Guests and Events|16 Jupiter Avenue  Riviera Park Mahikeng  North West  2745": {
-  "lat": -25.856829,
-  "lon": 25.663317,
-  "precision": "street"
+  "lat": -25.856352,
+  "lon": 25.664278,
+  "km": 10.6
  },
  "4948 SEGWAGWA STREET|4948 SEGWAGWA STREET  UNIT 13 MAFIKENG  2745": {
-  "lat": -25.857364,
-  "lon": 25.572811,
-  "precision": "street"
+  "lat": -25.857578,
+  "lon": 25.572878,
+  "km": 5.3
  },
  "Libertas House|01 Cecil Rhodes  Libertas Mahikeng  North West  2745": {
   "lat": -25.850873,
   "lon": 25.645513,
-  "precision": "street"
+  "km": 7.4
  },
  "New era residence|20114 Zobo Road  Dibate Village Mahikeng  North West  2735": {
-  "lat": -25.846844,
-  "lon": 25.609023,
-  "precision": "street"
+  "lat": -25.84294,
+  "lon": 25.605863,
+  "km": 2.1
  },
  "GV Student Com|38 Akasia Street  38 Mahikeng  North West  2745": {
-  "lat": -25.852383,
-  "lon": 25.661788,
-  "precision": "street"
+  "lat": -25.852521,
+  "lon": 25.661099,
+  "km": 10.9
  },
  "MOTLHABI PROPERTY|UNIT 14  5930 LOTLHAKA CLOSE MMABATHO  NORTH WEST  2735": {
-  "lat": -25.852781,
-  "lon": 25.571498,
-  "precision": "street"
+  "lat": -25.852392,
+  "lon": 25.570826,
+  "km": 5.4
  },
  "Kgolagano Residence|4651 Motswetswejane Crescent  Unit 13  Mmabatho Mafikeng  North West  2790": {
-  "lat": -25.852336,
-  "lon": 25.570672,
-  "precision": "street"
+  "lat": -25.855439,
+  "lon": 25.576062,
+  "km": 4.8
  },
  "SEMIEN STUDENT ACCOMODATION|1008 TAWANA CRESCENT  UNIT 5  MMABATHO MAHIKENG  NORTH WEST  2735": {
-  "lat": -25.831072,
-  "lon": 25.60555,
-  "precision": "street"
+  "lat": -25.830745,
+  "lon": 25.606227,
+  "km": 0.5
  },
  "Unistay|3646 kiaat street  Danville North West  Mahikeng": {
-  "lat": -25.878319,
-  "lon": 25.659625,
-  "precision": "street"
+  "lat": -25.878181,
+  "lon": 25.659302,
+  "km": 10.7
  },
  "Salvation Accommodation|33 Rose Street  Danville  33 Rose Street  Danville Mafikeng  North West  2745": {
-  "lat": -25.876744,
-  "lon": 25.653232,
-  "precision": "street"
+  "lat": -25.876275,
+  "lon": 25.653616,
+  "km": 10.3
  },
  "Tsoane Student Accomodation|19 End Street  Danville Mahikeng  North West  2745": {
-  "lat": -25.875452,
-  "lon": 25.657284,
-  "precision": "street"
+  "lat": -25.862593,
+  "lon": 25.653137,
+  "km": 9.3
  },
  "JR VILLA 1|475 Steven Biko Ave  Unit 2 Cul 16 Mmabatho Mahikeng  North West  2790": {
-  "lat": -25.834556,
-  "lon": 25.59533,
-  "precision": "street"
+  "lat": -25.834732,
+  "lon": 25.592945,
+  "km": 2
  },
  "JR VILLA 5|1448 Makhene Road  Mmabatho Unit 6 Mahikeng  North West  2790": {
-  "lat": -25.818137,
-  "lon": 25.627314,
-  "precision": "street"
+  "lat": -25.816418,
+  "lon": 25.631735,
+  "km": 3
  },
  "B G Res|6 New Street Mafikeng  North west  2745": {
-  "lat": -25.868831,
-  "lon": 25.644626,
-  "precision": "street"
+  "lat": -25.868647,
+  "lon": 25.644186,
+  "km": 9.2
  },
  "Orchards|7 Shippard street Mafikeng  north west  2745": {
-  "lat": -25.861305,
-  "lon": 25.653026,
-  "precision": "street"
+  "lat": -25.866398,
+  "lon": 25.642232,
+  "km": 9
  },
  "LEANWELL HOLDINGS (PTY)LTD|1400 Barolong Street  Unit 7  Mmabatho  2745  1400 Barolong Street  Unit 7  Mmabatho  2745 Mmabatho  North West  2745": {
-  "lat": -25.838561,
-  "lon": 25.5994,
-  "precision": "street"
+  "lat": -25.840439,
+  "lon": 25.598444,
+  "km": 2.4
  },
  "Khanya Residence 2|6208 Kokolofitwe street  Unit 14  Mmabatho Mafikeng  Northwest  2790": {
-  "lat": -25.854273,
-  "lon": 25.567139,
-  "precision": "street"
+  "lat": -25.855247,
+  "lon": 25.56674,
+  "km": 6
  },
  "MVPINPRINT 5|2193 Malotle Street  Unit 8 Mafikeng  North West  2735": {
-  "lat": -25.844191,
-  "lon": 25.590271,
-  "precision": "street"
+  "lat": -25.843403,
+  "lon": 25.5911,
+  "km": 3.5
  },
  "Study@4115|House No. 4115 Desiree Street  Unit 12 Mmabatho  2735": {
-  "lat": -25.843573,
-  "lon": 25.595733,
-  "precision": "street"
+  "lat": -25.843552,
+  "lon": 25.596124,
+  "km": 3.5
  },
  "ROYAL STUDENT ACCOMODATION|NO.2 OLIENHOUT STREET  GOLFVIEW MAHIKENG  NORT WEST  2745": {
-  "lat": -25.855197,
-  "lon": 25.653889,
-  "precision": "street"
+  "lat": -25.85478,
+  "lon": 25.653617,
+  "km": 9
  },
  "NAMZITO STUDENT ACCOMMODATION|2900 OCKIE ACKERMAN CRESCENT  UNIT 9 MMABATHO  NORTH WEST  2790": {
-  "lat": -25.852364,
-  "lon": 25.580203,
-  "precision": "street"
+  "lat": -25.853331,
+  "lon": 25.579878,
+  "km": 4.7
  },
  "AA Evolve Student Residence|2346 Tshite Street  Mmabatho Mahikeng  North West  2737": {
-  "lat": -25.839444,
-  "lon": 25.616774,
-  "precision": "street"
+  "lat": -25.839149,
+  "lon": 25.617121,
+  "km": 2.4
  },
  "Matlholapula Residence|4683 Motswetswejane crescent  Unit 13 Mafikeng  Northwest  2735": {
-  "lat": -25.856384,
-  "lon": 25.574021,
-  "precision": "street"
+  "lat": -25.853699,
+  "lon": 25.577926,
+  "km": 4.9
  },
  "Salvation Accommodation 2|3597 Maroela Street  Danville Extension  3597 Maroela Street  Danville Extension Mahikeng  North West  2745": {
-  "lat": -25.878996,
-  "lon": 25.659238,
-  "precision": "street"
+  "lat": -25.879435,
+  "lon": 25.659155,
+  "km": 10.8
  },
  "RESIDENTIAL PROPERTY|10196 QUIGLEY STREET  SIGNAL HILL MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.825648,
-  "lon": 25.652364,
-  "precision": "street",
-  "km": null
+  "lat": -25.82521,
+  "lon": 25.65246,
+  "km": 5.9
  },
  "RESIDENTIAL PROPERTY|1397 BATLOKWA CLOSE  UNIT 7 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.837288,
-  "lon": 25.602601,
-  "precision": "street"
+  "lat": -25.837372,
+  "lon": 25.602661,
+  "km": 1.7
  },
  "House No: 403|403 Seroke Street  Montshiwa Mafikeng  North West  2790": {
-  "lat": -25.848858,
-  "lon": 25.626538,
-  "precision": "street"
+  "lat": -25.848718,
+  "lon": 25.627322,
+  "km": 4
  },
  "Nala Bokamoso|1403 Barolong Street  Unit 7 Mmabatho  North West  2735": {
-  "lat": -25.838561,
-  "lon": 25.5994,
-  "precision": "street"
+  "lat": -25.839131,
+  "lon": 25.599046,
+  "km": 2.1
  },
  "Mamk student Accommodation|2336 unit 1  kgalegi crescent Montshioa mafikeng  North west  2745": {
-  "lat": -25.8396,
-  "lon": 25.615131,
-  "precision": "street"
+  "lat": -25.83884,
+  "lon": 25.617911,
+  "km": 2.2
  },
  "MB Mdhluli Student Residence|7325 Viola Street  Unit 15 Mmabatho  2790": {
-  "lat": -25.847086,
-  "lon": 25.580983,
-  "precision": "street"
+  "lat": -25.847082,
+  "lon": 25.580887,
+  "km": 4.3
  },
  "Molaolwe Residence|671 Steven Biko Avenue  Unit 2 Mmabatho MAHIKENG  North West  2735": {
-  "lat": -25.834556,
-  "lon": 25.59533,
-  "precision": "street"
+  "lat": -25.835804,
+  "lon": 25.596622,
+  "km": 2.2
  },
  "Glo Leb Student Accomodation|3443 Crocodile Street Mafikeng  North West  2745": {
-  "lat": -25.85406,
-  "lon": 25.666504,
-  "precision": "street"
+  "lat": -25.853573,
+  "lon": 25.667196,
+  "km": 11
  },
  "Saban Estates|28 Emerald street  Riviera Park Mafikeng  North west  2745": {
-  "lat": -25.860897,
-  "lon": 25.660634,
-  "precision": "street"
+  "lat": -25.860647,
+  "lon": 25.661749,
+  "km": 11.4
  },
  "Mokoto Residance|2367 Robert sobukwe street  Unit 1 MMabatho  North Wesr  2735": {
-  "lat": -25.847345,
-  "lon": 25.620241,
-  "precision": "street"
+  "lat": -25.847358,
+  "lon": 25.620224,
+  "km": 3.1
  },
  "SONTIE'S PLACE|1554 MAGONARE CLOSE UNIT 6  1554 MAGONARE CLOSE UNIT 6 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.82194,
-  "lon": 25.622221,
-  "precision": "street"
+  "lat": -25.822511,
+  "lon": 25.620831,
+  "km": 2.4
  },
  "20 Everest Drive|20 Everest Drive  Riviera Park  Riviera Park Mahikeng  2196": {
-  "lat": -25.864748,
-  "lon": 25.659432,
-  "precision": "street"
+  "lat": -25.864663,
+  "lon": 25.659251,
+  "km": 12.1
  },
  "19 Everest|19 Everest Drive  Riviera Park Mahikeng  North West  2745": {
   "lat": -25.864748,
   "lon": 25.659432,
-  "precision": "street"
+  "km": 12.1
  },
  "Thunderdust 2|House nr 24 Impala street  Golf view Mafikeng  North West  2745": {
-  "lat": -25.853521,
-  "lon": 25.659136,
-  "precision": "street"
+  "lat": -25.853685,
+  "lon": 25.659018,
+  "km": 10.6
  },
  "Icon Towers|1287 Tamenti Street   Montshioa Mahikeng  North West  2745": {
-  "lat": -25.847282,
-  "lon": 25.616548,
-  "precision": "street",
-  "km": null
+  "lat": -25.8471,
+  "lon": 25.615864,
+  "km": 2.6
  },
  "MOISE STUDENT ACCOMMODATION|N0 3 DUIKER STREET  GOLFVIEW MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.853747,
-  "lon": 25.655508,
-  "precision": "street"
+  "lat": -25.854015,
+  "lon": 25.655653,
+  "km": 9.2
  },
  "Everest Student Hone|16 Everest Drive  Riviera park Mafikeng  North west  2745": {
-  "lat": -25.864748,
-  "lon": 25.659432,
-  "precision": "street"
+  "lat": -25.864645,
+  "lon": 25.66017,
+  "km": 12
  },
  "BASEMA RESIDENCE|1160 kole street montshiwa  1160 kole street montshiwa Mahikeng  North west  2737": {
-  "lat": -25.850404,
-  "lon": 25.61805,
-  "precision": "street"
+  "lat": -25.851228,
+  "lon": 25.6164,
+  "km": 3.7
  },
  "KARABOKITSO RESIDENCE|6285 MARETLWA STREET  UNIT 14 MMABATHO  NORTH WEST  2745": {
-  "lat": -25.855248,
-  "lon": 25.570531,
-  "precision": "street"
+  "lat": -25.855254,
+  "lon": 25.569888,
+  "km": 5.5
  },
  "6410 Logala Close|6410 Logala Close  Unit 14 Mmabatho  2735": {
-  "lat": -25.856826,
-  "lon": 25.569236,
-  "precision": "street"
+  "lat": -25.856436,
+  "lon": 25.568403,
+  "km": 5.8
  },
  "Mothokgo Residence|4612 Mokala Street  Unit 13 Mmabatho  North West  2790": {
-  "lat": -25.859375,
-  "lon": 25.569408,
-  "precision": "street"
+  "lat": -25.856426,
+  "lon": 25.575423,
+  "km": 4.9
  },
  "Tshepelong|6741 Sapium Close Unit 15 Mmabatho  North West  2735": {
-  "lat": -25.84305,
-  "lon": 25.578472,
-  "precision": "street"
+  "lat": -25.842858,
+  "lon": 25.578236,
+  "km": 4.2
  },
  "Iponeng Res|7071 Tamarix Street  Mmabatho Unit 15 Mahikeng  North West Province  2735": {
-  "lat": -25.842901,
-  "lon": 25.580088,
-  "precision": "street"
+  "lat": -25.843964,
+  "lon": 25.580182,
+  "km": 4
  },
  "Lerato Student Res|Erf 5906 Motswetswejane Crescent  Mmabatho Unit 14 Mahikeng  North West Province  2735": {
-  "lat": -25.852336,
-  "lon": 25.570672,
-  "precision": "street"
+  "lat": -25.8522,
+  "lon": 25.57093,
+  "km": 5.3
  },
  "BOIPELO SOLUTIONS STUDENT ACCOMODATION|1216 BATAUNG STREET–UNIT 7 – MMABATHO MMABATHO  MAHIKENG  2735": {
   "lat": -25.841612,
   "lon": 25.596563,
-  "precision": "street"
+  "km": 3.3
  },
  "Prosperity house|7518  Tecoma close unit 15 Mmabatho Mahikeng  North west  2735": {
-  "lat": -25.851928,
-  "lon": 25.57723,
-  "precision": "street"
+  "lat": -25.851751,
+  "lon": 25.57717,
+  "km": 4.7
  },
  "Tswelelo House|No. 1 Totius Avenue  Riviera Park Mahikeng  North West  2745": {
-  "lat": -25.860887,
-  "lon": 25.666403,
-  "precision": "street"
+  "lat": -25.86038,
+  "lon": 25.665857,
+  "km": 11.3
  },
  "Bokamaso|995 Mosii Street  Unit 5 Mmabatho  North West  2745": {
-  "lat": -25.830708,
-  "lon": 25.602917,
-  "precision": "street"
+  "lat": -25.830592,
+  "lon": 25.604533,
+  "km": 0.6
  },
  "1309 STUDENT HOUSE|1309 UNIT 7  BAROLONG STREET MMABATHO  NORTHWEST  2790": {
-  "lat": -25.838561,
+  "lat": -25.8386,
   "lon": 25.5994,
-  "precision": "street"
+  "km": 2
  },
  "1313 STUDENT HOUSE|1313 unit7  BAROLONG STREET MMABATHO  NORTHWEST  2790": {
-  "lat": -25.838561,
-  "lon": 25.5994,
-  "precision": "street"
+  "lat": -25.838658,
+  "lon": 25.599389,
+  "km": 2
  },
  "MHC RESIDENCE 4|2467 jerry reid street  Monthsiwa unit 2 Mahikeng  Northwest  2790": {
-  "lat": -25.838884,
-  "lon": 25.6219,
-  "precision": "street"
+  "lat": -25.838953,
+  "lon": 25.622246,
+  "km": 2.6
  },
  "Moosa Residence|7212  Sophora Street  Mmabatho Mahikeng  North West  2745": {
-  "lat": -25.843832,
-  "lon": 25.58064,
-  "precision": "street"
+  "lat": -25.844577,
+  "lon": 25.580765,
+  "km": 3.9
  },
  "KUTLWANO STUDENT RESIDENT|4885 LORWANA CLOSE MMABATHO  NORTH WEST  2735": {
-  "lat": -25.860163,
-  "lon": 25.5718,
-  "precision": "street"
+  "lat": -25.858799,
+  "lon": 25.572239,
+  "km": 5.4
  },
  "Keneilwe Legae Student Accommodation|1414 Batlokwa Close  Unit 7 Mmabatho Mafikeng  North West  2735": {
-  "lat": -25.837288,
-  "lon": 25.602601,
-  "precision": "street"
+  "lat": -25.837112,
+  "lon": 25.602511,
+  "km": 1.7
  },
  "Precious Jewels Student Accomodation|989 MOSII STREET-UNIT 5-MMABATHO  MOSII STREET UNIT 5  North West  2735": {
-  "lat": -25.830708,
-  "lon": 25.602917,
-  "precision": "street"
+  "lat": -25.830244,
+  "lon": 25.604653,
+  "km": 0.6
  },
  "Morongoa Student Accomodation|3532 Locos street  Unit 12 Mmabatho  2735": {
-  "lat": -25.8505,
-  "lon": 25.586246,
-  "precision": "street"
+  "lat": -25.850515,
+  "lon": 25.586193,
+  "km": 4.5
  },
  "BOTHALE INVESTMENTS|6278 MMAMOLONGWANA STREET  UNIT14 Mmmabatho  NORTH WEST  2735": {
-  "lat": -25.854065,
-  "lon": 25.568674,
-  "precision": "street"
+  "lat": -25.855508,
+  "lon": 25.568054,
+  "km": 5.9
  },
  "Thuto Housing|2950 Ockie Ackerman Crescent  Unit 9 Mmabatho  North West  2735": {
-  "lat": -25.852364,
-  "lon": 25.580203,
-  "precision": "street"
+  "lat": -25.850548,
+  "lon": 25.58184,
+  "km": 4.7
  },
  "GALAXY VENTURES|27 SOUTH STREET  MAFIKENG MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.867853,
-  "lon": 25.645684,
-  "precision": "street"
+  "lat": -25.867318,
+  "lon": 25.646163,
+  "km": 9
  },
  "Ukugxila Residence|2190 Podile Street  Unit 8 Mmabatho  North West  2790": {
-  "lat": -25.862975,
-  "lon": 25.622214,
-  "precision": "street"
+  "lat": -25.843339,
+  "lon": 25.590908,
+  "km": 3.4
  },
  "Amber Estates|2690 John Bosigo Cres  Mmabatho Unit 9 Mahikeng  North West  2790": {
-  "lat": -25.846922,
-  "lon": 25.588108,
-  "precision": "street"
+  "lat": -25.846707,
+  "lon": 25.588241,
+  "km": 4
  },
  "Lwanogano Commune|5902 Lotlhaka Close  Unit 14 Mmabatho  North West  2735": {
-  "lat": -25.852781,
-  "lon": 25.571498,
-  "precision": "street"
+  "lat": -25.853065,
+  "lon": 25.572238,
+  "km": 5.2
  },
  "Motshwane family|1011 Tawana Crescent  Unit 5 Mahikeng  North West  2790": {
-  "lat": -25.831072,
-  "lon": 25.60555,
-  "precision": "street"
+  "lat": -25.83079,
+  "lon": 25.606769,
+  "km": 0.5
  },
  "HENDRICKS ACCOMODATION|10 RUS STREET  DANVILLE MAHIKENG  NORTH WEST  2745": {
-  "lat": -25.877087,
-  "lon": 25.655145,
-  "precision": "street"
+  "lat": -25.877736,
+  "lon": 25.656586,
+  "km": 10.5
  },
  "Kago-Entle Student Accomodation|3638 Amalia Crescent  Unit 12 Mmabatho  2790": {
-  "lat": -25.849065,
-  "lon": 25.590021,
-  "precision": "street"
+  "lat": -25.850106,
+  "lon": 25.590977,
+  "km": 4.2
  },
  "Central Perk Accommodation|3658 Kiaat Street  Danville Mafikeng  North West  2745": {
-  "lat": -25.878319,
-  "lon": 25.659625,
-  "precision": "street"
+  "lat": -25.878173,
+  "lon": 25.659296,
+  "km": 10.7
  },
  "Lot23|113 Mothibi Street  Montshiwa Mahikeng  2745": {
-  "lat": -25.854909,
-  "lon": 25.626377,
-  "precision": "street"
+  "lat": -25.856134,
+  "lon": 25.623282,
+  "km": 4.4
  },
  "Wil- Bee|7112 Vitex Street  Unit 15 Mmabatho  North West  2735": {
-  "lat": -25.848206,
-  "lon": 25.579976,
-  "precision": "street"
+  "lat": -25.848833,
+  "lon": 25.58145,
+  "km": 4.2
  },
  "WELLS OF SALVATION|1003  TAWANA CRES MAHIKENG  NORTHWEST  2745": {
-  "lat": -25.831072,
-  "lon": 25.60555,
-  "precision": "street"
+  "lat": -25.830918,
+  "lon": 25.605208,
+  "km": 0.6
  },
  "LEBOGANG DINEO|5662 mabele crescent unit 14  5662 Mabele crescent unit 14 Mmabatho  North West  2735": {
-  "lat": -25.853889,
-  "lon": 25.568422,
-  "precision": "street"
+  "lat": -25.852485,
+  "lon": 25.568878,
+  "km": 5.6
  },
  "DM Phalatse Reseidence|192  Unit 2 Steven Biko Ave Mmabatho  North West  2790": {
-  "lat": -25.834556,
-  "lon": 25.59533,
-  "precision": "street"
+  "lat": -25.836926,
+  "lon": 25.599718,
+  "km": 1.6
  },
  "Pulaneo|2331 Kgalegi Crescent  Unit 1 Mmabatho  North West  2745": {
-  "lat": -25.8396,
-  "lon": 25.615131,
-  "precision": "street"
+  "lat": -25.838973,
+  "lon": 25.617049,
+  "km": 2.3
  },
  "MOIPOLAI RESIDENCE 2|4084 PEACE CRESCENT  UNIT 12 MMABATHO  North West  2735": {
-  "lat": -25.843666,
-  "lon": 25.596983,
-  "precision": "street"
+  "lat": -25.845584,
+  "lon": 25.593708,
+  "km": 3.7
  },
  "MOIPOLAI RESIDENCE 5|3989 MONICA CRESCENT  UNIT 12 MM  North West  2735": {
-  "lat": -25.845737,
-  "lon": 25.594641,
-  "precision": "street"
+  "lat": -25.845631,
+  "lon": 25.594013,
+  "km": 3.7
  },
  "MOIPOLAI RESIDENCE 4|4001 MONICA CRESCENT  UNIT 12 MMABATHO  North West  2735": {
-  "lat": -25.845737,
-  "lon": 25.594641,
-  "precision": "street"
+  "lat": -25.84578,
+  "lon": 25.594597,
+  "km": 3.7
  },
  "MOIPOLAI RESIDENCE 3|3851 PEACE CRESCENT  UNIT 12 MMABATHO  North West  2735": {
-  "lat": -25.843666,
-  "lon": 25.596983,
-  "precision": "street"
+  "lat": -25.844897,
+  "lon": 25.59292,
+  "km": 3.5
  },
  "MOIPOLAI RESIDENCE 6|2254 MOKALE DRIVE  UNIT 8 MMABATHO  North West  2735": {
-  "lat": -25.844325,
-  "lon": 25.592956,
-  "precision": "street"
+  "lat": -25.844608,
+  "lon": 25.589859,
+  "km": 3.5
  },
  "RB Residence|1009 Tawana Crescent  Mmabatho unit 5 Mafikeng  North West  2745": {
-  "lat": -25.831072,
-  "lon": 25.60555,
-  "precision": "street"
+  "lat": -25.831,
+  "lon": 25.606403,
+  "km": 0.5
  },
  "MUZIKHAYA|4974 LETLAMETLO STREET  UNIT 13 MMABATHO  2745": {
-  "lat": -25.858177,
-  "lon": 25.571964,
-  "precision": "street"
+  "lat": -25.857854,
+  "lon": 25.571765,
+  "km": 5.5
  },
  "TLT Properties|6250 Kgantlapane Crescent  Unit 14 Mahikeng  North West  2745": {
-  "lat": -25.856238,
-  "lon": 25.566692,
-  "precision": "street"
+  "lat": -25.857291,
+  "lon": 25.566376,
+  "km": 6.2
  },
  "THUTOPELE STUDENT RESIDENCE|7 LANTANA AVE RIVERA PARK  7LANTANA MAFIKENG  North Western Province  2745": {
-  "lat": -25.863407,
-  "lon": 25.661944,
-  "precision": "street"
+  "lat": -25.863424,
+  "lon": 25.662136,
+  "km": 11.8
  },
  "Masego Student Accommodation|9 1st Street  Industrial Sites Mafikeng  North West  2745": {
-  "lat": -25.874887,
-  "lon": 25.586311,
-  "precision": "street"
+  "lat": -25.851841,
+  "lon": 25.637618,
+  "km": 7.4
  },
  "Ratanang villa|3279 Unit 10  Acorus street Mafikeng  North west  2735": {
-  "lat": -25.852346,
-  "lon": 25.587243,
-  "precision": "street"
+  "lat": -25.852305,
+  "lon": 25.587599,
+  "km": 4.9
  },
  "0|1194 Molathwa drive  unit 5 Mmabatho Mmabatho  NW  2735": {
-  "lat": -25.832145,
-  "lon": 25.602568,
-  "precision": "street"
+  "lat": -25.831083,
+  "lon": 25.599293,
+  "km": 1.1
  },
  "91 Molopo|91 Molopo road Mafikeng   south africa  NW  2745": {
-  "lat": -25.864754,
-  "lon": 25.649273,
-  "precision": "street"
+  "lat": -25.86272,
+  "lon": 25.652998,
+  "km": 9.3
  },
  "Ga-Tholo Suppliers 4|1304 Barolong Street  Unit 7 Mmabatho  North West  2735": {
-  "lat": -25.838561,
-  "lon": 25.5994,
-  "precision": "street"
+  "lat": -25.838435,
+  "lon": 25.599427,
+  "km": 2
  },
  "Pinkridge Holdings (Pty) Ltd|985  Mosii Street  Unit 5 Mmabatho  North West": {
-  "lat": -25.830708,
-  "lon": 25.602917,
-  "precision": "street",
-  "km": null
+  "lat": -25.83028,
+  "lon": 25.603839,
+  "km": 0.7
  },
  "Vinary 1|5691  Mabele crescent MMABATHO  north west  2735": {
-  "lat": -25.853889,
-  "lon": 25.568422,
-  "precision": "street"
+  "lat": -25.853538,
+  "lon": 25.567839,
+  "km": 5.8
  },
  "MHC RESIDENCE 3|7512 Tilia close unit 15  Mmabatho Mahikeng  Northwest  2790": {
-  "lat": -25.851721,
-  "lon": 25.57653,
-  "precision": "street"
+  "lat": -25.851737,
+  "lon": 25.576295,
+  "km": 4.8
  },
  "Mhc residence 1|5595 lephoi close  Unit 14 Mmabatho  Northwest  2790": {
-  "lat": -25.850833,
-  "lon": 25.569433,
-  "precision": "street"
+  "lat": -25.850666,
+  "lon": 25.569522,
+  "km": 5.5
  },
  "LADY K Village|House 7532 UNIT 15  WEIGELA CLOSE Mmabatho  North west  2790": {
-  "lat": -25.851346,
-  "lon": 25.578483,
-  "precision": "street"
+  "lat": -25.851439,
+  "lon": 25.579058,
+  "km": 4.5
  },
  "WINNER MAN PLACE|2425 MOLALE STREET UNIT 01 MAFIKEN  NORTH WEST  2725": {
-  "lat": -25.838213,
-  "lon": 25.621718,
-  "precision": "street"
+  "lat": -25.838656,
+  "lon": 25.620587,
+  "km": 2.5
  },
  "STUDY PRIORITY RESIDENCE|388 SEROKE STREET  MONTSHIWA MAFIKENG  2745": {
-  "lat": -25.848858,
-  "lon": 25.626538,
-  "precision": "street"
+  "lat": -25.849413,
+  "lon": 25.625173,
+  "km": 4.2
  },
  "MOLAOLWE RESIDENCE|6071 MARETLWA STREET  UNIT 14 MAHIKENG  NORTH WEST  2735": {
-  "lat": -25.855248,
-  "lon": 25.570531,
-  "precision": "street"
+  "lat": -25.855299,
+  "lon": 25.571314,
+  "km": 5.4
  },
  "Minatlou Trading 688 CC|5536 Kgaka Close  Unit 14 Mmabatho  North West  2735": {
-  "lat": -25.851657,
-  "lon": 25.568559,
-  "precision": "street",
-  "km": null
+  "lat": -25.851271,
+  "lon": 25.567951,
+  "km": 5.7
  },
  "LES SOLUTIONS|4732 MOKALA STREET  UNIT 13 MMABATHO  NORTH WEST  2735": {
-  "lat": -25.859375,
-  "lon": 25.569408,
-  "precision": "street"
+  "lat": -25.856073,
+  "lon": 25.576367,
+  "km": 4.8
  },
  "Glen accommodation|2512 mokale drive unit 9 mmabatho  2512 mokale drive unit 9 mmabatho Mahikeng  North west  2745": {
-  "lat": -25.844325,
-  "lon": 25.592956,
-  "precision": "street"
+  "lat": -25.845506,
+  "lon": 25.585869,
+  "km": 3.5
  },
  "Soo residence|1904 Tire Street  Unit 8 Mmabatho  North west  2735": {
-  "lat": -25.840745,
-  "lon": 25.590993,
-  "precision": "street"
+  "lat": -25.84069,
+  "lon": 25.590545,
+  "km": 2.8
  },
  "Minatlou Trading 688 CC|2784 Boet Joubert Close  Unit 9 Mmabatho  North West  2735": {
-  "lat": -25.847432,
-  "lon": 25.583662,
-  "precision": "street",
-  "km": null
+  "lat": -25.847423,
+  "lon": 25.583841,
+  "km": 4.3
  },
  "Mothupi Villa 1|20081 TLHWARE STREET  MOSIANE VIEW MAFIKENG  NW  2745": {
-  "lat": -25.892357,
-  "lon": 25.671308,
-  "precision": "street"
+  "lat": -25.894149,
+  "lon": 25.675354,
+  "km": 13.9
  },
  "Minatlou Trading 688 CC|1905 Tire Street  Unit 8 Mmabatho  North West  2735": {
-  "lat": -25.840745,
-  "lon": 25.590993,
-  "precision": "street"
+  "lat": -25.840748,
+  "lon": 25.590721,
+  "km": 2.8
  },
  "Letladi Residence|22 Impala Street  Golfview Mahikeng  North West  2745": {
-  "lat": -25.853521,
-  "lon": 25.659136,
-  "precision": "street"
+  "lat": -25.853736,
+  "lon": 25.65891,
+  "km": 10.6
  },
  "Kwena Student Accommodation|2160 Hendrick Tlou Street Mafikeng  North West  2735": {
-  "lat": -25.853674,
-  "lon": 25.620219,
-  "precision": "street"
+  "lat": -25.835805,
+  "lon": 25.543355,
+  "km": 8.8
  },
  "UniStay Accommodation|89 Molopo Road Mafikeng  North West  2745": {
-  "lat": -25.866865,
-  "lon": 25.645074,
-  "precision": "street"
+  "lat": -25.863802,
+  "lon": 25.650466,
+  "km": 9.1
  },
  "Boitumelo Residence|Reviera Park  56 Langenhoven Drive Mahikeng, 2745": {
-  "lat": -25.866257,
-  "lon": 25.660887,
-  "precision": "street"
+  "lat": -25.866199,
+  "lon": 25.660838,
+  "km": 12.3
  },
  "NOMA'S RES|5373 UNIT 13  THEPE STREET MAHIKENG  NW  2745": {
-  "lat": -25.863215,
-  "lon": 25.568234,
-  "precision": "street"
+  "lat": -25.863546,
+  "lon": 25.568315,
+  "km": 6.1
  },
  "MABITLE RESIDENCE|5673 KATSE CLOSE UNIT 14 Mmabatho  North West  2735": {
-  "lat": -25.852552,
-  "lon": 25.567804,
-  "precision": "street"
+  "lat": -25.852554,
+  "lon": 25.567349,
+  "km": 5.8
  },
  "Bokgoni Residence|2727 Motshe Close  Monthsioa Extension Mafikeng  North West  2745": {
-  "lat": -25.853393,
-  "lon": 25.617876,
-  "precision": "street"
+  "lat": -25.856474,
+  "lon": 25.620203
  },
  "TJ Student Accommodation|2985 UNIT 9  De Villiers Tekana Street Mmabatho  North West  2790": {
-  "lat": -25.851495,
-  "lon": 25.581597,
-  "precision": "street"
+  "lat": -25.851826,
+  "lon": 25.581814,
+  "km": 4.5
  },
  "LADY K Village|6936 Gardenia close  Unit 15 Mmabatho  North west  2735": {
-  "lat": -25.849767,
-  "lon": 25.572685,
-  "precision": "street"
+  "lat": -25.849911,
+  "lon": 25.572684,
+  "km": 5.4
  },
  "Sekhutlong Student House|1479 Makhene Road  Unit 6 Mmabatho  North West  2735": {
-  "lat": -25.818137,
-  "lon": 25.627314,
-  "precision": "street"
+  "lat": -25.81821,
+  "lon": 25.627725,
+  "km": 2.6
  },
  "TS Student Res|3839 Peace Crescent street  Unit 12 Mmabatho  North West  2735": {
-  "lat": -25.843666,
-  "lon": 25.596983,
-  "precision": "street"
+  "lat": -25.844905,
+  "lon": 25.592902,
+  "km": 3.5
  },
  "WE STAY RESIDENCE|3843 PEACE CRESCENT  UNIT 12 MMABATHO  2735": {
-  "lat": -25.843666,
-  "lon": 25.596983,
-  "precision": "street"
+  "lat": -25.844924,
+  "lon": 25.592984,
+  "km": 3.6
  },
  "BEETEE Residence|7737 Monstera street  Unit 15 Mmabatho Mahikeng  North West  2735": {
-  "lat": -25.851149,
-  "lon": 25.576132,
-  "precision": "street"
+  "lat": -25.850481,
+  "lon": 25.576616,
+  "km": 4.6
  },
  "Joe Mahila|1633 Joe Mahila Street  Montshioa Mmabatho  North West  2735": {
-  "lat": -25.843549,
-  "lon": 25.617166,
-  "precision": "street"
+  "lat": -25.843553,
+  "lon": 25.616913,
+  "km": 2.8
  },
  "1213|1213 Petso Street  Montshioa Mmabatho  North West  2735": {
-  "lat": -25.849685,
-  "lon": 25.617942,
-  "precision": "street"
+  "lat": -25.849997,
+  "lon": 25.617352,
+  "km": 3.1
  },
  "Harmony House (Unit 9)|2750 Boet Joubert Close  Unit 9 Mmabatho  North West  2790": {
-  "lat": -25.847432,
-  "lon": 25.583662,
-  "precision": "street"
+  "lat": -25.847969,
+  "lon": 25.584511,
+  "km": 4.2
  },
  "Moroeng|1421 Moroeng Street  Montshioa Mmabatho  North West  2735": {
-  "lat": -25.846363,
-  "lon": 25.618244,
-  "precision": "street"
+  "lat": -25.846339,
+  "lon": 25.618494,
+  "km": 2.8
  },
  "MTR VISION 30 (2)|5538 Kgaka Close  Kgaka Close MAHIKENG  NORTH WEST  2735": {
-  "lat": -25.851657,
-  "lon": 25.568559,
-  "precision": "street"
+  "lat": -25.851168,
+  "lon": 25.567639,
+  "km": 5.7
  },
  "setshedile investment|1602 molamu st  montshiwa mahikeng  north west  2745": {
-  "lat": -25.843753,
-  "lon": 25.620986,
-  "precision": "street"
+  "lat": -25.843932,
+  "lon": 25.61846,
+  "km": 2.7
  },
  "MABONENG STUDENT RESIDENCE|5942 Lotlhaka Close  Unit 14 Mmabatho  North West  2735": {
-  "lat": -25.852781,
-  "lon": 25.571498,
-  "precision": "street"
+  "lat": -25.853126,
+  "lon": 25.572761,
+  "km": 5.2
  },
  "Pink House|3095 Mosii Street  Unit 5 Mmabatho  North West  2735": {
-  "lat": -25.830708,
-  "lon": 25.602917,
-  "precision": "street"
+  "lat": -25.831614,
+  "lon": 25.602981,
+  "km": 0.9
  },
  "White House|980 Mosii Street  Unit 5 Mmabatho  North West  2735": {
-  "lat": -25.830708,
-  "lon": 25.602917,
-  "precision": "street"
+  "lat": -25.830361,
+  "lon": 25.602834,
+  "km": 0.7
  },
  "Shelly|3482 Veronica Crescent  Unit 10 Mmabatho  2735  2735": {
-  "lat": -25.855414,
-  "lon": 25.585484,
-  "precision": "street"
+  "lat": -25.855537,
+  "lon": 25.58589,
+  "km": 5.2
  },
  "KOPANA DISTRIBUTORS|71 MOLOPO ROAD  MAFIKENG MAFIKENG  NORTH WEST  2745": {
-  "lat": -25.864754,
-  "lon": 25.649273,
-  "precision": "street"
+  "lat": -25.865059,
+  "lon": 25.648782,
+  "km": 8.8
  },
  "Banturush Africa|1058 Botlhaba Street  Mmabatho  1058 Botlhaba Street  Mmabatho Mmabatho  north west  2735": {
-  "lat": -25.845402,
-  "lon": 25.615123,
-  "precision": "approx",
-  "km": null
+  "lat": -25.83189,
+  "lon": 25.608671,
+  "km": 0.3
  },
  "Banturush Africa|1047 Botlhaba Street  Mmabatho  1047 Botlhaba Street  Mmabatho Mmabatho  north west  2735": {
-  "lat": -25.844685,
-  "lon": 25.615819,
-  "precision": "approx",
-  "km": null
+  "lat": -25.831249,
+  "lon": 25.607806,
+  "km": 0.8
  },
  "IGMG|752 STEVE BIKO DRIVE  UNIT 2 MAFIKENG  North West  2745": {
-  "lat": -25.830447,
-  "lon": 25.611872,
-  "precision": "approx",
-  "km": null
+  "lat": -25.836923,
+  "lon": 25.593274,
+  "km": 2.4
  },
  "Banturush Africa|1501  UNIT 6  MMABATHO Mmabatho  north west  2735": {
-  "lat": -25.831871,
-  "lon": 25.598983,
-  "precision": "approx",
-  "km": null
+  "lat": -25.815109,
+  "lon": 25.631711,
+  "km": 3.1
  },
  "Banturush Africa|1043 Botlhaba Street  Mmabatho  1043  Botlhaba Street  Mmabatho Mmabatho  north west  2735": {
-  "lat": -25.844898,
-  "lon": 25.616149,
-  "precision": "approx",
-  "km": null
+  "lat": -25.831512,
+  "lon": 25.608065,
+  "km": 0.7
  },
  "Banturush Africa|2907 Ockieackermanscres  Mmabatho  2907 Ockieackermanscres  Mmabatho Mmabatho  north west  2735": {
-  "lat": -25.843569,
-  "lon": 25.614835,
-  "precision": "approx",
-  "km": null
+  "lat": -25.852312,
+  "lon": 25.579939,
+  "km": 4.7
  },
  "Banturush Africa|1045 Botlhaba Street  Mmabatho  1045 Botlhaba Street  Mmabatho Mmabatho  north west  2735": {
-  "lat": -25.843437,
-  "lon": 25.615114,
-  "precision": "approx",
-  "km": null
+  "lat": -25.831461,
+  "lon": 25.608218,
+  "km": 0.8
  },
  "Banturush Africa|1054 Botlhaba Street  Mmabatho  1054 Botlhaba Street  Mmabatho Mmabatho  north west  2735": {
-  "lat": -25.845309,
-  "lon": 25.616365,
-  "precision": "approx",
-  "km": null
+  "lat": -25.830873,
+  "lon": 25.608491,
+  "km": 0.8
+ },
+ "M.B.A. Residence|565 Airport View  airport view MMABATHO  Northwest Territories  2790": {
+  "lat": -25.838033,
+  "lon": 25.537858,
+  "km": 8.9
+ },
+ "KIN RESIDANCE|HOUSE NUMBER 40060  PHOLA VILLAGE MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.854712,
+  "lon": 25.589574,
+  "km": 5.8
+ },
+ "Gilbert Res|707 cul 7  unit 2 mmabatho  north west  2735": {
+  "lat": -25.84034,
+  "lon": 25.598368,
+  "km": 2.3
+ },
+ "Kaelo House|684 Cul 7 Road  Unit 2 Mmabatho  North West  2790": {
+  "lat": -25.836224,
+  "lon": 25.595815,
+  "km": 2.1
+ },
+ "BUDDY OPS (PTY LTD)|Unit 2  398 Cul 14 Mahikeng  North west  2735": {
+  "lat": -25.836796,
+  "lon": 25.591348,
+  "km": 2.7
+ },
+ "Boitshenolo Student Accommodation|1312 Theletso Tawana  Montshiwa Mahikeng  North West  2745": {
+  "lat": -25.841171,
+  "lon": 25.622343,
+  "km": 2.7
+ },
+ "Thandi's Residence|MOSHAWANE  MOSHAWENE HOUSE NO:30078 MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.799876,
+  "lon": 25.639743,
+  "km": 5.9
+ },
+ "Reikobile trading enterprise pty ltd|37 Cul1 Unit 2 Mmabatho  North west  2735": {
+  "lat": -25.832879,
+  "lon": 25.609503,
+  "km": 0.5
+ },
+ "SEKETE|274 UNIT 2 CUL 9 MMABATHO  274 UNIT 2 CUL 9 MMABATHO MAFIKENG  NORTH WEST  2735": {
+  "lat": -25.835514,
+  "lon": 25.608247,
+  "km": 0.8
+ },
+ "Tshimologo Exclusive Estate and Student Accommodation|42002 Dihatshwane  42002 Dihatshwane Mafikeng  North West  2745": {
+  "lat": -25.908233,
+  "lon": 25.753055,
+  "km": 21.6
+ },
+ "Vickotech Students Accomodations|5640  Extension 38  Imperial Mafikeng  North West  2735": {
+  "lat": -25.864099,
+  "lon": 25.63024,
+  "km": 5.4
+ },
+ "Leagonglentle|STAND 10211 MOSHAWANA  Moshawana Mahikeng  Northwest Province  2735": {
+  "lat": -25.798875,
+  "lon": 25.633217,
+  "km": 5.5
+ },
+ "Oteng Villa Riviera Park|13 Everest Street  Riviera Park Mahikeng  North West  2745": {
+  "lat": -25.864588,
+  "lon": 25.659306
+ },
+ "Oteng Villa Unit 12|3807 Peace Street  Unit 12 Mmabatho  North West  2745": {
+  "lat": -25.844916,
+  "lon": 25.592882,
+  "km": 3.5
+ },
+ "Oteng Villa Golfview|6 Dan Pienaar  Golfview Mahikeng  North West  2745": {
+  "lat": -25.855425,
+  "lon": 25.651407,
+  "km": 8.7
+ },
+ "Elmsgate Accommodation|7538 Narium Crescent  Unit 15 Mafikeng  North west  2745": {
+  "lat": -25.834611,
+  "lon": 25.595461,
+  "km": 1.8
+ },
+ "KM Student Residence|351 Cul 13  Unit 2 Mmabatho  North West  2735": {
+  "lat": -25.838532,
+  "lon": 25.591403,
+  "km": 2.7
+ },
+ "Malekmaintanance|49 tilard street  Golfview Mafikeng  Northwest  2745": {
+  "lat": -25.850857,
+  "lon": 25.589133,
+  "km": 4.2
+ },
+ "KnK Student Residence|3603 Cocktail Crescent   Unit 12 Mmabatho  North West  2790": {
+  "lat": -25.850867,
+  "lon": 25.589144,
+  "km": 4.2
+ },
+ "Otlotleng Residence|548 Airportview  Totonyane Mafikeng  North West  2745": {
+  "lat": -25.835679,
+  "lon": 25.543946,
+  "km": 8.9
+ },
+ "KIN2|HOUSE NUMBER 50133  THOLO STREET MOSIANE VIEW MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.895608,
+  "lon": 25.682445,
+  "km": 15.1
+ },
+ "KOPANO RESIDENCE|570 Lea mangope Avenue  Unit 2 Cul 19  Steve biko  Mmabatho 2790 Mmabatho  North West  2735": {
+  "lat": -25.832079,
+  "lon": 25.596351,
+  "km": 1.5
+ },
+ "Boitumelo Res|House no 2202  Sekame road unit 1 mmabatho  north west  2735": {
+  "lat": -25.8384,
+  "lon": 25.615162,
+  "km": 2.5
+ },
+ "Lesedi Student Villa|836 Sol Plaatjie Drive  Unit 3 Mmabatho  North West  2735": {
+  "lat": -25.819056,
+  "lon": 25.630436,
+  "km": 2.7
+ },
+ "BMD Villa Student Accommodation|Stand No 20053  Makgetla View Mahikeng  2745": {
+  "lat": -25.850318,
+  "lon": 25.560187,
+  "km": 6.7
+ },
+ "Dinaledi Villa|211 Dinaledi Street  Block L  Makgetlaview Mafikeng  North West  2745": {
+  "lat": -25.852702,
+  "lon": 25.560219,
+  "km": 6.9
+ },
+ "Thuto Boswa Student Accomodation|2033 Seleke Drive  Unit 8  Mmabatho Mahikeng  North-West  2745": {
+  "lat": -25.845022,
+  "lon": 25.586217,
+  "km": 3.4
+ },
+ "CAPITA RES \"A\"|1584 MAKHENE DRIVE  UNIT 6 MMABATHO  NW  2790": {
+  "lat": -25.818794,
+  "lon": 25.62552,
+  "km": 2.8
+ },
+ "NGAMOLE TACTICAL|783 MAKGETLA VIEW SECTION  AIPORT VIEW MAHIKENG  NORTH WEST  2739": {
+  "lat": -25.846991,
+  "lon": 25.55473,
+  "km": 7.2
+ },
+ "OAUTLWA TRADING STUDENTS RESIDENCE|STAND NUMBER 40601  MAKGETLA VIEW Mafikeng  NORTH WEST  2745": {
+  "lat": -25.853902,
+  "lon": 25.557535,
+  "km": 7.3
+ },
+ "KEAMASETHO|10168 MAGOGOE TLHABOLOGO VILLAGE MAHIKENG  NORTHWEST  2745": {
+  "lat": -25.893486,
+  "lon": 25.626934,
+  "km": 8.2
+ },
+ "Bekwa Residence|DIBATE VILLAGE STAND NO:20230  DIBATE VILLAGE STAND NO:20230 Mafikeng  North West  2735": {
+  "lat": -25.843765,
+  "lon": 25.612772,
+  "km": 2.4
+ },
+ "VEREWOOD DIBATE 2|20068 DIBATE MMABATHO  NORTH WEST  2745": {
+  "lat": -25.841694,
+  "lon": 25.609122,
+  "km": 1.7
+ },
+ "VEREWOOD DIBATE 1|20037 DIBATE VILLAGE MMABATHO  NORTH WEST  2745": {
+  "lat": -25.84386,
+  "lon": 25.61488,
+  "km": 2.2
+ },
+ "VEREWOOD UNIT 2|19 MOSHOESHOE UNIT 2 MMABATHO  NORTH WEST  2745": {
+  "lat": -25.832186,
+  "lon": 25.599862,
+  "km": 1.3
+ },
+ "ELPARK RESIDENCE|10237 LONELY PARK  MAHIKENG": {
+  "lat": -25.836723,
+  "lon": 25.643722,
+  "km": 6.1
+ },
+ "DI PRIME RESIDENCE|1545 MAGONARE STREET  UNIT 6 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.821723,
+  "lon": 25.623065,
+  "km": 2.2
+ },
+ "Nthutang Student Accomodation Facilities|7874 Unit 6  Makhene Street MMABATHO  North West  2735": {
+  "lat": -25.820786,
+  "lon": 25.624535,
+  "km": 2.2
+ },
+ "Crown Villa Students Estate|39 Cul 1  Unit 2  Molatlhwa Drive Mmabatho  North West  2735": {
+  "lat": -25.832827,
+  "lon": 25.601691,
+  "km": 1.5
+ },
+ "Wakanda Student Accommodation 1|6 Chuchill Avenue  Golf View Mafikeng  North West  2745": {
+  "lat": -25.857752,
+  "lon": 25.650327,
+  "km": 8.6
+ },
+ "Kwa Agisanang Residence|STAND 11986  MOTSOSENG VILLAGE MAHIKENG  NORTH WEST PROVINCE  2735": {
+  "lat": -25.857471,
+  "lon": 25.582239,
+  "km": 5.2
+ },
+ "DGV Flats|DGV Flats 20138  Dibate Village Mahikeng  North West  2735": {
+  "lat": -25.844068,
+  "lon": 25.609227,
+  "km": 2.1
+ },
+ "MATSHAI STUDENT VILLAGE|314 Airport View  Airport View Mahikeng  NORTH WEST  2745": {
+  "lat": -25.830073,
+  "lon": 25.538928,
+  "km": 10.1
+ },
+ "Khonziwe Residences|1774 Unit 8 Motlhamme Street  1774 Unit 8 Motlhamme street Mmabatho  North West  2735": {
+  "lat": -25.841734,
+  "lon": 25.587336
+ },
+ "Londizwe|NO 80 WAGTAIL Morena Menor complex EXTENSION 39 Mmabatho  North West  2745": {
+  "lat": -25.839008,
+  "lon": 25.586421,
+  "km": 2.9
+ },
+ "BUDDY OPS (PTY LTD)|11478  MOCOSENG VILLAGE Mahikeng  North west  2735": {
+  "lat": -25.868853,
+  "lon": 25.556869,
+  "km": 7.8
+ },
+ "MAK Accommodations|34 Dan Pienaar Street  Golfview Mahikeng  North West  2745": {
+  "lat": -25.852809,
+  "lon": 25.650173,
+  "km": 8.4
+ },
+ "Time Out|13 Havenga Street  Golfview Mahikeng  North West  2745": {
+  "lat": -25.855709,
+  "lon": 25.642931,
+  "km": 7.6
+ },
+ "0|STAND NO 10425 LONELY PARK  STAND NO 10425 LONELY PARK MAHIKENG  2745": {
+  "lat": -25.836655,
+  "lon": 25.650199,
+  "km": 6.6
+ },
+ "Senzomanzi 5825|5825  Mamolongwana Close Mmabatho  North West  2790": {
+  "lat": -25.853722,
+  "lon": 25.569201,
+  "km": 5.6
+ },
+ "Siyavula Residence|03 Clarendon Street  Golfview Mafikeng  North West  2745": {
+  "lat": -25.852217,
+  "lon": 25.645308,
+  "km": 7.7
+ },
+ "DIVINE GRACE RESIDENCE|7630 Monsteria Street  Unit 15 Mmabatho  North West  2735": {
+  "lat": -25.849438,
+  "lon": 25.577262,
+  "km": 4.5
+ },
+ "IGMG|40602 Makgetla view/Tontonyane MAFIKENG  North West  2745": {
+  "lat": -25.853814,
+  "lon": 25.556932,
+  "km": 7.3
+ },
+ "Kgobakgetse Residence|30260 LOKALENG VILLAGE MAFIKENG 2745 mafikeng  North West  2745": {
+  "lat": -25.806314,
+  "lon": 25.599933,
+  "km": 4.2
+ },
+ "GAETSHO RESIDENCE|507 STEVE BIKO AVENUE  UNIT 2 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.834572,
+  "lon": 25.595474,
+  "km": 1.7
+ },
+ "SEKETE RESIDENCE|210 Steve Biko UNIT 2 CUL 8 MMABABATHO  210 Steve Biko UNIT 2 CUL 8 MMABABATHO MAFIKENG  NORTH WEST  2735": {
+  "lat": -25.837012,
+  "lon": 25.596412,
+  "km": 2
+ },
+ "GRACE-B RES|3186 UNIT 10  MMABATHO Mafikeng  North West  2735": {
+  "lat": -25.849854,
+  "lon": 25.586385,
+  "km": 4.5
+ },
+ "Amole- Villa|11112D Molelwane village Mafikeng  North west  2745": {
+  "lat": -25.802026,
+  "lon": 25.642649,
+  "km": 6.1
+ },
+ "Gofaone Residence|5409 Khibitshwane Street Unit 13  Mmabatho Mmabatho  North West  2790": {
+  "lat": -25.864024,
+  "lon": 25.569641,
+  "km": 6
+ },
+ "Dikgophu Student Accomodation|11126  Lonely Park Road Mahikeng  North West  2745": {
+  "lat": -25.834456,
+  "lon": 25.65055,
+  "km": 6.6
+ },
+ "Nhlonipho Residence|1752 Unit 8  Motlhamme Crescent Mmabatho  North West  2735": {
+  "lat": -25.839146,
+  "lon": 25.589247,
+  "km": 2.7
+ },
+ "R H N Sounds Student Accomodations|B20021  Dibate Village Mmabatho  North West  2790": {
+  "lat": -25.841047,
+  "lon": 25.606497,
+  "km": 1.8
+ },
+ "TMD Student Accommodation|11162 Lonely Park  Zeerust Road Mafikeng  North West  2745": {
+  "lat": -25.837494,
+  "lon": 25.653909,
+  "km": 7.5
+ },
+ "Lorako Lodge Student Accommodation - Setumo|10352 George Molokwane Street  Setumo park Mahikeng  North West  2745": {
+  "lat": -25.824625,
+  "lon": 25.639064,
+  "km": 4.5
+ },
+ "The word estate|811 motlhabeng  The word estet  Mmabatho Mafikeng  North west  2735": {
+  "lat": -25.847062,
+  "lon": 25.605691,
+  "km": 2.6
+ },
+ "LEUNGO 1063|UNIT 5 1063  TAWANA STREET MMABATHO  NORTH WEST  2735": {
+  "lat": -25.832208,
+  "lon": 25.607632,
+  "km": 0.6
+ },
+ "LEUNGO 1049 UNIT 5|UNIT 5 1049  BOTLHABA STREET  UNIT 5 1049  BOTLHABA STREET MMABATHO  NORTH WEST  2735": {
+  "lat": -25.830899,
+  "lon": 25.607664,
+  "km": 0.9
+ },
+ "Sedibeng 1|803 Cnr. Steve Biko & Cul 14  Unit 2 Mmabatho  North West Province  2735": {
+  "lat": -25.837775,
+  "lon": 25.592244,
+  "km": 2.6
+ },
+ "Sedibeng Gardens|100 Bray Road  Moletsamongwe Villa Mahikeng  North West Province  2745": {
+  "lat": -25.82519,
+  "lon": 25.503504,
+  "km": 12.6
+ },
+ "Airportview Hieghts|272 Airport View  Mmabatho Mafikeng  2147": {
+  "lat": -25.82836,
+  "lon": 25.54236,
+  "km": 10.3
+ },
+ "Senzomanzi 2|20039B  Moshawane Mafikeng  North-West  2745": {
+  "lat": -25.797049,
+  "lon": 25.643706,
+  "km": 6.6
+ },
+ "Matshidiso Residence|5867 Unit 14  Tshikitshane close Mmabatho  North West  2735": {
+  "lat": -25.85201,
+  "lon": 25.573156,
+  "km": 5.1
+ },
+ "The Tsolo Residence|4104 Laura Close  Unit 12 Mmabatho  North west  2735": {
+  "lat": -25.844079,
+  "lon": 25.595857,
+  "km": 3.5
+ },
+ "Thubisi Residence|7640 Ext 39  Mmabatho Mahikeng  North-West  2735": {
+  "lat": -25.830747,
+  "lon": 25.57568,
+  "km": 4.1
+ },
+ "Lesego Residence|03 Makgetla view Mmabatho  North West  2735": {
+  "lat": -25.840454,
+  "lon": 25.533241,
+  "km": 9.7
+ },
+ "GAOPALELWE COMPLEX|H1 MMABATHO COMPLEX  MAHIKENG MAHIKENG  North West  2735": {
+  "lat": -25.80047,
+  "lon": 25.307497,
+  "km": 33.4
+ },
+ "Rabi's Student Residence|23/883 Jan Smuts  Golfview Mafikeng  North West  2745": {
+  "lat": -25.855032,
+  "lon": 25.649532,
+  "km": 8.4
+ },
+ "Nkhatle Residence|20166  Dibate Mmabatho Mafikeng Mafikeng  North West  2745": {
+  "lat": -25.844136,
+  "lon": 25.61,
+  "km": 2
+ },
+ "Hubafa Apartments|00001  Lokaleng Village Mmabatho  North West  2735": {
+  "lat": -25.829126,
+  "lon": 25.591489,
+  "km": 2.6
+ },
+ "Jacaranda Student Residence|2347 Thite Street  Montshiwa Unit 2 Mahikeng  North West  2735": {
+  "lat": -25.839134,
+  "lon": 25.616929,
+  "km": 2.4
+ },
+ "RESREN GOLFVIEW|6526 BOIKETLO STREET  GOLFVIEW MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.858309,
+  "lon": 25.657246,
+  "km": 10.1
+ },
+ "Keamasetho|House no 7875 Unit 6  Diutlwileng street Mahikeng  Northwest  2790": {
+  "lat": -25.821102,
+  "lon": 25.623589,
+  "km": 2.1
+ },
+ "PLATNUM|859 Sol Plaatjie Drive  Leopard Park Ext 3  Mmabatho. Mahikeng  North West  2735": {
+  "lat": -25.819412,
+  "lon": 25.631933,
+  "km": 2.9
+ },
+ "Mabitso Residence|6778  Begonia street  Unit 15 Mmabatho  North West  2735": {
+  "lat": -25.844522,
+  "lon": 25.577623,
+  "km": 4.4
+ },
+ "THUNDERDUST PROPERTI|9 Clarendon Street  Golf View Mahikeng  North West  2745": {
+  "lat": -25.852715,
+  "lon": 25.645399,
+  "km": 7.8
+ },
+ "MACK DEVOS RESIDENCE|496 UNIT2  CUL  16 MMABATHO  NORTHWEST  2735": {
+  "lat": -25.835378,
+  "lon": 25.598821,
+  "km": 1.8
+ },
+ "KMan Student Residence|21 Churchill Street  Golfview Mahikeng  North West  2145": {
+  "lat": -25.853052,
+  "lon": 25.647212,
+  "km": 8
+ },
+ "Sunshine Estate|63 Molopo Street  Golfview Mahikeng  North West  2745": {
+  "lat": -25.864269,
+  "lon": 25.649797,
+  "km": 8.9
+ },
+ "TSHOLOFETSO RESIDENCE|687  MOTLHATSWAKGOTLA  UNIT 2  CUL 7  STEVE BIKO  UNIT 2 MMABATHO 2790 Mmabatho  North west  2735": {
+  "lat": -25.836818,
+  "lon": 25.596185,
+  "km": 2
+ },
+ "Bokamoso student accomodation|7390 ext 39 mmabatho Mahikeng  northwest  2745": {
+  "lat": -25.830699,
+  "lon": 25.575626,
+  "km": 4.1
+ },
+ "Gontle Residence|3335 Unit 10  lobelia Mmabatho  North West  2735": {
+  "lat": -25.852784,
+  "lon": 25.586413,
+  "km": 4.8
+ },
+ "Nthabiseng Montshiwa Res|302 Cul 10 Unit 2 Mmabatho  302 Cul 10 Unit 2 Mmabatho Mafikeng  North West  2790": {
+  "lat": -25.840418,
+  "lon": 25.593397
+ },
+ "Menscave student accommodation|499 Unit 2 Cul 16 Mmabatho  North west  2735": {
+  "lat": -25.834754,
+  "lon": 25.59298,
+  "km": 2
+ },
+ "THASAWA VILLA STUDENT ACCOMODATION|Stand Number 12606  Khibitshwane street   Mocoseng  Unit 13 Mmabatho  North West  2735": {
+  "lat": -25.868575,
+  "lon": 25.581911,
+  "km": 6.3
+ },
+ "Dumi & Mdu residence|8 Jupiter street Riviera Park MAHIKENG  North West  2745": {
+  "lat": -25.857006,
+  "lon": 25.662926,
+  "km": 10.8
+ },
+ "Monthati Onthatile Student Residence|Mocoseng Village  Mocoseng Stand 13r  2745  Mahikeng": {
+  "lat": -25.870627,
+  "lon": 25.557774,
+  "km": 7.6
+ },
+ "BOIPELO SOLUTIONS STUDENT ACCOMODATION|568 CUL 19 –UNIT 2 – MMABATHO MMABATHO  MAHIKENG  2735": {
+  "lat": -25.836569,
+  "lon": 25.608825,
+  "km": 0.9
+ },
+ "0|583 Cul 20  Unit2 Mmabatho  Northwest  2790": {
+  "lat": -25.831251,
+  "lon": 25.59701,
+  "km": 1.4
+ },
+ "loenly park|cnr nelson mandela and zeerust road  10c First Avenue Mafikeng  NORTH WEST  2745": {
+  "lat": -25.853728,
+  "lon": 25.638542
+ },
+ "2505 Unit-9 Residence|2505 Makale Drive  Unit-9  Mmabatho Mahikeng  North West  2735": {
+  "lat": -25.851192,
+  "lon": 25.582822,
+  "km": 4.6
+ },
+ "PHOENIX CONSULTANCY|1840 RAMOSADI VILLAGE MMABATHO  NORTH WEST  2735": {
+  "lat": -25.860425,
+  "lon": 25.614626,
+  "km": 4.1
+ },
+ "Lesedi Student Village|1011A Moletsamongwe Village  Moletsamongwe Village Mahikeng  2745": {
+  "lat": -25.853996,
+  "lon": 25.557767,
+  "km": 7.3
+ },
+ "Simasa Residence|2922 Joe Slovo Dr  Joe Slovo dr Mahikeng  North West  2735": {
+  "lat": -25.859794,
+  "lon": 25.643177,
+  "km": 7.9
+ },
+ "ditla|715 aslagte road Mahikeng  north west  2745": {
+  "lat": -25.870735,
+  "lon": 25.594698,
+  "km": 7.6
+ },
+ "Tab|2674 Ditaole Street  Montshiwa Mahikeng  North West  2745": {
+  "lat": -25.854248,
+  "lon": 25.618602,
+  "km": 4.1
+ },
+ "BAHURUTSHE FLATS|1757 MOTLHAMME CRESC  UNIT 8 MAHIKENG  NORTH WEST  2735": {
+  "lat": -25.839722,
+  "lon": 25.588787,
+  "km": 2.8
+ },
+ "Tshiamo Residence|7515 Tillia Street  Unit 15 Mmabatho  North West  2735": {
+  "lat": -25.847724,
+  "lon": 25.578432,
+  "km": 4.3
+ },
+ "Monakaladi Student Accommodation|2415 Molale Str Montshioa Unit 1 Mmabatho Mmabatho  Mahikeng  2735": {
+  "lat": -25.838024,
+  "lon": 25.621578,
+  "km": 2.6
+ },
+ "DI PRIME RESIDENCE|14 FLEMMING STREET  RIVIERA PARK  GOLFVIEW MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.861547,
+  "lon": 25.665852
+ },
+ "Tshiamo Residence|10127 Kopano Street  Setumo Park Mafikeng  North West  1055": {
+  "lat": -25.820895,
+  "lon": 25.637807,
+  "km": 3.9
+ },
+ "KF Trust|53 Molopo  Golfview Mahikeng  North West  2745": {
+  "lat": -25.864805,
+  "lon": 25.648644,
+  "km": 8.8
+ },
+ "BAHURUTSHE FLATS|1518 DIUTLWILENG STREET  UNIT 6 MAHIKENG  NORTH WEST  2735": {
+  "lat": -25.822092,
+  "lon": 25.624777,
+  "km": 2
+ },
+ "Sylvester|3784 Peace Street  Unit 12 Mmabatho  North West  2745": {
+  "lat": -25.844906,
+  "lon": 25.592909,
+  "km": 3.5
+ },
+ "Resego|523 Cul 18  Unit 2 Mmabatho  2745  2745": {
+  "lat": -25.836476,
+  "lon": 25.601289,
+  "km": 1.5
+ },
+ "DI PRIME RESIDENCE|1476 MAKHENE STREET  UNIT 6 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.81773,
+  "lon": 25.628274,
+  "km": 2.8
+ },
+ "DI PRIME RESIDENCE|NO 7 TLOTLI ACRES  UNIT 3 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.820807,
+  "lon": 25.632451,
+  "km": 3
+ },
+ "DI PRIME RESIDENCE|7264 CALLICAPA STREET  UNIT 15 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.845787,
+  "lon": 25.582483,
+  "km": 4.6
+ },
+ "DI PRIME RESIDENCE|4895 LORWANA STREET  UNIT 13 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.857987,
+  "lon": 25.573319,
+  "km": 5.3
+ },
+ "DI PRIME RESIDENCE|746 STEVE BIKO STREET  UNIT 2 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.831605,
+  "lon": 25.598438,
+  "km": 1.2
+ },
+ "DI PRIME RESIDENCE|1338 BATLOKWA STREET  UNIT 7 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.840515,
+  "lon": 25.59835,
+  "km": 2.4
+ },
+ "Moosa Trading Services|6507 Ntserane Street  Unit 14 Mahikeng  North West  2745": {
+  "lat": -25.857748,
+  "lon": 25.568356,
+  "km": 5.9
+ },
+ "AQUILA STUDENT RESIDENCE|1093 SEREKO STREET  MONTSHIWA MAHIKENG  NORTH WEST  2735": {
+  "lat": -25.851356,
+  "lon": 25.619777,
+  "km": 3.7
+ },
+ "Ontiretse Residence|1182 D.M Kole Street  Montshioa Mahikeng  North West  2737": {
+  "lat": -25.849824,
+  "lon": 25.61878,
+  "km": 3.4
+ },
+ "MARANG RESIDENCE|341 UNIT 2  CUL 13 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.835545,
+  "lon": 25.599467,
+  "km": 1.9
+ },
+ "Semien Student Accommodation 2|387 Cul 14  Steve Biko Drive  Unit 2  Cull 14  Steve Biko Drive  2 Mahikeng  North West  2735": {
+  "lat": -25.837529,
+  "lon": 25.590998,
+  "km": 2.7
+ },
+ "Kav Villa 3|2000 Motlhamme Crescent  Unit 8 Mahikeng  North West  2790": {
+  "lat": -25.842911,
+  "lon": 25.588652,
+  "km": 3.2
+ },
+ "Kav Villa 2|1753 Motlhamme Crescent  Unit 8 Mahikeng  North West  2790": {
+  "lat": -25.839258,
+  "lon": 25.589117,
+  "km": 2.7
+ },
+ "PK Villa|1874 Kgokong Drive  Unit 8 Mmabatho  North West  2735": {
+  "lat": -25.840254,
+  "lon": 25.590801,
+  "km": 2.9
+ },
+ "Marang Res|662 Steve Biko Street Cul 7  unit 2 Mmabatho Mahikeng  North West  2735": {
+  "lat": -25.832929,
+  "lon": 25.593799,
+  "km": 1.8
+ },
+ "RU Villa 1|2311 Tholo Street  Unit 8 Mmabatho  North West  2790": {
+  "lat": -25.842759,
+  "lon": 25.592839,
+  "km": 3.2
+ },
+ "K AND M ACCOMDATION|10331 MONTSHIWA STADT VILLAGE  MONTSHIWA STADT MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.848833,
+  "lon": 25.619397,
+  "km": 3.2
+ },
+ "FAHREEZ RESIDENCE|07 ANDERSIET STREET  RIVIERIA PARK Mafikeng  North West  2745": {
+  "lat": -25.856942,
+  "lon": 25.668616,
+  "km": 11.1
+ },
+ "Snazzy Res|Cnr Main and Robinson street  Mafiekng MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.864809,
+  "lon": 25.643619,
+  "km": 8.9
+ },
+ "RU Villa 2|1869 Kgokong Drive  Unit 8 Mmabatho  North West  2790": {
+  "lat": -25.841013,
+  "lon": 25.592305,
+  "km": 3
+ },
+ "LEVUTSHA PROPERTIES RESIDENCE|425 AIRPORT VIEW MOLETSAMONGWE  703 BOIEING STREET MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.831139,
+  "lon": 25.539517,
+  "km": 9.7
+ },
+ "Nthutang Student Accomodation Facilities|1109 Unit 3  Solplaatjie Street MMABATHO  North West  2735": {
+  "lat": -25.822713,
+  "lon": 25.628456,
+  "km": 2.3
+ },
+ "ANCHOR RESIDENCE|10621 MOSHAWANA VILLAGE MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.797859,
+  "lon": 25.642861,
+  "km": 6.4
+ },
+ "Mathole|2348 Mokitime  Unit 8 Mahikeng  North West  2745": {
+  "lat": -25.84216,
+  "lon": 25.594547,
+  "km": 3.3
+ },
+ "Kav Villa 1|1833 Gopane Street  Unit 8 Mahikeng  North West  2790": {
+  "lat": -25.839949,
+  "lon": 25.589842,
+  "km": 2.7
+ },
+ "KEKOPANTSWE E HOSPITALILTY AND GARDERNING SERVICES(PTY)LTD|20174 Dibate Village Mahikeng  North West  2745": {
+  "lat": -25.844299,
+  "lon": 25.611032,
+  "km": 1.9
+ },
+ "Danvillebuild Accommodation|1562 Magonare street unit 6 Mmabatho  North West  2790": {
+  "lat": -25.821906,
+  "lon": 25.621886,
+  "km": 2.3
+ },
+ "Shiva@12|3976 Gypsy Crescent Street  Unit 12 Mmabatho North West  2735": {
+  "lat": -25.847576,
+  "lon": 25.592483,
+  "km": 3.7
+ },
+ "Dimpho|7640 Monstera  Unit 15 Mmabatho  North West  2745": {
+  "lat": -25.850383,
+  "lon": 25.576284,
+  "km": 4.6
+ },
+ "Lilly woods urban village|40136 Phola village MAFIKENG  2745": {
+  "lat": -25.855626,
+  "lon": 25.608759,
+  "km": 4.1
+ },
+ "Blue Roof|20172B Blue Roof  Dibate Mmabatho  North West  2745": {
+  "lat": -25.841417,
+  "lon": 25.607476,
+  "km": 1.8
+ },
+ "Wakanda Student Accommodation 3|39 CLARENDON STREET  GOLF VIEW MAHIKENG  North West  2745": {
+  "lat": -25.852958,
+  "lon": 25.645802,
+  "km": 7.9
+ },
+ "MASEKO RESIDENCE|2291  Thite street Unit1 Mmabatho  NW  2735": {
+  "lat": -25.839578,
+  "lon": 25.616825,
+  "km": 2.4
+ },
+ "Lefika Student Accomodation|42 Proctor Avenue  Libertas Mahikeng  North West  2745": {
+  "lat": -25.855112,
+  "lon": 25.645757,
+  "km": 8
+ },
+ "White House|1582 Thesebe Close Cnr 3097 Dwitluleng Street  Unit 6  1582 Thesebe Close Cnr 3097 Dwitluleng Street  Unit 6 Mmabatho  NORTH WEST  2735": {
+  "lat": -25.820725,
+  "lon": 25.623234,
+  "km": 2.2
+ },
+ "Lakaz Student Home|21 Jan Viljoen  Golf view North West  Mafikeng": {
+  "lat": -25.851683,
+  "lon": 25.644944,
+  "km": 7.5
+ },
+ "MoonStudent 1|514 Cul 18  Unit 2 Mmabatho  North West  2790": {
+  "lat": -25.836059,
+  "lon": 25.597897,
+  "km": 1.8
+ },
+ "MOISE STUDENT ACCOMMODATION|1447  UNIT 6  THEKISHO STREET MMABATHO  NORTH WEST  2735": {
+  "lat": -25.816602,
+  "lon": 25.63174,
+  "km": 3
+ },
+ "Mandix Management Service|2606 Unit 9  Zweli Ntuli Street Mafikeng  North -West  2745": {
+  "lat": -25.849495,
+  "lon": 25.584997,
+  "km": 4.6
+ },
+ "Chapels Nest Student Accommodation|85B Lokaleng Rd  Unit 5  Mmabatho  Mahikeng  Northwest Province  2745": {
+  "lat": -25.82611,
+  "lon": 25.595934,
+  "km": 1.6
+ },
+ "Proctor Residence|46 Proctor Avenue  Libertas Mafikeng  North West  2745": {
+  "lat": -25.85481,
+  "lon": 25.64568,
+  "km": 7.9
+ },
+ "JR VILLA 3|3538 Carina Street  Mmabatho Unit 12 Mahikeng  North West  2790": {
+  "lat": -25.85012,
+  "lon": 25.587613,
+  "km": 4.7
+ },
+ "TSWELELOPELE RES 2|3362 STOCKROOS STREET  DANVILLE MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.874771,
+  "lon": 25.652765,
+  "km": 9.9
+ },
+ "JR VILLA 2|3511 Modisaotsile Seodi Blvd  Mmabatho Unit 12 Mahikeng  North West  2790": {
+  "lat": -25.849799,
+  "lon": 25.587371,
+  "km": 4.6
+ },
+ "Polla's Res|15 Dianthus street Danville Mafikeng  North West  2745": {
+  "lat": -25.873141,
+  "lon": 25.650788,
+  "km": 9.7
+ },
+ "JR VILLA 4|414 Lea Mangope Ave  Unit 2 Mmabatho  Cul 14 Mahikeng  North West  2790": {
+  "lat": -25.837018,
+  "lon": 25.592718,
+  "km": 2.5
+ },
+ "MUHRAH STUDENTS|CORNER SHIPPARD & ROBISON STR  MAHIKENG MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.865754,
+  "lon": 25.644216,
+  "km": 8.8
+ },
+ "STUDENT LEARNING AND ACCOMODATION CENTER|20032  DIBATE  MMABATHO  2735  20032 DIBATE MMABATHO 2735 MAHIKENG  MMABATHO  NORTH WEST  2735": {
+  "lat": -25.844362,
+  "lon": 25.610955,
+  "km": 1.9
+ },
+ "MVPINPRINT 3|Unit 15  7051 bCrex Street Mafikeng  North West  2735": {
+  "lat": -25.843759,
+  "lon": 25.582115,
+  "km": 3.7
+ },
+ "BOTSHELO RESIDENCE|682 Unit 2  Cul 7 Mahikeng  North West  2790": {
+  "lat": -25.836084,
+  "lon": 25.596235,
+  "km": 2.2
+ },
+ "Nkagi Villa|724 unit 2  Cul 7 Mafikeng  North west  2735": {
+  "lat": -25.840502,
+  "lon": 25.59867,
+  "km": 2.2
+ },
+ "Mtotoba Residence|1843 Kgokong Drive Unit 8 Mmabatho  1843 Kgokong Drive unit 8 Mmabatho  North West  2735": {
+  "lat": -25.839905,
+  "lon": 25.591105,
+  "km": 2.9
+ },
+ "Khanya Residence|97 Lea Mangope street  Unit 2  Mmabatho Mafikeng  Northwest  2790": {
+  "lat": -25.840262,
+  "lon": 25.614698,
+  "km": 2
+ },
+ "MVPINPRINT 2|267 CUL 9  Unut 2 Mafikeng  North West  2735": {
+  "lat": -25.838859,
+  "lon": 25.596833,
+  "km": 2.3
+ },
+ "MVPINPRINT 6|1378 Bahurutse Street  Unit 7 Mafikeng  North West  2735": {
+  "lat": -25.839768,
+  "lon": 25.59807,
+  "km": 2.3
+ },
+ "MVPINPRINT 4|1798 Gopane Street  Unit 8 Mafikeng  North West  2735": {
+  "lat": -25.840445,
+  "lon": 25.589107,
+  "km": 2.8
+ },
+ "Eden Lodge Student Accomodation|1 Mokala road  Tontonyane MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.876846,
+  "lon": 25.550595,
+  "km": 16.4
+ },
+ "Tong`s Residence|1984 Motlhamme Street Mmabatho  North West": {
+  "lat": -25.842013,
+  "lon": 25.587572,
+  "km": 3.2
+ },
+ "Pule Investment Trust Properties|654 Cul 06  Unit 2 Mafikeng  North West Province  2790": {
+  "lat": -25.836025,
+  "lon": 25.599049,
+  "km": 1.7
+ },
+ "Pule Investment Trust Properties|493 cul 16  Unit 2 Mafikeng  North West Province  2790": {
+  "lat": -25.834649,
+  "lon": 25.594237,
+  "km": 2.1
+ },
+ "Pule Investment Trust Properties|1189 Beirut rd  Unit 5 Mafikeng  North West Province  2790": {
+  "lat": -25.83186,
+  "lon": 25.606621,
+  "km": 0.7
+ },
+ "MONACO JACOBS ESTATE|27 KIRSTENBOSCH STREET  RIVIERAPARK MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.862467,
+  "lon": 25.654056,
+  "km": 9.4
+ },
+ "Reatlaretse Legae Projects (PTY) LTD|85 Steve Biko Avenue  Unit 2  Cul 3  Mmabathoh6 Mahikeng  North west9  2735": {
+  "lat": -25.834579,
+  "lon": 25.603107,
+  "km": 1.2
+ },
+ "boipelo solutions|Cul 2 55 Unit2  Mmabatho  2735  mahikeng Mahikeng  North West  2735": {
+  "lat": -25.832427,
+  "lon": 25.60248,
+  "km": 1.1
+ },
+ "OREGANO RESIDENCE|759 STEVE BIKO AVENUE  UNIT 2 MMABATHO  NW  273": {
+  "lat": -25.835221,
+  "lon": 25.594416,
+  "km": 2.2
+ },
+ "LEBONE RESIDENCE|476 CUL 16  UNIT 2 MMABATHO  NW  2735": {
+  "lat": -25.834455,
+  "lon": 25.593848,
+  "km": 2.1
+ },
+ "GMD PROJECTS|UNIT 2 417  STEVE BIKO MAHIKENG  NORTH WEST  MMABATHO": {
+  "lat": -25.83809,
+  "lon": 25.592214,
+  "km": 2.6
+ },
+ "Bokako Residence|310 Steve Biko  Unit 2 Mmabatho  North West  2735": {
+  "lat": -25.839493,
+  "lon": 25.593711,
+  "km": 3.1
+ },
+ "Qenya villa|484 unit 2 cul 16  steve biko drive Mafikeng  mmabatho  2745": {
+  "lat": -25.834416,
+  "lon": 25.593545,
+  "km": 2.1
+ },
+ "340 CUL 13|340 CUL 13  MORAK AVENUE UNIT 2  CUL 13  MAHIKENG NORTH WEST": {
+  "lat": -25.83922,
+  "lon": 25.592146,
+  "km": 2.8
+ },
+ "Mdakane Student Residence Phase 1|10629 Lonely Park  Zeerust Road Mahikeng  North west  2745": {
+  "lat": -25.831473,
+  "lon": 25.656711,
+  "km": 6.2
+ },
+ "Mdakane Student Residence Phase 2|11748 Lonely Park  Zeerust Road Mahikeng  2745": {
+  "lat": -25.839652,
+  "lon": 25.673365,
+  "km": 8.2
+ },
+ "Mametha Trading and Projects|1040 Hendrick Tlou  Montshioa Mafikeng  North-West  2737": {
+  "lat": -25.850903,
+  "lon": 25.620074,
+  "km": 3.7
+ },
+ "LES SOLUTIONS|401 CULL 14  UNIT 2 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.837509,
+  "lon": 25.591686,
+  "km": 2.7
+ },
+ "Ivy House|2216 Sekame street  Montshiwa unit 2 Mmabatho  North West  2735": {
+  "lat": -25.838183,
+  "lon": 25.617265,
+  "km": 2.3
+ },
+ "ZIPHIWOZONKE ENTERPRISE|HOUSE NUMBER 407 UNIT 02 cul 14 Mmabatho  CUL 14 MMABATHO MAHIKENG  NORTH WEST  2790": {
+  "lat": -25.836842,
+  "lon": 25.592083,
+  "km": 2.7
+ },
+ "Bone Lwaabo Unit 2|212 Unit 2 Mmabatho  Steve Biko Mahikeng  2790": {
+  "lat": -25.837645,
+  "lon": 25.596437,
+  "km": 2.1
+ },
+ "Gilindoda Residence|1542 Diutlwileng Street  Unit 6 Mahikeng  North West  2735": {
+  "lat": -25.821879,
+  "lon": 25.623899,
+  "km": 2
+ },
+ "MoonStudents 2|670 Cul 7  Unit 2 Mmabatsho  North West  2790": {
+  "lat": -25.836929,
+  "lon": 25.595237,
+  "km": 2.1
+ },
+ "Dzan sTUDIO|755  Steve Biko  Unit 2 MMABATHO  North West  2790": {
+  "lat": -25.836437,
+  "lon": 25.593542,
+  "km": 2.4
+ },
+ "Mogaetsho General Tradind|701 Cul 7  UNIT 2 MMABATHO  north west  2035": {
+  "lat": -25.836436,
+  "lon": 25.595334,
+  "km": 2.1
+ },
+ "Gameli|511 Steve Biko  Cul 17  Unit 2 Mmabatho  North West  2745": {
+  "lat": -25.833462,
+  "lon": 25.596278,
+  "km": 1.7
+ },
+ "MIDO PROPERTY CONSULTING|843 Unit3  14 Boipelo Street Mmabatho  North West  2735": {
+  "lat": -25.820032,
+  "lon": 25.630001,
+  "km": 2.9
+ },
+ "J & J Residence|1679 Maisantwa Road  Unit 6 Mmabatho Mahikeng  North West  2335": {
+  "lat": -25.814718,
+  "lon": 25.630983,
+  "km": 3.3
+ },
+ "Maruping Estates|578 Cul 20  Unit 2 Mmabatho  2735  2735": {
+  "lat": -25.831483,
+  "lon": 25.59734,
+  "km": 1.4
+ },
+ "FB REAL ESTATES|ERF 7912  MAKHENE STREET UNIT 6 MAFIKENG  NORTH WEST  2746": {
+  "lat": -25.818359,
+  "lon": 25.627037,
+  "km": 2.7
+ },
+ "NONE|23 PEARL RIVERIA PARK  NORTH WEST  2745": {
+  "lat": -25.861156,
+  "lon": 25.661306,
+  "km": 11.5
+ },
+ "FB REAL ESTATES|1462  MOKGOTHU STREET UNIT 6 MAFIKENG  NORTH WEST  2746": {
+  "lat": -25.817183,
+  "lon": 25.630304,
+  "km": 3
+ },
+ "FB REAL ESTATES|7892  MAKHENE STREET UNIT 6 MAFIKENG  NORTH WEST  2746": {
+  "lat": -25.817569,
+  "lon": 25.62797,
+  "km": 2.7
+ },
+ "Cedar House|1680 Maisantwa road  Unit 6  Mmabatho Mahikeng  North West  2735": {
+  "lat": -25.814515,
+  "lon": 25.63084,
+  "km": 3.3
+ },
+ "MOMMYS STUDENTS HOUSE|24 HAVENGA STREET  GOLFVIEW MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.85393,
+  "lon": 25.642495,
+  "km": 7.4
+ },
+ "Teselex T/A La familia Student Accomodation|18 Jan Smuts Avenue  Golf View Mahikeng  North West  2745": {
+  "lat": -25.862462,
+  "lon": 25.652998,
+  "km": 9.2
+ },
+ "BAKANG STUDENT ACCOMMODATION|304  Unit 2  Cul 10 Mmabatho  North West  2790": {
+  "lat": -25.840299,
+  "lon": 25.594464,
+  "km": 3.2
+ },
+ "MAKAMA STUDENT RESIDENCE|1755 MOTLHAMME CRESCENT  UNIT 08 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.839548,
+  "lon": 25.589019,
+  "km": 2.7
+ },
+ "Masina Residence|11547D Mocoseng Village Mafikeng  Northwest  2745": {
+  "lat": -25.870503,
+  "lon": 25.557632,
+  "km": 7.6
+ },
+ "Swartz Accommodation (PTY)LTD|10429 Kgolagano Cresent Lonely Park  10429 Kgolagano Cresent Lonely Park Mahikeng  North West  2745": {
+  "lat": -25.824601,
+  "lon": 25.641612,
+  "km": 4.7
+ },
+ "MOSALAS REST (PTY)LTD|30350 MOTLHABENG VILLAGE  MAFIKENG Mafikeng  NORTH WEST  2745": {
+  "lat": -25.852668,
+  "lon": 25.604829,
+  "km": 4.4
+ },
+ "Kitsoemolemo Residence|31287 Motlhabeng Village Mahikeng  North West  0186": {
+  "lat": -25.851369,
+  "lon": 25.602574,
+  "km": 4.3
+ },
+ "0|1983 Motlhamme Crescent  Unit 8 Mahikeng  North West": {
+  "lat": -25.84213,
+  "lon": 25.587726,
+  "km": 3.2
+ },
+ "MP Lekena Residence|house number 3489  Ramosadi Village mafikeng  north west  2745": {
+  "lat": -25.858074,
+  "lon": 25.608676,
+  "km": 4.3
+ },
+ "Ikanyeng guesthouse|16 Churchill ave  Golf View Mafikeng  North West  2745": {
+  "lat": -25.856363,
+  "lon": 25.648866,
+  "km": 8.6
+ },
+ "MGV ESTATES|HOUSE 552  CUL 19  UNIT 2  MMABATHO  STEVE BIKO AVE MMABATHO  NORTH WEST  2735": {
+  "lat": -25.832236,
+  "lon": 25.595763,
+  "km": 1.6
+ },
+ "Icon Towers|5 Clarendon Street  Golfview Mahikeng  North West  2745": {
+  "lat": -25.85219,
+  "lon": 25.645224,
+  "km": 7.7
+ },
+ "angel’s rest|7310 ilex street Mafikeng  North West  2735": {
+  "lat": -25.84793,
+  "lon": 25.581086,
+  "km": 4.3
+ },
+ "Ostrich Nest|2741 Ditaola Street  Montshiwa Mahikeng  North West  2745": {
+  "lat": -25.84507,
+  "lon": 25.59768,
+  "km": 3.8
+ },
+ "Peo-entle Residence|692 Cul 7  Unit 2 Mmabatho  Northwest  2735": {
+  "lat": -25.836194,
+  "lon": 25.595823,
+  "km": 2.1
+ },
+ "Mahsam|25 Proctor Street  Golfview Mahikeng  North West  2745": {
+  "lat": -25.860756,
+  "lon": 25.648725,
+  "km": 8.6
+ },
+ "MVPINPRINT 7|1653 Joel Mahila Street  Montshiwa Mafikeng  North West  2735": {
+  "lat": -25.843545,
+  "lon": 25.617345,
+  "km": 2.7
+ },
+ "Geramium Student Res|13 Geranium Street  Riviera Park Mahikeng  NorthWest  2745": {
+  "lat": -25.864749,
+  "lon": 25.656574,
+  "km": 12.3
+ },
+ "Gameli|4316 Nicklaaus Street  Leopard Park Mahikeng  North West  2745": {
+  "lat": -25.814352,
+  "lon": 25.642224,
+  "km": 4.9
+ },
+ "Motaba Student Res|ERF 3084 Portion 36  Captain Sentletse Crescent  Mmabatho Unit 9 Mahikeng  North West Province  2735": {
+  "lat": -25.848422,
+  "lon": 25.585342,
+  "km": 4.1
+ },
+ "Rakish Residence|863 Sol Plaatje Road  Unit 3 Mmabatho  North West  2790": {
+  "lat": -25.820932,
+  "lon": 25.632047,
+  "km": 3
+ },
+ "MKANDAWIRE'S PLACE|1549 CNR KUBU AND MAGONARE CLOSE UNIT 6  1549 CNR KUBU AND MAGONARE CLOSE UNIT 6 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.822242,
+  "lon": 25.622041,
+  "km": 2.3
+ },
+ "Amogelang Student Accomodation|7126 IIex Street  Unit 15  Mmabatho 2735 Mahikeng  North-West  2745": {
+  "lat": -25.848603,
+  "lon": 25.581693,
+  "km": 4.3
+ },
+ "TMD Student Accommodation|226 Cul 8 Unit 2  Steve Biko Drive Mmabatho  North West  2735": {
+  "lat": -25.837151,
+  "lon": 25.596997,
+  "km": 2
+ },
+ "Lethabo|2259 Mokala Street  Unit 8 Mmabatho  North West  2745": {
+  "lat": -25.84475,
+  "lon": 25.589059,
+  "km": 3.4
+ },
+ "AI Bareki Residence|725 Cul 7  Unit 2 Mmabatho  North West  2090": {
+  "lat": -25.836572,
+  "lon": 25.595956,
+  "km": 2.1
+ },
+ "Thebe Sebo Residence|531 Cul 18  Unit 2 Mmabatho  North West  2090": {
+  "lat": -25.832873,
+  "lon": 25.594561,
+  "km": 1.7
+ },
+ "KF Trust|73 Molopo Street  Golfview Mahikeng  North West  2745": {
+  "lat": -25.865329,
+  "lon": 25.648162,
+  "km": 8.7
+ },
+ "Wakanda Student Accommodation 2|10 Jan Smuts Avenue  Golf View Mafikeng  North West  2745": {
+  "lat": -25.856817,
+  "lon": 25.651139,
+  "km": 8.7
+ },
+ "Ebenezer|2455 Tawana Street  Unit 5 Mmabatho  North West  2745": {
+  "lat": -25.83171,
+  "lon": 25.60328,
+  "km": 0.8
+ },
+ "Pulaneo|490 Cul 16 unit 2  Steve Biko Drive Mmabatho  North West  2745": {
+  "lat": -25.834196,
+  "lon": 25.593928,
+  "km": 2.1
+ },
+ "Precious Jewels Student Accommodation|1737 TLHOALE STREET  MONTSHIWA Mafikeng  North West  2735": {
+  "lat": -25.841607,
+  "lon": 25.618766,
+  "km": 2.4
+ },
+ "KADIRI RESIDENCE|9 PROCTOR STREET  GOLFVIEW MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.862604,
+  "lon": 25.649758,
+  "km": 8.8
+ },
+ "Serenity student Living|50250 Lokaleng village Mafikeng  North west  2745": {
+  "lat": -25.828677,
+  "lon": 25.585912,
+  "km": 3
+ },
+ "Bothale Investmenst|216 Unit 2  Cul 8 Mmmabatho  North West  2735": {
+  "lat": -25.837306,
+  "lon": 25.597522,
+  "km": 2
+ },
+ "BOTHALE INVESTMENTS|6228 Kgatlhampane Close  UNIT14 Mmmabatho  2735": {
+  "lat": -25.855772,
+  "lon": 25.567134,
+  "km": 6
+ },
+ "BOTHALE INVESTMENTS|6635  Tshetlho Street Mmmabatho  NORTH WEST  2735": {
+  "lat": -25.85856,
+  "lon": 25.564272,
+  "km": 6.5
+ },
+ "Siyaphila Residence|CUL 16 486  Unit 2 Mmbatho  North West  2735": {
+  "lat": -25.834409,
+  "lon": 25.594186,
+  "km": 2.1
+ },
+ "Golden Globe Residence|1164 Unit 5  Beriut Mahikeng  North West  2745": {
+  "lat": -25.830759,
+  "lon": 25.607232,
+  "km": 0.4
+ },
+ "Masego Student House|1880 Kgokong Drive  Unit 8 Mmabatho  Northwest  2745": {
+  "lat": -25.840631,
+  "lon": 25.591599,
+  "km": 2.9
+ },
+ "New home students accommodation|291 morena manor  Kingfisher street extension 39 Mafikeng  North west  2735": {
+  "lat": -25.838558,
+  "lon": 25.587527,
+  "km": 2.8
+ },
+ "Cozy Commune|1996 Motlhamme Crescent  Unit 8 Mahikenng  NW  2745": {
+  "lat": -25.84268,
+  "lon": 25.588031,
+  "km": 3.1
+ },
+ "ROYAL STUDENT ACCOMODATION 2|1624 JOEL MAHILA STREET  MONTSHIWAH UNIT 4": {
+  "lat": -25.843648,
+  "lon": 25.615845,
+  "km": 2.9
+ },
+ "MONACO JACOBS ESTATE|39A KIRSTENBOSCH STREET  RIVIERAPARK MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.861987,
+  "lon": 25.661912,
+  "km": 11.6
+ },
+ "OBRA STUDENT HOUSING|Stand Number 40  Moletsamongwe Mahikeng  NORTH WEST  2745": {
+  "lat": -25.83098,
+  "lon": 25.51427,
+  "km": 11.7
+ },
+ "Gen Z Student Res|Stand 103 Molelwane  Signal Hill Mafikeng  North West  2791": {
+  "lat": -25.821077,
+  "lon": 25.653984,
+  "km": 5.7
+ },
+ "Mashiane Lekata Student Accomodation|754 Unit 2 Steve Biko Avenue Mmabatho  North West  2735": {
+  "lat": -25.836654,
+  "lon": 25.593451,
+  "km": 2.4
+ },
+ "Makhuzeni Campus|3742 Amalia Cresent  Amalia Cresent MMABATHO  NORTH WEST  2735": {
+  "lat": -25.849134,
+  "lon": 25.589937,
+  "km": 4.1
+ },
+ "BP Student Residence|1056 Botlhaba Street  Unit 5 Mmabatho  North West  2735": {
+  "lat": -25.831354,
+  "lon": 25.608587,
+  "km": 0.8
+ },
+ "Bokamoso Residence|31250 Motlhabeng Village  Mahikeng Mahikeng  North West  2745": {
+  "lat": -25.841975,
+  "lon": 25.599857,
+  "km": 2.4
+ },
+ "Gae Trading enterprise|30215 Phuduhudu street  Mosiane view Mafikeng  North West  2745": {
+  "lat": -25.889027,
+  "lon": 25.670649,
+  "km": 13
+ },
+ "Banturush Africa|STAND A  MAKGETLA VIEW MMABATHO Mmabatho  north west  2735": {
+  "lat": -25.850598,
+  "lon": 25.562096,
+  "km": 6.6
+ },
+ "Mmela Estates|Stand number 065  Airportview Mmabatho  North West  2735": {
+  "lat": -25.83661,
+  "lon": 25.54234,
+  "km": 8.9
+ },
+ "SIMPLY Student accommodation|Unit 5 981 mossii Street mmabatho  University road 981 unit 5 Mahikeng  North west  2745": {
+  "lat": -25.830358,
+  "lon": 25.603054,
+  "km": 0.8
+ },
+ "EMMANUEL HOME 1108|1108 SOL PLAATJIE DRIVE  UNIT 3 MMABATHO MAHIKENG  NORTHWEST  2745": {
+  "lat": -25.822768,
+  "lon": 25.628511,
+  "km": 2.3
+ },
+ "AmoleT -Villa 02|10037  Kgosi Setumo Road Mafikeng  North west  2745": {
+  "lat": -25.817709,
+  "lon": 25.644971,
+  "km": 4.6
+ },
+ "Boisego Estates|Stand 073 Airportview  Mmabatho Mafikeng  North West  2735": {
+  "lat": -25.802654,
+  "lon": 25.554847,
+  "km": 8.6
+ },
+ "N/A|778 LEAH MANGOPE  UNIT 2 Mahikeng  2735": {
+  "lat": -25.831599,
+  "lon": 25.598102,
+  "km": 1.3
+ },
+ "Sankofa Property Investment Holdings Pty Ltd|1750 Motlhamme Crescent  Unit 08 Mmabatho  North West  2735": {
+  "lat": -25.839017,
+  "lon": 25.589537,
+  "km": 2.7
+ },
+ "Green House|7569 Lavendula  Unit 15 Mmabatho  North West  2790": {
+  "lat": -25.849416,
+  "lon": 25.580544,
+  "km": 4
+ },
+ "0|2571 Boet Joubert Street   unit 9 Mmabatho  North West": {
+  "lat": -25.847585,
+  "lon": 25.58323,
+  "km": 4.3
+ },
+ "MOISE STUDENT ACCOMMODATION|1222 MOKALE STREET UNIT 7  UNIT 7 MMABATHO MMABATHO  NORTHWEST  2735": {
+  "lat": -25.837784,
+  "lon": 25.598697,
+  "km": 1.9
+ },
+ "MOISE STUDENT ACCOMMODATION|5150 LINK ROAD  UNIT 13 - MMABATHO MMABATHO  NORTH WEST  2735": {
+  "lat": -25.878024,
+  "lon": 25.625427,
+  "km": 6.3
+ },
+ "Phakalane view|Stand 43/44 phase 2  Airport view Mahikeng  North-west  2745": {
+  "lat": -25.805282,
+  "lon": 25.556863,
+  "km": 9
+ },
+ "TLT Properties|6036 Dipabi Street  Unit 14 Mahikeng  North West  2745": {
+  "lat": -25.854179,
+  "lon": 25.571563,
+  "km": 5.4
+ },
+ "Morkz Enterprise students accommodation|5088 Lephutsi close  Unit 13 Mmabatho  Nw  2735": {
+  "lat": -25.85977,
+  "lon": 25.569393,
+  "km": 5.7
+ },
+ "Ontlametse Student Accommodation|2031 Seleke drive  Unit 8 Mafikeng  North West  2745": {
+  "lat": -25.845054,
+  "lon": 25.585912,
+  "km": 3.3
+ },
+ "TGSHEPO LK TRADING|2149 SELLO THOE STREET  UNIT 8 MMABATHO MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.843444,
+  "lon": 25.58908,
+  "km": 3.2
+ },
+ "@24 Student Accommodation|24 Cul 1  Unit 2 Mahikeng  2735": {
+  "lat": -25.832458,
+  "lon": 25.600194,
+  "km": 1.4
+ },
+ "786 Sello Sekokope|786 Cul 17  Unit 2 Mmabatho  Northwest  2735": {
+  "lat": -25.833762,
+  "lon": 25.595988,
+  "km": 1.7
+ },
+ "DT Student Accomodation|12135B Mokala Street  Mocoseng Village Mmabatho  North west  2735": {
+  "lat": -25.86024,
+  "lon": 25.567487,
+  "km": 5.9
+ },
+ "SIKO VILLA RESIDENCE|2909 OCKIE ACKERMAN  UNIT 9 MMABATHO  NW  2735": {
+  "lat": -25.852016,
+  "lon": 25.580119,
+  "km": 4.6
+ },
+ "EST RESIDENCE|30 (2727) ANDESITE DRIVE  RIVIERA PARK MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.856611,
+  "lon": 25.66877,
+  "km": 11.1
+ },
+ "TREJEN RESIDENCE|70160 Mosiane View  Mosiane view Mahikeng  North West  2745": {
+  "lat": -25.89193,
+  "lon": 25.68637,
+  "km": 14.5
+ },
+ "Atlegang Student Residence|465 Stive Biko Ave  Unit 2 Mmabatho  North-West  2735": {
+  "lat": -25.834998,
+  "lon": 25.594455,
+  "km": 2.2
+ },
+ "Persevere Content SA|1777 MOTLHAMME CRESCENT  1777 MOTLHAMME CRESCENT Mahikeng  North West  2735": {
+  "lat": -25.841442,
+  "lon": 25.587652,
+  "km": 3
+ },
+ "VHUKHANYI|1382 BAHURUTSHE STREET  UNIT 7 MMABATHO MAFIKENG  NORTH WEST  2735": {
+  "lat": -25.842322,
+  "lon": 25.597741,
+  "km": 3.5
+ },
+ "Dinaledi|3539  Cnr Lobelia and Locos Str. Unit12 Mmabatho  North West  2735": {
+  "lat": -25.850009,
+  "lon": 25.587171,
+  "km": 4.6
+ },
+ "MOIPOLAI RESIDENCE 1|1381 BAHURUTSHI CLOSE  UNIT 7 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.842156,
+  "lon": 25.59764,
+  "km": 3.5
+ },
+ "Bone Lwaabo Unit 9 Ext|31 Unit 9 Ext  Mmabatho Mahikeng  nw  2790": {
+  "lat": -25.837779,
+  "lon": 25.594816,
+  "km": 2.1
+ },
+ "Rainbow Student Accommodation|Corner Hatchard  Tillard and Robinson Street Mafikeng  North West  2745": {
+  "lat": -25.862793,
+  "lon": 25.642425,
+  "km": 8.4
+ },
+ "Tlamelo Mercy Residential|2011 Tlhagale street unit 8 Mmabatho Mafikeng  North West  2745": {
+  "lat": -25.843229,
+  "lon": 25.586329,
+  "km": 3.1
+ },
+ "magonare student villa|7902 unit 6  magonare park mmabatho  north west  2735": {
+  "lat": -25.84436,
+  "lon": 25.610943,
+  "km": 1.9
+ },
+ "Maseko Residence|10115D  Lonely park Mafikeng  Nw  2739": {
+  "lat": -25.84118,
+  "lon": 25.669254,
+  "km": 9.3
+ },
+ "Naotsakagiso student Accommodation|3341 Van debrink street unit 10 Mmabatho  Van Debrink street Mmabatho  North West  ZAR": {
+  "lat": -25.847049,
+  "lon": 25.583162,
+  "km": 3.6
+ },
+ "Lukataedi GC Student residence|7388 Unit 15  Mmabatho Mafikeng  NorthWest  2735": {
+  "lat": -25.846668,
+  "lon": 25.578674,
+  "km": 4.4
+ },
+ "Lorako Lodge Student Accommodation|274 DP Kgotleng Street  Montshioa Mahikeng  North West  2745": {
+  "lat": -25.85063,
+  "lon": 25.627052,
+  "km": 4.4
+ },
+ "MATLAKALA MATTHEWS|1710 MOILA STREET UNIT 6 MMABATHO  1710 MOILA STREET UNIT 6 MMABATHO MAHIKENG  NORTH WEST  2735": {
+  "lat": -25.816061,
+  "lon": 25.630139,
+  "km": 3.2
+ },
+ "Kgosiwarona|2353  Thite street  Montshioa Unit 2 Mmabatho  North West  Mahikeng": {
+  "lat": -25.839261,
+  "lon": 25.616021,
+  "km": 2.5
+ },
+ "Motlalepule Taile|ERF 1851  Unit 8 Mmabatho  North West  2735": {
+  "lat": -25.840519,
+  "lon": 25.592209,
+  "km": 2.8
+ },
+ "Corban Student Commune|34807 Makgetla View  Tontonyane Mahikeng  North West  2745": {
+  "lat": -25.851312,
+  "lon": 25.565144,
+  "km": 6.1
+ },
+ "0|UNIT 12  3595 MMABATHO mafikeng  2745": {
+  "lat": -25.844935,
+  "lon": 25.592898,
+  "km": 3.5
+ },
+ "Ga-Tholo Suppliers 3|543 Manyaapelo Street Montshwa  North West  2737": {
+  "lat": -25.849874,
+  "lon": 25.623134,
+  "km": 3.7
+ },
+ "GMD ACCOMMODATION|5378 unit 13 mafikeng  NORTH WEST  2745": {
+  "lat": -25.862861,
+  "lon": 25.568609,
+  "km": 6
+ },
+ "GMD PROJECTS|33 BARDEN POWELL  BARDEN POWELL mafikeng  NORTH WEST  2745": {
+  "lat": -25.857294,
+  "lon": 25.645588,
+  "km": 8
+ },
+ "Pinkridge Holdings (Pty) Ltd|479  Cul 16  Unit 2 Mmabatho  North West": {
+  "lat": -25.834732,
+  "lon": 25.593875,
+  "km": 2.1
+ },
+ "Vinary 2|757 Nelson Mandela Drvive  Nelson Mandela drive Mahikeng  north west  2745": {
+  "lat": -25.854684,
+  "lon": 25.641285,
+  "km": 7.3
+ },
+ "Ga-Tholo Suppliers 2|662 Robert Sobukwe Street Montshwa  North West  2737": {
+  "lat": -25.844279,
+  "lon": 25.619659,
+  "km": 2.8
+ },
+ "ROLIHLAHLA  STUDENT RESIDENCE|12452 MOCOSENG  21st JUMPSTREET mahikeng  nw  2745": {
+  "lat": -25.868203,
+  "lon": 25.577174,
+  "km": 6.3
+ },
+ "Deep moon Commune|334 Morena manor  Kingfisher street Mafikeng  NW  2735": {
+  "lat": -25.838057,
+  "lon": 25.587987,
+  "km": 2.8
+ },
+ "Pinkridge Holdings (Pty) Ltd|2449  Jerry Reid Avenue  Unit 1 Mmabatho  North West": {
+  "lat": -25.83869,
+  "lon": 25.621635,
+  "km": 2.5
+ },
+ "GMD PROJECTS|LOKALENG LODGE  LOKALENG MAHIKENG  NORTH WEST  MMABATHO": {
+  "lat": -25.791185,
+  "lon": 25.58564,
+  "km": 6.6
+ },
+ "GMD PROJECTS|10666 MAGOGOE KOIKOI  MAHIKENG MAHIKENG  NORTH WEST  MMABATHO": {
+  "lat": -25.88694,
+  "lon": 25.61111,
+  "km": 8.4
+ },
+ "KEAMOGETSE STUDENT ACCOMMODATION|1060 Botlhaba Cul  UNIT 5 Mmabatho  NORTH WEST  Mahikeng": {
+  "lat": -25.832039,
+  "lon": 25.607867,
+  "km": 0.7
+ },
+ "MHC RESIDENCE 2|6262 Maretlwa close unit 14  Mmabatho Mahikeng  Northwest  2790": {
+  "lat": -25.855036,
+  "lon": 25.569381,
+  "km": 5.6
+ },
+ "Pinkridge Holdings (Pty) Ltd|2246  Kgalegi Cresent Montshiwa  North West": {
+  "lat": -25.839767,
+  "lon": 25.615032,
+  "km": 2.6
+ },
+ "ORERUTE STUDENT RES|10538 MOSHAWANE VILLAGE  MOLELWANE  MAFIKENG MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.797613,
+  "lon": 25.642996,
+  "km": 6.4
+ },
+ "Ponontle Villa|15 Boipelo Street  Unit 3  Mmabatho Mahikeng  NW  2735": {
+  "lat": -25.819813,
+  "lon": 25.630648,
+  "km": 2.8
+ },
+ "LESEGO STUDENT ACCOMMODATION|1044 BOTLHABA CUL  UNIT 5 Mmabatho  NORTH WEST  Mahikeng": {
+  "lat": -25.831473,
+  "lon": 25.607829,
+  "km": 0.7
+ },
+ "Kearabetswe Student Residence|962 Mosheshoe Drive  Unit 5 Mmabatho  North West  Mahikeng": {
+  "lat": -25.830261,
+  "lon": 25.607189,
+  "km": 0.3
+ },
+ "MOREMOGOLO|1168 BERIUT  MMABATHO UNIT 5 MMABATHO  NORTH WEST  MAFIKENG": {
+  "lat": -25.831526,
+  "lon": 25.600862,
+  "km": 1.4
+ },
+ "Winzor Res And Accomodation|1264 Ramushu Tawana Str Montshiwa  1264 Ramushu Tawana 2737": {
+  "lat": -25.848136,
+  "lon": 25.617,
+  "km": 2.9
+ },
+ "Arise and shine|64 Dibate  Dibate village Mmabatho  2735": {
+  "lat": -25.844278,
+  "lon": 25.611071,
+  "km": 1.9
+ },
+ "Selina Moses Student Res|14345 Magogoe Tar Village  Mahikeng Mahikeng  North West  2745": {
+  "lat": -25.88694,
+  "lon": 25.61111,
+  "km": 8.4
+ },
+ "MAARMAN BUSINESS SOLUTIONS (MBS RES)|10294 George Molokwane Street  LONELY PARK MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.823274,
+  "lon": 25.638968,
+  "km": 4.6
+ },
+ "Kgosiwarona|1815 Unit 8  Motlhamme Crescent Mmabathi  North West  Mahikeng": {
+  "lat": -25.841002,
+  "lon": 25.588338,
+  "km": 2.9
+ },
+ "OMOGOLO GUEST LODGE AND PROJECTIS|2366 ROBERT SOBUKWE RD MONTSHIWA  OMOGOLO GUEST LODGE AND PROJECTIS MAHIKENG  NORTH-WEST  2735": {
+  "lat": -25.83333,
+  "lon": 25.55,
+  "km": 9.2
+ },
+ "KOPANA DISTRIBUTORS|1713 THOSI SETILOANE  MONTSHIWA UNIT 2 MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.842452,
+  "lon": 25.615953,
+  "km": 2.7
+ },
+ "Kaone & Laone Accommodation|1947 Gopane street  1947 Gopane Street  Unit 8 Mafikeng  North West  2745": {
+  "lat": -25.841283,
+  "lon": 25.588851,
+  "km": 2.8
+ },
+ "Redline Collective Accomodation|4416 Motswetswejane Crersent  Unit 13 Mmabatho  North West  2735": {
+  "lat": -25.852383,
+  "lon": 25.574571,
+  "km": 4.9
+ },
+ "Morobi Residence|2309 Tholo street  Tholo Street 2745": {
+  "lat": -25.843979,
+  "lon": 25.592817,
+  "km": 3.4
+ },
+ "Sweetmeis PTY|5986 Mokhasi Close  Unit 14 Mmabatho  North West  2735": {
+  "lat": -25.853231,
+  "lon": 25.570683,
+  "km": 5.4
+ },
+ "RISING STAR STUDENT HOME|2777 SID GORDON STREET  UNIT 9 MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.847552,
+  "lon": 25.584062,
+  "km": 4.3
+ },
+ "Makhobosi Residence|697 Cul 7  Unit 2 Mmabatho  North West  2790": {
+  "lat": -25.837016,
+  "lon": 25.595795,
+  "km": 2
+ },
+ "Lotus villa|2520 Solomon mpedi street  Unit 9 Mmabatho Mahikeng  Northwest  2745": {
+  "lat": -25.846854,
+  "lon": 25.585899,
+  "km": 3.8
+ },
+ "Atlegang Student Residence|2809 Stoffellangburg  Unit 9 Mmabatho  North-West  2735": {
+  "lat": -25.848911,
+  "lon": 25.583323,
+  "km": 4.8
+ },
+ "Life Student Accomodation|2635 Tebogo Tau Street  Montshiwa Mahikeng  North West  2735": {
+  "lat": -25.854016,
+  "lon": 25.62495,
+  "km": 4.3
+ },
+ "Mothupi Villa 02|No 20385A  Dibate Village MAFIKENG  NW  2745": {
+  "lat": -25.842678,
+  "lon": 25.608898,
+  "km": 2
+ },
+ "1046 Unit 5|1046 Botlhaba Street  Unit 5 Mmabatho  2745": {
+  "lat": -25.831201,
+  "lon": 25.608122,
+  "km": 0.8
+ },
+ "ONNEILE KABO RESIDENCE|26111 Molelwane Village  Molelwane Mafikeng  MOLELWANE MAFIKENG  NORTH WEST  2745": {
+  "lat": -25.799356,
+  "lon": 25.733577,
+  "km": 20.7
+ },
+ "Mannini Student Accommodation|2607 Andries Bloem Cul  Unit 9 Mahikeng  North West  2735": {
+  "lat": -25.849244,
+  "lon": 25.582141,
+  "km": 4.9
+ },
+ "Botshelo Residence|1254 MOTLHABENG VILLAGE  MMABATHO Mmabatho  North West  2735": {
+  "lat": -25.852072,
+  "lon": 25.61427,
+  "km": 3.3
+ },
+ "LETHABONG RES|2883 OCKIE AKKERMAN  UNIT 9 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.854658,
+  "lon": 25.583131,
+  "km": 5
+ },
+ "Abubakr. A Residence|3513 Modisaotsile seodi blvd  Unit 12 mmabatho MAHIKENG  North west  2745": {
+  "lat": -25.849693,
+  "lon": 25.587575,
+  "km": 4.6
+ },
+ "SINAH AND SONS|20158  Moshawane village Mafikeng  North west  2730": {
+  "lat": -25.797115,
+  "lon": 25.645862,
+  "km": 6.8
+ },
+ "Minatlou Trading 688 CC|213 Cul 8  Unit 2 Mmabatho  North West  2735": {
+  "lat": -25.837011,
+  "lon": 25.597951,
+  "km": 2
+ },
+ "Masego Residence|1666 Thekiso Street  Unit 6 Mahikeng  North West  2745": {
+  "lat": -25.814653,
+  "lon": 25.631434,
+  "km": 3.2
+ },
+ "Lesawana Property Pty Ltd|40414  Motlhabeng village Mahikeng  North west  2735": {
+  "lat": -25.854662,
+  "lon": 25.595549,
+  "km": 5.1
+ },
+ "Mokwena Student Residence|558 Phase two Airport View  558 Phase two Airport View Mahikeng  North west  2745": {
+  "lat": -25.836161,
+  "lon": 25.542698,
+  "km": 8.9
+ },
+ "Malome Ali Residence|36 Jan Smuts Avenue  Golfview Mafikeng  North West  2745": {
+  "lat": -25.853274,
+  "lon": 25.648979,
+  "km": 8.3
+ },
+ "One Love student Home|16088/01  Mocoseng Mmabatho  2735": {
+  "lat": -25.877025,
+  "lon": 25.58458,
+  "km": 8.1
+ },
+ "Refilwe Letlotlo Properties|1756 Motlhamme Street  Unit 8 Mmabatho  North West  2735": {
+  "lat": -25.842657,
+  "lon": 25.589058,
+  "km": 3.3
+ },
+ "Kentsenao Student Villa|House No. 12892  Mocoseng Mahikeng  North West  2745": {
+  "lat": -25.873806,
+  "lon": 25.582983,
+  "km": 7
+ },
+ "KE TSHIMOLOGO RES|11170  Lomanyaneng Village  LOMANYANENG VILLAGE MAHIKENG  NORTH WEST PROVINCE  2735": {
+  "lat": -25.8953,
+  "lon": 25.6497,
+  "km": 13.4
+ },
+ "Villa@88|Erf 88 Majola Flats Mmabatho  North West  2735": {
+  "lat": -25.837658,
+  "lon": 25.594668,
+  "km": 2.2
+ },
+ "0|7045 Albizia Str  Unit 15 Mmabatho": {
+  "lat": -25.843526,
+  "lon": 25.582179,
+  "km": 3.7
+ },
+ "TJ Student Accommodation|2971 UNIT 9  Ockie Ockerman Mmabatho  North West  2790": {
+  "lat": -25.851893,
+  "lon": 25.581967,
+  "km": 4.4
+ },
+ "Villa@30|House no 30 Cul 1 Unit 2 Mmabatho  North West  2735": {
+  "lat": -25.832468,
+  "lon": 25.600612,
+  "km": 1.4
+ },
+ "Villa@53|House no 53 Cul 2 Unit 2 Mmabatho  North West  2735": {
+  "lat": -25.832497,
+  "lon": 25.602608,
+  "km": 1.1
+ },
+ "KG Residence|1351 Montshiwa MAFIKENG  North West  2737": {
+  "lat": -25.842896,
+  "lon": 25.621543,
+  "km": 2.8
+ },
+ "QUEEN ELIZABETH|666 CUL 7  UNIT 2 MMABATHO  2735": {
+  "lat": -25.836429,
+  "lon": 25.596208,
+  "km": 2.1
+ },
+ "BOO PUDUMO RESIDENCE|BOO PUDUMO BOTLHABA CUL RES  1057 BOTLHABA CUL UNIT 5 MMABATHO MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.831629,
+  "lon": 25.608621,
+  "km": 0.3
+ },
+ "Warona Morena Residence|86 wagtail Street Mmabatho  2735": {
+  "lat": -25.839121,
+  "lon": 25.585935,
+  "km": 3
+ },
+ "Villa@21|House 21 Cul 1 unit 2 Mmabatho  North west  2735": {
+  "lat": -25.832594,
+  "lon": 25.599754,
+  "km": 1.5
+ },
+ "SRJ Res|4804 Moseme CI   Mmabatho Unit 13  Mafikeng  Mmabatho  North West  2735": {
+  "lat": -25.858343,
+  "lon": 25.574678,
+  "km": 5.2
+ },
+ "MOREMOGOLO|1167 BERIUT  MMABATHO UNIT 5 MAFIKENG  NORTH WEST  MAFIKENG": {
+  "lat": -25.830353,
+  "lon": 25.607253,
+  "km": 0.4
+ },
+ "shakes residence|CUL 21  CUL 21  591 MMABATHO  NORTH WEST  2735": {
+  "lat": -25.831367,
+  "lon": 25.59837,
+  "km": 1.3
+ },
+ "David’s Ress|House no 9  Airport View Aviation Road MAFIKENG  North West  2737": {
+  "lat": -25.804668,
+  "lon": 25.556849,
+  "km": 8.9
+ },
+ "Nene Student Accommodation|300 Cul 10  Unit 2 Mmabatho  North West  2735": {
+  "lat": -25.840154,
+  "lon": 25.59433,
+  "km": 3.2
+ },
+ "Masite residence|354 cul13  unit 2 mmabatho Mafikeng  Northwest  2745": {
+  "lat": -25.838353,
+  "lon": 25.591563,
+  "km": 2.7
+ },
+ "Kgali Residence|Cul 6  618 Mmabatho Unit 2 Mahikeng": {
+  "lat": -25.835892,
+  "lon": 25.599597,
+  "km": 1.9
+ },
+ "Mathi Holding|7088 Popilus Street  Unit 15 Mmabatho  North West  2735": {
+  "lat": -25.844159,
+  "lon": 25.58122,
+  "km": 3.8
+ },
+ "LEBONE APARTMENTS|1 Moshawane village  Moshawane village Moshawane  Mahikeng  2735": {
+  "lat": -25.863505,
+  "lon": 25.658725,
+  "km": 12
+ },
+ "0|5873 EXT 38 MAFIKENG  MAHIENG MAHIKENG  North West  2745": {
+  "lat": -25.868824,
+  "lon": 25.631185,
+  "km": 5.7
+ },
+ "Lev Res|20228 Dibate Village  Mmabatho Mafikeng  North West  2745": {
+  "lat": -25.848782,
+  "lon": 25.612215,
+  "km": 3
+ },
+ "MTR VISION 30 (3)|3250 UNIT 10  COCKTAIL STREET MAHIKENG  NORTH WEST  2735": {
+  "lat": -25.851382,
+  "lon": 25.588624,
+  "km": 4.3
+ },
+ "MTR VISION 30 (1)|6733 UNIT 15 OLEA CLOSE  MMABATHO MAFIKENG  NORTH WEST  2735": {
+  "lat": -25.84235,
+  "lon": 25.57856,
+  "km": 4.3
+ },
+ "Ga-Tholo Suppliers 1|30344 Motlhabeng Village Mahikeng  North West  2745": {
+  "lat": -25.846434,
+  "lon": 25.605764,
+  "km": 2.6
+ },
+ "The Rose Villa|31154 MOTLHABENG VILLAGE  Motlhabeng Mahikeng  North West  2745": {
+  "lat": -25.850825,
+  "lon": 25.590911,
+  "km": 4.3
+ },
+ "Harmony House (Unit 3)|33 Sol Plaatjie Drive  Unit 3 Mmabatho  North West  2790": {
+  "lat": -25.819816,
+  "lon": 25.632171,
+  "km": 2.9
+ },
+ "REDIKO ENTERPRISES (PTY) LTD|30235 MOTLHABENG VILLAGE  MMABATHO MAHIKENG  NORTH WEST  2735": {
+  "lat": -25.852794,
+  "lon": 25.604936,
+  "km": 4.3
+ },
+ "KGATLISO PROPERTIES|STAND 40753  TONTONYANE VILLAGE MAHIKENG  NORTH WEST": {
+  "lat": -25.836862,
+  "lon": 25.499568,
+  "km": 14.1
+ },
+ "Wakanda Student Accommodation 4|15 CHURCHILL AVENUE  Golf View MAHIKENG  North West  2745": {
+  "lat": -25.856637,
+  "lon": 25.649083,
+  "km": 8.6
+ },
+ "Kings & Queens Residence|51842B  Seweding Village Mahikeng  North West  2745": {
+  "lat": -25.8625,
+  "lon": 25.58361,
+  "km": 6.1
+ },
+ "RORISANG STUDENT ACCOMMODATION|13 cecil Rodes Avenue  Golfview mahikeng  Nw  2740": {
+  "lat": -25.850837,
+  "lon": 25.644312,
+  "km": 7.3
+ },
+ "Manqane students res|House no. 20257  Dibate village mahikeng  north west  2745": {
+  "lat": -25.848831,
+  "lon": 25.611866,
+  "km": 3.1
+ },
+ "Mako enterprise|20264 Dihatshwana Mafikeng  Nw  Mafikeng": {
+  "lat": -25.908302,
+  "lon": 25.752641,
+  "km": 21.5
+ },
+ "Partikon 1|11744 Caroline Crescent  Lonely Park Mafikeng  North West  2745": {
+  "lat": -25.837448,
+  "lon": 25.653788,
+  "km": 7.5
+ },
+ "SELEBOGO RESIDENCE|202 unit 2  STEVE BIKO STREET MAHIKENG  NORTH WEST  2735": {
+  "lat": -25.836211,
+  "lon": 25.597722,
+  "km": 1.8
+ },
+ "SAMMY’S ACCOMDATION|20184  MOSIANE VIEW MAHIKENG  NORTH WEST  2745": {
+  "lat": -25.841611,
+  "lon": 25.62052,
+  "km": 2.6
+ },
+ "RORISANG STUDENT ACCOMMODATION|12 Andersiet Drive  Reveira park mahikeng  Northwest  2740": {
+  "lat": -25.857072,
+  "lon": 25.668649,
+  "km": 11.1
+ },
+ "MOKGWARE STUDENT ACCOMMODATION|12946 Signal Hill  Mahikeng Signal hill  North West  2737": {
+  "lat": -25.820473,
+  "lon": 25.651442,
+  "km": 5.4
+ },
+ "Mpelegeng Student Residence|658 Cul 6 Unit 2  Steve Biko Avenue Mmabatho  North West  2735": {
+  "lat": -25.835826,
+  "lon": 25.59841,
+  "km": 1.8
+ },
+ "Ga-Nkomo|2890 Ockie Ackermen  Unit 9 Mmabatho  North West  2735": {
+  "lat": -25.854216,
+  "lon": 25.581796,
+  "km": 4.6
+ },
+ "Jumpers|2952 Ockie Ackermen Crescent  Unit 9 Mmabatho  North West  2735": {
+  "lat": -25.850684,
+  "lon": 25.582089,
+  "km": 4.6
+ },
+ "Royal Tlou Country Estate|ERF 30 SEITSHIRO STREET  Royal Tlou Country Estate Ramatlabama  North West  2756": {
+  "lat": -25.708812,
+  "lon": 25.590844,
+  "km": 16
+ },
+ "2759|2759 Unit 9  Sid Gordon Street Mmabatho  Northwest  2745": {
+  "lat": -25.847367,
+  "lon": 25.58462,
+  "km": 4.3
  }
 }
