@@ -5144,28 +5144,58 @@
       return currentUid;
     }
 
+    function addReviewToCache(key, entry, rating) {
+      if (!key) return;
+      if (!reviewCache[key]) reviewCache[key] = { sum: 0, count: 0, comments: [], _ids: {} };
+      if (reviewCache[key]._ids[entry.id]) return; // avoid double-count
+      reviewCache[key]._ids[entry.id] = true;
+      if (rating && rating >= 1 && rating <= 5) {
+        reviewCache[key].sum += rating;
+        reviewCache[key].count += 1;
+      }
+      reviewCache[key].comments.push(entry);
+    }
+
+    /** Resolve reviews for a card key (name||address) including older name-only reviews */
+    function reviewsFor(key) {
+      if (!key) return null;
+      const nameOnly = key.indexOf("||") >= 0 ? key.split("||")[0] : key;
+      const a = reviewCache[key];
+      const b = (nameOnly !== key) ? reviewCache[nameOnly] : null;
+      if (!a && !b) return null;
+      if (a && !b) return a;
+      if (b && !a) return b;
+      // merge unique by id
+      const ids = {};
+      const comments = [];
+      let sum = 0, count = 0;
+      [...(a.comments || []), ...(b.comments || [])].forEach(c => {
+        if (ids[c.id]) return;
+        ids[c.id] = true;
+        comments.push(c);
+        if (c.rating >= 1 && c.rating <= 5) { sum += c.rating; count += 1; }
+      });
+      return { sum, count, comments };
+    }
+
     async function loadAllReviews() {
       try {
         const snap = await db.collection("reviews").orderBy("createdAt", "desc").limit(800).get();
         reviewCache = {};
         snap.forEach(doc => {
           const d = doc.data();
-          // Prefer unique key; fall back to name-only for older reviews
-          const key = d.residenceKey || d.residenceName || "";
-          if (!key) return;
-          if (!reviewCache[key]) reviewCache[key] = { sum: 0, count: 0, comments: [] };
-          if (d.rating && d.rating >= 1 && d.rating <= 5) {
-            reviewCache[key].sum += d.rating;
-            reviewCache[key].count += 1;
-          }
-          reviewCache[key].comments.push({
+          const entry = {
             id: doc.id,
             text: d.comment || "",
             author: d.author || "Student",
             rating: d.rating || 0,
             userId: d.userId || "",
             at: d.createdAt && d.createdAt.toDate ? d.createdAt.toDate().toISOString() : ""
-          });
+          };
+          const rating = d.rating && d.rating >= 1 && d.rating <= 5 ? d.rating : 0;
+          // Index under composite key AND plain name so old + new reviews both show
+          if (d.residenceKey) addReviewToCache(d.residenceKey, entry, rating);
+          if (d.residenceName) addReviewToCache(d.residenceName, entry, rating);
         });
         reviewsLoaded = true;
         paintFeedback();
@@ -5177,8 +5207,10 @@
     }
 
     function myReviewFor(key) {
-      if (!currentUid || !reviewCache[key]) return null;
-      return reviewCache[key].comments.find(c => c.userId === currentUid) || null;
+      if (!currentUid) return null;
+      const r = reviewsFor(key);
+      if (!r) return null;
+      return r.comments.find(c => c.userId === currentUid) || null;
     }
 
     function setRating(key, stars) {
@@ -5283,7 +5315,7 @@
       });
       document.querySelectorAll("[data-avg-for]").forEach(el => {
         const key = el.getAttribute("data-avg-for");
-        const r = reviewCache[key];
+        const r = reviewsFor(key);
         if (r && r.count) {
           const avg = (r.sum / r.count).toFixed(1);
           el.textContent = `★ ${avg} (${r.count} review${r.count > 1 ? "s" : ""})`;
@@ -5293,7 +5325,7 @@
       });
       document.querySelectorAll("[data-comments-for]").forEach(el => {
         const key = el.getAttribute("data-comments-for");
-        const r = reviewCache[key];
+        const r = reviewsFor(key);
         const comments = (r && r.comments) || [];
         const mine = myReviewFor(key);
         let html = "";

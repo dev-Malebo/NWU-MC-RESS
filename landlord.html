@@ -313,8 +313,8 @@
       (r.address || "").toLowerCase().includes(q) ||
       (r.accred || "").toLowerCase().includes(q)
     ).slice(0, 25);
-    box.innerHTML = hits.map(r =>
-      `<div class="search-hit" data-key="${escapeHtml(r.key)}">
+    box.innerHTML = hits.map((r, i) =>
+      `<div class="search-hit" data-idx="${i}">
         <strong>${escapeHtml(r.name)}</strong>
         <small>${escapeHtml(r.address)}${r.accred ? " · " + escapeHtml(r.accred) : ""}</small>
       </div>`
@@ -323,22 +323,36 @@
       el.onclick = () => {
         box.querySelectorAll(".search-hit").forEach(x => x.classList.remove("picked"));
         el.classList.add("picked");
-        const hit = hits.find(h => escapeHtml(h.key) === el.getAttribute("data-key") || h.key === el.getAttribute("data-key"));
-        applyKey = hit ? hit.key : el.getAttribute("data-key");
-        $("appSelected").value = hit ? (hit.name + " — " + hit.address) : applyKey;
+        const hit = hits[Number(el.getAttribute("data-idx"))];
+        applyKey = hit ? hit.key : null;
+        $("appSelected").value = hit ? (hit.name + " — " + hit.address) : "";
       };
     });
   };
 
   $("applyBtn").onclick = async () => {
     setMsg("appErr", ""); setMsg("appOk", "");
-    if (!currentUser) return;
-    if (!applyKey) { setMsg("appErr", "Select a residence from the search results."); return; }
+    if (!currentUser) {
+      setMsg("appErr", "Please sign in first.");
+      return;
+    }
+    if (!applyKey) {
+      setMsg("appErr", "Select a residence from the search results (click a result so it appears under Selected).");
+      return;
+    }
     const name = ($("appName").value || "").trim();
     const phone = ($("appPhone").value || "").trim();
-    if (!name || !phone) { setMsg("appErr", "Name and phone are required."); return; }
-    const email = (currentUser.email || "").toLowerCase();
-    const id = encodeKey(email + "__" + applyKey);
+    if (!name || !phone) {
+      setMsg("appErr", "Name and phone are required.");
+      return;
+    }
+    const email = (currentUser.email || "").toLowerCase().trim();
+    if (!email) {
+      setMsg("appErr", "Your account has no email. Sign out and create an account with Email/Password.");
+      return;
+    }
+    // Short stable doc id (avoids long-key issues)
+    const id = encodeKey(email + "__" + applyKey).slice(0, 700);
     try {
       const existing = await db.collection("landlord_applications").doc(id).get();
       if (existing.exists && existing.data().status === "pending") {
@@ -361,8 +375,14 @@
       });
       setMsg("appOk", "Application sent. You’ll see it under My applications. Admin will review it.");
       $("appNote").value = "";
+      loadMyApplications();
     } catch (e) {
-      setMsg("appErr", e.message || "Could not submit");
+      console.error(e);
+      let msg = e.message || "Could not submit";
+      if (/permission|insufficient/i.test(msg)) {
+        msg = "Permission denied. Publish the latest Firestore rules (landlord_applications), then try again.";
+      }
+      setMsg("appErr", msg);
     }
   };
 

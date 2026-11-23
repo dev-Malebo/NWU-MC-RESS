@@ -326,10 +326,14 @@
   async function loadAll() {
     status.textContent = "Loading…";
     try {
+      const emptySnap = { forEach() {}, empty: true, size: 0 };
       const [fbSnap, revSnap, repSnap] = await Promise.all([
-        db.collection("site_feedback").orderBy("createdAt", "desc").limit(100).get(),
-        db.collection("reviews").orderBy("createdAt", "desc").limit(200).get(),
-        db.collection("location_reports").orderBy("createdAt", "desc").limit(200).get().catch(err => { console.warn("location_reports:", err.message); return null; })
+        db.collection("site_feedback").orderBy("createdAt", "desc").limit(100).get()
+          .catch(err => { console.warn("site_feedback:", err.message); return emptySnap; }),
+        db.collection("reviews").orderBy("createdAt", "desc").limit(200).get()
+          .catch(err => { console.warn("reviews:", err.message); return emptySnap; }),
+        db.collection("location_reports").orderBy("createdAt", "desc").limit(200).get()
+          .catch(err => { console.warn("location_reports:", err.message); return null; })
       ]);
       reportRows = [];
       if (repSnap) repSnap.forEach(doc => reportRows.push({ id: doc.id, ...doc.data() }));
