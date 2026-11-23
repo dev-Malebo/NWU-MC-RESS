@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0c0a14">
+<title>Landlord Portal — NWU Residences</title>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<style>
+  :root {
+    --bg: #0c0a14; --card: rgba(255,255,255,0.05); --border: rgba(167,139,250,0.18);
+    --text: #f3eefc; --muted: #a89bc4; --purple: #8b5cf6; --ok: #34d399; --warn: #fbbf24; --danger: #f87171;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background:
+      radial-gradient(1000px 500px at 10% -10%, rgba(139,92,246,0.3), transparent 55%),
+      radial-gradient(800px 400px at 100% 0%, rgba(192,132,252,0.15), transparent 50%),
+      var(--bg);
+    color: var(--text); min-height: 100vh; padding: 18px 14px 48px;
+  }
+  .shell { max-width: 720px; margin: 0 auto; }
+  .top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 18px; }
+  .brand h1 { font-size: 1.2rem; font-weight: 800; }
+  .brand .sub { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+  .nav a { color: var(--muted); text-decoration: none; font-size: 0.8rem; font-weight: 600; padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px; margin-bottom: 14px; }
+  label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; margin: 12px 0 6px; }
+  input, textarea {
+    width: 100%; padding: 11px 13px; border-radius: 12px;
+    border: 1px solid rgba(167,139,250,0.25); background: rgba(0,0,0,0.28); color: #fff; font-size: 0.95rem; outline: none;
+  }
+  input:focus, textarea:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(139,92,246,0.2); }
+  textarea { min-height: 90px; resize: vertical; line-height: 1.45; }
+  button {
+    background: linear-gradient(135deg, #6b46c0, #8b5cf6); color: #fff; border: none;
+    padding: 11px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; font-size: 0.88rem;
+  }
+  button.secondary { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); }
+  button:disabled { opacity: 0.55; cursor: not-allowed; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
+  .err { color: var(--danger); font-size: 0.85rem; margin-top: 10px; }
+  .ok { color: var(--ok); font-size: 0.85rem; margin-top: 10px; }
+  .hidden { display: none !important; }
+  .badge { display: inline-block; font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; margin-left: 6px; }
+  .badge.pending { background: rgba(251,191,36,0.15); color: var(--warn); }
+  .badge.approved { background: rgba(52,211,153,0.15); color: var(--ok); }
+  .badge.draft { background: rgba(167,139,250,0.15); color: #c4b5fd; }
+  .badge.rejected { background: rgba(248,113,113,0.15); color: var(--danger); }
+  .res-item { border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 10px; cursor: pointer; }
+  .res-item:hover { border-color: rgba(167,139,250,0.45); }
+  .res-item.active { border-color: var(--purple); background: rgba(139,92,246,0.08); }
+  .res-item .n { font-weight: 700; }
+  .res-item .a { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+  .hint { font-size: 0.82rem; color: var(--muted); line-height: 1.45; margin-bottom: 12px; }
+  .who { font-size: 0.82rem; color: var(--muted); margin-bottom: 12px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tabs button { background: rgba(255,255,255,0.05); box-shadow: none; }
+  .tabs button.active { background: linear-gradient(135deg,#6b46c0,#8b5cf6); }
+  .search-hit { padding: 10px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; font-size: 0.88rem; }
+  .search-hit:hover, .search-hit.picked { border-color: var(--border); background: rgba(255,255,255,0.04); }
+  .search-hit small { color: var(--muted); display: block; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="top">
+    <div class="brand">
+      <h1>Landlord Portal</h1>
+      <div class="sub">Apply for access · Edit your listings</div>
+    </div>
+    <nav class="nav"><a href="index.html">Public site</a></nav>
+  </div>
+
+  <div id="gate" class="card">
+    <p class="hint">
+      Create an account with your business email, then <b>apply</b> for the residences you own.
+      After the site admin approves, you can edit your control panel.
+    </p>
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="username" placeholder="landlord@email.com">
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password" placeholder="Min 6 characters">
+    <div class="row">
+      <button type="button" id="loginBtn">Sign in</button>
+      <button type="button" class="secondary" id="signupBtn">Create account</button>
+    </div>
+    <p class="err hidden" id="gateErr"></p>
+  </div>
+
+  <div id="app" class="hidden">
+    <p class="who" id="who"></p>
+    <div class="row" style="margin-bottom:12px">
+      <button type="button" class="secondary" id="refreshBtn">Refresh</button>
+      <button type="button" class="secondary" id="signOutBtn">Sign out</button>
+    </div>
+
+    <div class="tabs">
+      <button type="button" class="active" data-tab="mine">My control panel</button>
+      <button type="button" data-tab="apply">Apply for a residence</button>
+      <button type="button" data-tab="apps">My applications</button>
+    </div>
+
+    <!-- MY LISTINGS -->
+    <div id="tab-mine">
+      <div class="card">
+        <h2 style="font-size:1rem;margin-bottom:8px">Your residences</h2>
+        <p class="hint" id="listHint">Loading…</p>
+        <div id="resList"></div>
+      </div>
+      <div id="editor" class="card hidden">
+        <h2 style="font-size:1rem;margin-bottom:4px" id="editTitle">Edit listing</h2>
+        <p class="hint" id="editSub"></p>
+        <p id="statusLine"></p>
+        <label for="description">Description</label>
+        <textarea id="description" maxlength="800" placeholder="What students should know about this place…"></textarea>
+        <label for="availability">Availability note</label>
+        <input id="availability" maxlength="120" placeholder="e.g. 3 single rooms left for 2027">
+        <label for="contactPhone">Contact phone (optional override)</label>
+        <input id="contactPhone" maxlength="20" placeholder="Leave blank to keep official list number">
+        <label for="contactEmail">Contact email (optional override)</label>
+        <input id="contactEmail" type="email" maxlength="80" placeholder="Leave blank to keep official list email">
+        <label for="whatsappNote">WhatsApp hint (optional)</label>
+        <input id="whatsappNote" maxlength="120" placeholder="e.g. Ask about 2027 singles">
+        <div class="row">
+          <button type="button" id="saveDraftBtn">Save draft</button>
+          <button type="button" id="submitBtn">Submit for approval</button>
+        </div>
+        <p class="err hidden" id="editErr"></p>
+        <p class="ok hidden" id="editOk"></p>
+      </div>
+    </div>
+
+    <!-- APPLY -->
+    <div id="tab-apply" class="hidden">
+      <div class="card">
+        <h2 style="font-size:1rem;margin-bottom:8px">Apply for access</h2>
+        <p class="hint">Search the official accredited list, select your place, and send a request. Admin will verify and unlock your control panel.</p>
+        <label>Your full name / company</label>
+        <input id="appName" maxlength="80" placeholder="Name as on lease or business">
+        <label>Phone (WhatsApp)</label>
+        <input id="appPhone" maxlength="20" placeholder="0XX XXX XXXX">
+        <label>Search residence</label>
+        <input id="appSearch" placeholder="Name, street, or accreditation number…">
+        <div id="appHits" style="max-height:220px;overflow:auto;margin-top:8px"></div>
+        <label>Selected residence</label>
+        <input id="appSelected" readonly placeholder="Pick from results above">
+        <label>Short note (optional)</label>
+        <textarea id="appNote" maxlength="300" placeholder="e.g. I am the registered landlord for this address"></textarea>
+        <div class="row"><button type="button" id="applyBtn">Submit application</button></div>
+        <p class="err hidden" id="appErr"></p>
+        <p class="ok hidden" id="appOk"></p>
+      </div>
+    </div>
+
+    <!-- MY APPLICATIONS -->
+    <div id="tab-apps" class="hidden">
+      <div class="card">
+        <h2 style="font-size:1rem;margin-bottom:8px">My applications</h2>
+        <p class="hint" id="appsHint">Loading…</p>
+        <div id="appsList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD7QHVH5hT0eURqXsJ0EXO_-BXUge5Iq_M",
+    authDomain: "nwu-residences-81b8b.firebaseapp.com",
+    projectId: "nwu-residences-81b8b",
+    storageBucket: "nwu-residences-81b8b.firebasestorage.app",
+    messagingSenderId: "979946386540",
+    appId: "1:979946386540:web:da1c423bdf9be046445449",
+    measurementId: "G-T1MY4MEC4J"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  let currentUser = null;
+  let myKeys = [];
+  let catalog = [];
+  let catalogByKey = {};
+  let selectedKey = null;
+  let applyKey = null;
+  let currentOverride = null;
+
+  const $ = (id) => document.getElementById(id);
+  function show(el, on) { el.classList.toggle("hidden", !on); }
+  function setMsg(id, msg, ok) {
+    const el = $(id);
+    if (!msg) { el.classList.add("hidden"); el.textContent = ""; return; }
+    el.textContent = msg; el.classList.remove("hidden");
+  }
+  function escapeHtml(s) {
+    return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function encodeKey(key) { return encodeURIComponent(key).replace(/%/g, "_"); }
+  function badge(status) {
+    const s = status || "draft";
+    return `<span class="badge ${s}">${s}</span>`;
+  }
+
+  document.querySelectorAll(".tabs button").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const t = btn.getAttribute("data-tab");
+      show($("tab-mine"), t === "mine");
+      show($("tab-apply"), t === "apply");
+      show($("tab-apps"), t === "apps");
+      if (t === "apps") loadMyApplications();
+    };
+  });
+
+  async function loadCatalog() {
+    const res = await fetch("residences-catalog.json");
+    catalog = await res.json();
+    catalogByKey = {};
+    catalog.forEach(r => { catalogByKey[r.key] = r; });
+  }
+
+  async function loadAssignments(email) {
+    const doc = await db.collection("landlord_accounts").doc(email.toLowerCase().trim()).get();
+    myKeys = doc.exists && Array.isArray(doc.data().residenceKeys) ? doc.data().residenceKeys : [];
+  }
+
+  function renderList() {
+    const box = $("resList");
+    const hint = $("listHint");
+    if (!myKeys.length) {
+      hint.innerHTML = "No residences unlocked yet. Go to <b>Apply for a residence</b> and wait for admin approval.";
+      box.innerHTML = "";
+      return;
+    }
+    hint.textContent = myKeys.length + " residence(s) in your control panel.";
+    box.innerHTML = myKeys.map(key => {
+      const meta = catalogByKey[key] || {};
+      const name = meta.name || key.split("||")[0] || key;
+      const addr = meta.address || key.split("||")[1] || "";
+      const active = key === selectedKey ? " active" : "";
+      return `<div class="res-item${active}" data-key="${escapeHtml(key)}">
+        <div class="n">${escapeHtml(name)}</div>
+        <div class="a">${escapeHtml(addr)}</div>
+      </div>`;
+    }).join("");
+    box.querySelectorAll(".res-item").forEach(el => {
+      el.onclick = () => {
+        const key = myKeys.find(k => k === el.getAttribute("data-key") || escapeHtml(k) === el.getAttribute("data-key")) || el.getAttribute("data-key");
+        selectResidence(key);
+      };
+    });
+  }
+
+  async function selectResidence(key) {
+    selectedKey = key;
+    renderList();
+    show($("editor"), true);
+    setMsg("editErr", ""); setMsg("editOk", "");
+    const meta = catalogByKey[key] || {};
+    $("editTitle").textContent = meta.name || key.split("||")[0];
+    $("editSub").textContent = meta.address || "";
+    $("statusLine").innerHTML = "Loading…";
+    const doc = await db.collection("listing_overrides").doc(encodeKey(key)).get();
+    currentOverride = doc.exists ? doc.data() : null;
+    const o = currentOverride || {};
+    $("description").value = o.description || "";
+    $("availability").value = o.availabilityNote || "";
+    $("contactPhone").value = o.contactPhone || "";
+    $("contactEmail").value = o.contactEmail || "";
+    $("whatsappNote").value = o.whatsappNote || "";
+    $("statusLine").innerHTML = "Status: " + badge(o.status || "draft");
+  }
+
+  async function save(status) {
+    if (!selectedKey || !currentUser) return;
+    setMsg("editErr", ""); setMsg("editOk", "");
+    const payload = {
+      residenceKey: selectedKey,
+      residenceName: (catalogByKey[selectedKey] || {}).name || selectedKey.split("||")[0],
+      address: (catalogByKey[selectedKey] || {}).address || "",
+      description: ($("description").value || "").trim().slice(0, 800),
+      availabilityNote: ($("availability").value || "").trim().slice(0, 120),
+      contactPhone: ($("contactPhone").value || "").trim().slice(0, 20),
+      contactEmail: ($("contactEmail").value || "").trim().slice(0, 80),
+      whatsappNote: ($("whatsappNote").value || "").trim().slice(0, 120),
+      status,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedBy: currentUser.uid,
+      updatedByEmail: currentUser.email || "",
+      landlordEmail: (currentUser.email || "").toLowerCase()
+    };
+    try {
+      await db.collection("listing_overrides").doc(encodeKey(selectedKey)).set(payload, { merge: true });
+      $("statusLine").innerHTML = "Status: " + badge(status);
+      setMsg("editOk", status === "pending" ? "Submitted for admin approval." : "Draft saved.");
+    } catch (e) {
+      setMsg("editErr", e.message || "Save failed");
+    }
+  }
+
+  // Apply search
+  $("appSearch").oninput = () => {
+    const q = ($("appSearch").value || "").toLowerCase().trim();
+    const box = $("appHits");
+    if (q.length < 2) { box.innerHTML = ""; return; }
+    const hits = catalog.filter(r =>
+      (r.name || "").toLowerCase().includes(q) ||
+      (r.address || "").toLowerCase().includes(q) ||
+      (r.accred || "").toLowerCase().includes(q)
+    ).slice(0, 25);
+    box.innerHTML = hits.map(r =>
+      `<div class="search-hit" data-key="${escapeHtml(r.key)}">
+        <strong>${escapeHtml(r.name)}</strong>
+        <small>${escapeHtml(r.address)}${r.accred ? " · " + escapeHtml(r.accred) : ""}</small>
+      </div>`
+    ).join("");
+    box.querySelectorAll(".search-hit").forEach(el => {
+      el.onclick = () => {
+        box.querySelectorAll(".search-hit").forEach(x => x.classList.remove("picked"));
+        el.classList.add("picked");
+        const hit = hits.find(h => escapeHtml(h.key) === el.getAttribute("data-key") || h.key === el.getAttribute("data-key"));
+        applyKey = hit ? hit.key : el.getAttribute("data-key");
+        $("appSelected").value = hit ? (hit.name + " — " + hit.address) : applyKey;
+      };
+    });
+  };
+
+  $("applyBtn").onclick = async () => {
+    setMsg("appErr", ""); setMsg("appOk", "");
+    if (!currentUser) return;
+    if (!applyKey) { setMsg("appErr", "Select a residence from the search results."); return; }
+    const name = ($("appName").value || "").trim();
+    const phone = ($("appPhone").value || "").trim();
+    if (!name || !phone) { setMsg("appErr", "Name and phone are required."); return; }
+    const email = (currentUser.email || "").toLowerCase();
+    const id = encodeKey(email + "__" + applyKey);
+    try {
+      const existing = await db.collection("landlord_applications").doc(id).get();
+      if (existing.exists && existing.data().status === "pending") {
+        setMsg("appErr", "You already have a pending application for this residence.");
+        return;
+      }
+      const meta = catalogByKey[applyKey] || {};
+      await db.collection("landlord_applications").doc(id).set({
+        residenceKey: applyKey,
+        residenceName: meta.name || applyKey.split("||")[0],
+        address: meta.address || "",
+        accred: meta.accred || "",
+        applicantEmail: email,
+        applicantUid: currentUser.uid,
+        applicantName: name.slice(0, 80),
+        applicantPhone: phone.slice(0, 20),
+        note: ($("appNote").value || "").trim().slice(0, 300),
+        status: "pending",
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      setMsg("appOk", "Application sent. You’ll see it under My applications. Admin will review it.");
+      $("appNote").value = "";
+    } catch (e) {
+      setMsg("appErr", e.message || "Could not submit");
+    }
+  };
+
+  async function loadMyApplications() {
+    $("appsHint").textContent = "Loading…";
+    $("appsList").innerHTML = "";
+    if (!currentUser) return;
+    try {
+      const snap = await db.collection("landlord_applications")
+        .where("applicantEmail", "==", (currentUser.email || "").toLowerCase())
+        .limit(50).get();
+      if (snap.empty) {
+        $("appsHint").textContent = "No applications yet.";
+        return;
+      }
+      $("appsHint").textContent = snap.size + " application(s)";
+      const rows = [];
+      snap.forEach(doc => {
+        const d = doc.data();
+        rows.push(`<div class="res-item" style="cursor:default">
+          <div class="n">${escapeHtml(d.residenceName || "")} ${badge(d.status)}</div>
+          <div class="a">${escapeHtml(d.address || "")}</div>
+        </div>`);
+      });
+      $("appsList").innerHTML = rows.join("");
+    } catch (e) {
+      $("appsHint").textContent = "Error: " + e.message;
+    }
+  }
+
+  async function afterLogin(user) {
+    currentUser = user;
+    show($("gate"), false);
+    show($("app"), true);
+    $("who").innerHTML = "Signed in as <strong>" + escapeHtml(user.email || "") + "</strong>";
+    await loadCatalog();
+    await loadAssignments(user.email || "");
+    renderList();
+    show($("editor"), false);
+  }
+
+  $("loginBtn").onclick = async () => {
+    setMsg("gateErr", "");
+    try {
+      const cred = await auth.signInWithEmailAndPassword($("email").value.trim(), $("pw").value);
+      await afterLogin(cred.user);
+    } catch (e) { setMsg("gateErr", e.message); }
+  };
+  $("signupBtn").onclick = async () => {
+    setMsg("gateErr", "");
+    try {
+      if (($("pw").value || "").length < 6) { setMsg("gateErr", "Password must be at least 6 characters."); return; }
+      const cred = await auth.createUserWithEmailAndPassword($("email").value.trim(), $("pw").value);
+      await afterLogin(cred.user);
+    } catch (e) { setMsg("gateErr", e.message); }
+  };
+  $("signOutBtn").onclick = () => auth.signOut();
+  $("refreshBtn").onclick = async () => {
+    if (!currentUser) return;
+    await loadAssignments(currentUser.email || "");
+    renderList();
+  };
+  $("saveDraftBtn").onclick = () => save("draft");
+  $("submitBtn").onclick = () => save("pending");
+
+  auth.onAuthStateChanged(async (user) => {
+    if (user) await afterLogin(user);
+    else {
+      currentUser = null;
+      show($("gate"), true);
+      show($("app"), false);
+    }
+  });
+</script>
+</body>
+</html>

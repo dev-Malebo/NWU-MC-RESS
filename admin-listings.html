@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0c0a14">
+<title>Listings Admin — NWU Residences</title>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<style>
+  :root {
+    --bg: #0c0a14; --card: rgba(255,255,255,0.05); --border: rgba(167,139,250,0.18);
+    --text: #f3eefc; --muted: #a89bc4; --purple: #8b5cf6; --ok: #34d399; --warn: #fbbf24; --danger: #f87171;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background:
+      radial-gradient(1000px 500px at 10% -10%, rgba(139,92,246,0.3), transparent 55%),
+      var(--bg);
+    color: var(--text); min-height: 100vh; padding: 18px 14px 48px;
+  }
+  .shell { max-width: 920px; margin: 0 auto; }
+  .top { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  h1 { font-size: 1.25rem; font-weight: 800; }
+  .sub { color: var(--muted); font-size: 0.8rem; }
+  .nav { display: flex; gap: 6px; flex-wrap: wrap; }
+  .nav a {
+    color: var(--muted); text-decoration: none; font-size: 0.78rem; font-weight: 600;
+    padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border);
+  }
+  .nav a.here { color: #fff; background: linear-gradient(135deg,#6b46c0,#8b5cf6); border-color: transparent; }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 18px;
+    padding: 18px; margin-bottom: 14px;
+  }
+  label { display: block; font-size: 0.72rem; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.03em; margin: 10px 0 5px; }
+  input, select, textarea {
+    width: 100%; padding: 10px 12px; border-radius: 11px;
+    border: 1px solid rgba(167,139,250,0.25); background: rgba(0,0,0,0.28); color: #fff;
+  }
+  textarea { min-height: 70px; }
+  button {
+    background: linear-gradient(135deg,#6b46c0,#8b5cf6); color: #fff; border: none;
+    padding: 10px 14px; border-radius: 11px; font-weight: 700; cursor: pointer; font-size: 0.85rem;
+  }
+  button.secondary { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); }
+  button.ok { background: linear-gradient(135deg,#059669,#34d399); }
+  button.danger { background: linear-gradient(135deg,#dc2626,#f87171); }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .hidden { display: none !important; }
+  .err { color: var(--danger); font-size: 0.85rem; margin-top: 8px; }
+  .okmsg { color: var(--ok); font-size: 0.85rem; margin-top: 8px; }
+  .badge { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 3px 8px; border-radius: 999px; }
+  .badge.pending { background: rgba(251,191,36,0.15); color: var(--warn); }
+  .badge.approved { background: rgba(52,211,153,0.15); color: var(--ok); }
+  .badge.draft { background: rgba(167,139,250,0.15); color: #c4b5fd; }
+  .item {
+    border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 10px;
+  }
+  .item .t { font-weight: 700; }
+  .item .m { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+  .item .body { font-size: 0.9rem; color: #d4c8ef; margin-top: 8px; line-height: 1.4; white-space: pre-wrap; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .tabs button { background: rgba(255,255,255,0.05); box-shadow: none; }
+  .tabs button.active { background: linear-gradient(135deg,#6b46c0,#8b5cf6); }
+  .search-hit {
+    padding: 8px 10px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; font-size: 0.85rem;
+  }
+  .search-hit:hover { border-color: var(--border); background: rgba(255,255,255,0.04); }
+  .search-hit small { color: var(--muted); display: block; }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="top">
+    <div>
+      <h1>Listings Admin</h1>
+      <div class="sub">Assign landlords · Approve listing edits</div>
+    </div>
+    <nav class="nav">
+      <a href="index.html">Site</a>
+      <a href="admin.html">Reviews</a>
+      <a class="here" href="admin-listings.html">Listings</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="landlord.html">Landlord portal</a>
+    </nav>
+  </div>
+
+  <div id="gate" class="card">
+    <p class="sub" style="margin-bottom:10px">Sign in with your admin Firebase account.</p>
+    <label>Admin email</label>
+    <input id="email" type="email" value="maleboneomahlatsi@gmail.com">
+    <label>Password</label>
+    <input id="pw" type="password" placeholder="Firebase password">
+    <div class="row"><button type="button" id="loginBtn">Unlock</button></div>
+    <p class="err hidden" id="gateErr"></p>
+  </div>
+
+  <div id="panel" class="hidden">
+    <div class="row" style="margin-bottom:12px">
+      <button type="button" class="secondary" id="refreshBtn">Refresh</button>
+      <button type="button" class="secondary" id="signOutBtn">Sign out</button>
+      <span class="sub" id="who"></span>
+    </div>
+
+    <div class="tabs">
+      <button type="button" class="active" data-tab="applications">Access applications</button>
+      <button type="button" data-tab="pending">Pending listing edits</button>
+      <button type="button" data-tab="assign">Assign landlord</button>
+      <button type="button" data-tab="accounts">Landlord accounts</button>
+    </div>
+
+    <!-- APPLICATIONS -->
+    <div id="tab-applications" class="card">
+      <p class="sub" id="applicationsStatus">Loading…</p>
+      <div id="applicationsList"></div>
+    </div>
+
+    <!-- PENDING -->
+    <div id="tab-pending" class="card hidden">
+      <p class="sub" id="pendingStatus">Loading…</p>
+      <div id="pendingList"></div>
+    </div>
+
+    <!-- ASSIGN -->
+    <div id="tab-assign" class="card hidden">
+      <p class="sub">Search a residence, enter the landlord email, then assign. The landlord must sign up on <b>landlord.html</b> with that same email.</p>
+      <label>Search residence</label>
+      <input id="searchRes" placeholder="Name or street…">
+      <div id="searchHits" style="max-height:220px;overflow:auto;margin-top:8px"></div>
+      <label>Selected residence</label>
+      <input id="selectedRes" readonly placeholder="Pick from search results">
+      <input type="hidden" id="selectedKey">
+      <label>Landlord email</label>
+      <input id="landlordEmail" type="email" placeholder="owner@email.com">
+      <div class="row"><button type="button" id="assignBtn">Assign residence to landlord</button></div>
+      <p class="err hidden" id="assignErr"></p>
+      <p class="okmsg hidden" id="assignOk"></p>
+    </div>
+
+    <!-- ACCOUNTS -->
+    <div id="tab-accounts" class="card hidden">
+      <p class="sub" id="accountsStatus">Loading…</p>
+      <div id="accountsList"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const ADMIN_EMAIL = "maleboneomahlatsi@gmail.com";
+  const firebaseConfig = {
+    apiKey: "AIzaSyD7QHVH5hT0eURqXsJ0EXO_-BXUge5Iq_M",
+    authDomain: "nwu-residences-81b8b.firebaseapp.com",
+    projectId: "nwu-residences-81b8b",
+    storageBucket: "nwu-residences-81b8b.firebasestorage.app",
+    messagingSenderId: "979946386540",
+    appId: "1:979946386540:web:da1c423bdf9be046445449",
+    measurementId: "G-T1MY4MEC4J"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  let catalog = [];
+  let selectedKey = "";
+
+  const $ = (id) => document.getElementById(id);
+  function show(el, on) { el.classList.toggle("hidden", !on); }
+  function escapeHtml(s) {
+    return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function encodeKey(key) {
+    return encodeURIComponent(key).replace(/%/g, "_");
+  }
+
+  async function loadCatalog() {
+    const res = await fetch("residences-catalog.json");
+    catalog = await res.json();
+  }
+
+  // tabs
+  document.querySelectorAll(".tabs button").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".tabs button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const t = btn.getAttribute("data-tab");
+      show($("tab-applications"), t === "applications");
+      show($("tab-pending"), t === "pending");
+      show($("tab-assign"), t === "assign");
+      show($("tab-accounts"), t === "accounts");
+      if (t === "applications") loadApplications();
+      if (t === "pending") loadPending();
+      if (t === "accounts") loadAccounts();
+    };
+  });
+
+  async function loadApplications() {
+    $("applicationsStatus").textContent = "Loading…";
+    $("applicationsList").innerHTML = "";
+    try {
+      const snap = await db.collection("landlord_applications").where("status", "==", "pending").limit(100).get();
+      if (snap.empty) {
+        $("applicationsStatus").textContent = "No pending access applications.";
+        return;
+      }
+      $("applicationsStatus").textContent = snap.size + " application(s) waiting";
+      snap.forEach(doc => {
+        const d = doc.data();
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="t">${escapeHtml(d.residenceName || "")} <span class="badge pending">pending</span></div>
+          <div class="m">${escapeHtml(d.address || "")}<br>
+            Applicant: <b>${escapeHtml(d.applicantName || "")}</b> · ${escapeHtml(d.applicantEmail || "")} · ${escapeHtml(d.applicantPhone || "")}
+            ${d.accred ? "<br>Accred: " + escapeHtml(d.accred) : ""}
+            ${d.note ? "<br>Note: " + escapeHtml(d.note) : ""}
+          </div>
+          <div class="row">
+            <button type="button" class="ok" data-act="approve">Approve access</button>
+            <button type="button" class="danger" data-act="reject">Reject</button>
+          </div>`;
+        div.querySelector('[data-act="approve"]').onclick = async () => {
+          const email = (d.applicantEmail || "").toLowerCase();
+          const key = d.residenceKey;
+          if (!email || !key) return alert("Missing email or key");
+          const ref = db.collection("landlord_accounts").doc(email);
+          const existing = await ref.get();
+          let keys = existing.exists ? (existing.data().residenceKeys || []) : [];
+          if (!keys.includes(key)) keys.push(key);
+          await ref.set({
+            email,
+            residenceKeys: keys,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+          await doc.ref.set({
+            status: "approved",
+            reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            reviewedBy: (auth.currentUser && auth.currentUser.email) || "admin"
+          }, { merge: true });
+          loadApplications();
+        };
+        div.querySelector('[data-act="reject"]').onclick = async () => {
+          await doc.ref.set({
+            status: "rejected",
+            reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            reviewedBy: (auth.currentUser && auth.currentUser.email) || "admin"
+          }, { merge: true });
+          loadApplications();
+        };
+        $("applicationsList").appendChild(div);
+      });
+    } catch (e) {
+      $("applicationsStatus").textContent = "Error: " + e.message;
+    }
+  }
+
+  async function loadPending() {
+    $("pendingStatus").textContent = "Loading…";
+    $("pendingList").innerHTML = "";
+    try {
+      const snap = await db.collection("listing_overrides").where("status", "==", "pending").limit(100).get();
+      if (snap.empty) {
+        $("pendingStatus").textContent = "No pending edits.";
+        return;
+      }
+      $("pendingStatus").textContent = snap.size + " pending edit(s)";
+      snap.forEach(doc => {
+        const d = doc.data();
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="t">${escapeHtml(d.residenceName || "")} <span class="badge pending">pending</span></div>
+          <div class="m">${escapeHtml(d.address || "")}<br>By ${escapeHtml(d.updatedByEmail || d.landlordEmail || "")}</div>
+          <div class="body">${escapeHtml(d.description || "(no description)")}
+${d.availabilityNote ? "\nAvailability: " + d.availabilityNote : ""}
+${d.contactPhone ? "\nPhone: " + d.contactPhone : ""}
+${d.contactEmail ? "\nEmail: " + d.contactEmail : ""}</div>
+          <div class="row">
+            <button type="button" class="ok" data-act="approve">Approve (go live)</button>
+            <button type="button" class="secondary" data-act="draft">Back to draft</button>
+            <button type="button" class="danger" data-act="delete">Delete edit</button>
+          </div>`;
+        div.querySelector('[data-act="approve"]').onclick = async () => {
+          await doc.ref.set({ status: "approved", approvedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+          loadPending();
+        };
+        div.querySelector('[data-act="draft"]').onclick = async () => {
+          await doc.ref.set({ status: "draft" }, { merge: true });
+          loadPending();
+        };
+        div.querySelector('[data-act="delete"]').onclick = async () => {
+          if (!confirm("Delete this override?")) return;
+          await doc.ref.delete();
+          loadPending();
+        };
+        $("pendingList").appendChild(div);
+      });
+    } catch (e) {
+      $("pendingStatus").textContent = "Error: " + e.message;
+    }
+  }
+
+  // search assign
+  $("searchRes").oninput = () => {
+    const q = ($("searchRes").value || "").toLowerCase().trim();
+    const box = $("searchHits");
+    if (q.length < 2) { box.innerHTML = ""; return; }
+    const hits = catalog.filter(r =>
+      (r.name || "").toLowerCase().includes(q) ||
+      (r.address || "").toLowerCase().includes(q) ||
+      (r.accred || "").toLowerCase().includes(q)
+    ).slice(0, 20);
+    box.innerHTML = hits.map(r =>
+      `<div class="search-hit" data-key="${escapeHtml(r.key)}">
+        <strong>${escapeHtml(r.name)}</strong>
+        <small>${escapeHtml(r.address)} ${r.accred ? "· " + escapeHtml(r.accred) : ""}</small>
+      </div>`
+    ).join("");
+    box.querySelectorAll(".search-hit").forEach(el => {
+      el.onclick = () => {
+        selectedKey = el.getAttribute("data-key");
+        // recover real key from catalog (attribute may be escaped)
+        const hit = hits.find(h => h.key === selectedKey) || hits.find(h => escapeHtml(h.key) === selectedKey);
+        if (hit) selectedKey = hit.key;
+        $("selectedKey").value = selectedKey;
+        $("selectedRes").value = (hit ? hit.name + " — " + hit.address : selectedKey);
+      };
+    });
+  };
+
+  $("assignBtn").onclick = async () => {
+    show($("assignErr"), false);
+    show($("assignOk"), false);
+    const email = ($("landlordEmail").value || "").toLowerCase().trim();
+    const key = $("selectedKey").value || selectedKey;
+    if (!email || !key) {
+      $("assignErr").textContent = "Pick a residence and enter landlord email.";
+      show($("assignErr"), true);
+      return;
+    }
+    try {
+      const ref = db.collection("landlord_accounts").doc(email);
+      const snap = await ref.get();
+      let keys = [];
+      if (snap.exists) keys = snap.data().residenceKeys || [];
+      if (!keys.includes(key)) keys.push(key);
+      await ref.set({
+        email,
+        residenceKeys: keys,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true });
+      $("assignOk").textContent = "Assigned. Landlord can sign in on landlord.html with " + email;
+      show($("assignOk"), true);
+    } catch (e) {
+      $("assignErr").textContent = e.message;
+      show($("assignErr"), true);
+    }
+  };
+
+  async function loadAccounts() {
+    $("accountsStatus").textContent = "Loading…";
+    $("accountsList").innerHTML = "";
+    try {
+      const snap = await db.collection("landlord_accounts").limit(100).get();
+      if (snap.empty) {
+        $("accountsStatus").textContent = "No landlord accounts yet.";
+        return;
+      }
+      $("accountsStatus").textContent = snap.size + " landlord account(s)";
+      snap.forEach(doc => {
+        const d = doc.data();
+        const keys = d.residenceKeys || [];
+        const div = document.createElement("div");
+        div.className = "item";
+        div.innerHTML = `
+          <div class="t">${escapeHtml(d.email || doc.id)}</div>
+          <div class="m">${keys.length} residence(s)</div>
+          <div class="body">${keys.map(k => escapeHtml((k.split("||")[0] || k))).join("\n")}</div>
+          <div class="row"><button type="button" class="danger" data-del>Remove account mapping</button></div>`;
+        div.querySelector("[data-del]").onclick = async () => {
+          if (!confirm("Remove this landlord mapping?")) return;
+          await doc.ref.delete();
+          loadAccounts();
+        };
+        $("accountsList").appendChild(div);
+      });
+    } catch (e) {
+      $("accountsStatus").textContent = "Error: " + e.message;
+    }
+  }
+
+  $("loginBtn").onclick = async () => {
+    show($("gateErr"), false);
+    try {
+      const cred = await auth.signInWithEmailAndPassword($("email").value.trim(), $("pw").value);
+      if ((cred.user.email || "").toLowerCase() !== ADMIN_EMAIL) {
+        await auth.signOut();
+        $("gateErr").textContent = "Not an admin account.";
+        show($("gateErr"), true);
+        return;
+      }
+      await enter();
+    } catch (e) {
+      $("gateErr").textContent = e.message;
+      show($("gateErr"), true);
+    }
+  };
+
+  async function enter() {
+    show($("gate"), false);
+    show($("panel"), true);
+    $("who").textContent = "Admin: " + (auth.currentUser && auth.currentUser.email);
+    await loadCatalog();
+    await loadApplications();
+    await loadPending();
+  }
+
+  $("signOutBtn").onclick = () => auth.signOut();
+  $("refreshBtn").onclick = () => loadPending();
+
+  auth.onAuthStateChanged(async (user) => {
+    if (user && (user.email || "").toLowerCase() === ADMIN_EMAIL) await enter();
+    else {
+      show($("gate"), true);
+      show($("panel"), false);
+    }
+  });
+</script>
+</body>
+</html>
