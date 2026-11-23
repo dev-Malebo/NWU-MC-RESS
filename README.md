@@ -1,4 +1,4 @@
-# Accredited Off-Campus Residences — NWU Mahikeng
+# FindMyRes — Student Residences
 
 Static site listing NWU-accredited student residences with photo galleries.
 

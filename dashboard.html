@@ -3,34 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0c0a14">
-<title>Dashboard — NWU Residences</title>
+<meta name="theme-color" content="#0a0a0a">
+<title>Dashboard — FindMyRes</title>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <style>
-
   :root {
-    --bg: #0c0a14;
-    --bg2: #14101f;
-    --card: rgba(255,255,255,0.05);
-    --card-border: rgba(167,139,250,0.18);
-    --text: #f3eefc;
-    --muted: #a89bc4;
-    --purple: #8b5cf6;
-    --purple2: #6b46c0;
-    --pink: #c084fc;
+    --bg: #0a0a0a;
+    --card: #141414;
+    --border: rgba(212, 175, 55, 0.25);
+    --gold: #d4af37;
+    --gold2: #b8962e;
+    --text: #f5f0e6;
+    --muted: #a89f8a;
+    --ok: #4ade80;
     --danger: #f87171;
-    --ok: #34d399;
-    --glass: blur(16px);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background:
-      radial-gradient(1200px 600px at 10% -10%, rgba(139,92,246,0.35), transparent 55%),
-      radial-gradient(900px 500px at 100% 0%, rgba(192,132,252,0.2), transparent 50%),
-      var(--bg);
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg);
     color: var(--text);
     min-height: 100vh;
     padding: 20px 16px 48px;
@@ -38,181 +31,76 @@
   .shell { max-width: 980px; margin: 0 auto; }
   .topbar {
     display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-    gap: 12px; margin-bottom: 22px;
+    gap: 12px; margin-bottom: 24px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
   }
-  .brand {
-    display: flex; align-items: center; gap: 12px;
-  }
-  .logo {
-    width: 42px; height: 42px; border-radius: 14px;
-    background: linear-gradient(135deg, #6b46c0, #c084fc);
-    display: grid; place-items: center; font-weight: 800; font-size: 0.85rem;
-    box-shadow: 0 8px 24px rgba(107,70,192,0.45);
-  }
-  .brand h1 {
-    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;
-    background: linear-gradient(135deg, #fff, #c4b5fd);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
+  .brand h1 { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
   .brand .sub { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
-  .nav {
-    display: flex; gap: 6px; flex-wrap: wrap;
-    background: var(--card); border: 1px solid var(--card-border);
-    padding: 5px; border-radius: 999px; backdrop-filter: var(--glass);
-  }
+  .nav { display: flex; gap: 6px; flex-wrap: wrap; }
   .nav a {
     color: var(--muted); text-decoration: none; font-size: 0.8rem; font-weight: 600;
-    padding: 8px 14px; border-radius: 999px; transition: 0.15s;
+    padding: 8px 14px; border-radius: 8px; border: 1px solid transparent;
   }
-  .nav a:hover { color: #fff; background: rgba(255,255,255,0.06); }
-  .nav a.here {
-    color: #fff; background: linear-gradient(135deg, #6b46c0, #8b5cf6);
-    box-shadow: 0 4px 14px rgba(107,70,192,0.4);
-  }
-  .gate, .panel-card {
+  .nav a:hover { color: var(--gold); border-color: var(--border); }
+  .nav a.here { color: #000; background: var(--gold); }
+  .gate, .card {
     background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 22px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
     padding: 24px;
-    backdrop-filter: var(--glass);
-    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
   }
   .gate { max-width: 420px; }
-  .gate label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted); margin-top: 12px; letter-spacing: 0.02em; text-transform: uppercase; }
-  .gate input, .search-input {
-    width: 100%;
-    margin-top: 6px;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid rgba(167,139,250,0.25);
-    background: rgba(0,0,0,0.25);
-    color: #fff;
-    font-size: 0.95rem;
-    outline: none;
+  label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--muted); margin-top: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+  input {
+    width: 100%; margin-top: 6px; padding: 12px 14px; border-radius: 10px;
+    border: 1px solid var(--border); background: #0a0a0a; color: var(--text); font-size: 0.95rem; outline: none;
   }
-  .gate input:focus, .search-input:focus {
-    border-color: var(--purple);
-    box-shadow: 0 0 0 3px rgba(139,92,246,0.2);
-  }
+  input:focus { border-color: var(--gold); }
   button {
-    background: linear-gradient(135deg, #6b46c0, #8b5cf6);
-    color: #fff; border: none; padding: 11px 18px; border-radius: 12px;
-    font-weight: 700; cursor: pointer; font-size: 0.88rem;
-    box-shadow: 0 6px 18px rgba(107,70,192,0.35);
-    transition: transform 0.12s, box-shadow 0.12s, filter 0.12s;
+    background: var(--gold); color: #000; border: none; padding: 11px 18px; border-radius: 10px;
+    font-weight: 700; cursor: pointer; font-size: 0.88rem; margin-top: 16px;
   }
-  button:hover { filter: brightness(1.08); transform: translateY(-1px); }
-  button:active { transform: translateY(0); }
-  button.secondary {
-    background: rgba(255,255,255,0.08);
-    box-shadow: none;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-  button.danger {
-    background: linear-gradient(135deg, #dc2626, #f87171);
-    box-shadow: 0 6px 16px rgba(220,38,38,0.3);
-  }
-  button.ghost {
-    background: transparent; box-shadow: none;
-    border: 1px solid rgba(167,139,250,0.3); color: #ddd6fe;
-  }
+  button:hover { background: var(--gold2); }
+  button.secondary { background: transparent; color: var(--gold); border: 1px solid var(--border); margin-top: 0; }
+  button.danger { background: #7f1d1d; color: #fff; }
   .hidden { display: none !important; }
   .err { color: var(--danger); margin-top: 10px; font-size: 0.85rem; }
-  .who {
-    font-size: 0.82rem; color: var(--muted); margin-bottom: 14px;
-    padding: 10px 14px; border-radius: 12px;
-    background: rgba(139,92,246,0.12); border: 1px solid rgba(139,92,246,0.2);
-  }
-  .who strong { color: #e9d5ff; }
+  .who { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; padding: 10px 14px; background: rgba(212,175,55,0.08); border-radius: 10px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; text-align: center; }
+  .stat .n { font-size: 1.6rem; font-weight: 800; color: var(--gold); }
+  .stat .l { font-size: 0.7rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tabs button { background: transparent; color: var(--muted); border: 1px solid var(--border); margin: 0; }
+  .tabs button.active { background: var(--gold); color: #000; border-color: var(--gold); }
   .toolbar { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
-  .status { font-size: 0.82rem; color: var(--muted); }
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px; margin-bottom: 18px;
-  }
-  .stat {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 18px;
-    padding: 18px 14px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .stat::before {
-    content: ""; position: absolute; inset: 0 auto auto 0; width: 100%; height: 2px;
-    background: linear-gradient(90deg, transparent, var(--purple), transparent);
-  }
-  .stat .n {
-    font-size: 1.7rem; font-weight: 800;
-    background: linear-gradient(135deg, #c4b5fd, #fff);
-    -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .stat .l { font-size: 0.72rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
-  .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
-  .tabs button {
-    background: rgba(255,255,255,0.05);
-    color: var(--muted);
-    box-shadow: none;
-    border: 1px solid transparent;
-  }
-  .tabs button.active {
-    color: #fff;
-    background: linear-gradient(135deg, #6b46c0, #8b5cf6);
-    border-color: transparent;
-    box-shadow: 0 6px 16px rgba(107,70,192,0.35);
-  }
-  .review, .card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 16px 16px 14px;
-    margin-bottom: 10px;
-    transition: border-color 0.15s, transform 0.15s;
-  }
-  .review:hover, .card:hover {
-    border-color: rgba(167,139,250,0.4);
-    transform: translateY(-1px);
-  }
-  .review .meta, .card .meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 6px; }
-  .review .res, .card .title { font-weight: 700; color: #ede9fe; font-size: 1rem; }
-  .review .body, .card .body { font-size: 0.92rem; margin: 8px 0; color: #d4c8ef; line-height: 1.45; }
-  .badge {
-    display: inline-block; font-size: 0.68rem; font-weight: 700;
-    padding: 3px 8px; border-radius: 999px; margin-left: 6px;
-  }
-  .badge.open { background: rgba(251,191,36,0.15); color: #fbbf24; }
-  .badge.done { background: rgba(52,211,153,0.15); color: #34d399; }
-  .stars-gold { color: #fbbf24; letter-spacing: 1px; }
-  footer.foot {
-    margin-top: 28px; text-align: center; font-size: 0.72rem; color: #6b5b8c;
-  }
-
-  #unlockBtn { margin-top: 16px; width: 100%; }
-  .card .danger, .card .mark { margin-top: 4px; }
+  .status { font-size: 0.8rem; color: var(--muted); }
+  .item { background: #0f0f0f; border: 1px solid var(--border); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+  .item .meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 4px; }
+  .item .title { font-weight: 700; color: var(--gold); }
+  .item .body { font-size: 0.9rem; margin: 8px 0; color: var(--text); white-space: pre-wrap; }
+  footer { margin-top: 28px; text-align: center; font-size: 0.72rem; color: #555; }
 </style>
 </head>
 <body>
 <div class="shell">
   <div class="topbar">
     <div class="brand">
-      <div class="logo">PA</div>
-      <div>
-        <h1>Command Dashboard</h1>
-        <div class="sub">Feedback · reviews · location reports</div>
-      </div>
+      <h1>FindMyRes</h1>
+      <div class="sub">Admin Dashboard</div>
     </div>
     <nav class="nav">
       <a href="index.html">Site</a>
       <a href="admin.html">Reviews</a>
       <a class="here" href="dashboard.html">Dashboard</a>
+      <a href="admin-listings.html">Listings</a>
+      <a href="landlord.html">Landlord</a>
       <a href="map.html">Map</a>
     </nav>
   </div>
 
   <div id="gate" class="gate">
-    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:4px">Admin only. Sign in to manage feedback and reports.</p>
+    <p style="color:var(--muted);font-size:0.9rem;margin-bottom:8px">Admin only. Sign in to manage feedback and reports.</p>
     <label for="email">Admin email</label>
     <input id="email" type="email" value="maleboneomahlatsi@gmail.com" autocomplete="username">
     <label for="pw">Password</label>
@@ -224,11 +112,11 @@
   <div id="panel" class="hidden">
     <p class="who" id="who"></p>
     <div class="stats">
-      <div class="stat"><div class="n" id="sReviews">—</div><div class="l">Total reviews</div></div>
+      <div class="stat"><div class="n" id="sReviews">—</div><div class="l">Reviews</div></div>
       <div class="stat"><div class="n" id="sFeedback">—</div><div class="l">Feedback</div></div>
-      <div class="stat"><div class="n" id="sOpen">—</div><div class="l">Open feedback</div></div>
+      <div class="stat"><div class="n" id="sOpen">—</div><div class="l">Open</div></div>
       <div class="stat"><div class="n" id="sAvg">—</div><div class="l">Avg rating</div></div>
-      <div class="stat"><div class="n" id="sReports">—</div><div class="l">Open reports</div></div>
+      <div class="stat"><div class="n" id="sReports">—</div><div class="l">Reports</div></div>
     </div>
     <div class="tabs">
       <button type="button" class="active" data-tab="feedback">Site feedback</button>
@@ -236,17 +124,15 @@
       <button type="button" data-tab="locations">Location reports</button>
     </div>
     <div class="toolbar">
-      <button type="button" id="refreshBtn">Refresh</button>
+      <button type="button" class="secondary" id="refreshBtn">Refresh</button>
       <button type="button" class="secondary" id="signOutBtn">Sign out</button>
       <span class="status" id="status"></span>
     </div>
     <div id="list"></div>
   </div>
-
-  <footer class="foot">Purple Army · internal tools</footer>
+  <footer>FindMyRes Admin</footer>
 </div>
 <script>
-
   const firebaseConfig = {
     apiKey: "AIzaSyD7QHVH5hT0eURqXsJ0EXO_-BXUge5Iq_M",
     authDomain: "nwu-residences-81b8b.firebaseapp.com",
@@ -262,9 +148,7 @@
   const ADMIN_EMAIL = "maleboneomahlatsi@gmail.com";
 
   let currentTab = "feedback";
-  let feedbackRows = [];
-  let reviewRows = [];
-  let reportRows = [];
+  let feedbackRows = [], reviewRows = [], reportRows = [];
 
   const gate = document.getElementById("gate");
   const panel = document.getElementById("panel");
@@ -272,19 +156,14 @@
   const status = document.getElementById("status");
   const gateErr = document.getElementById("gateErr");
 
-  function esc(s) {
-    return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  }
-
+  function esc(s) { return String(s || "").replace(/&/g,"&").replace(/</g,"<").replace(/>/g,">"); }
   function showPanel(user) {
-    gate.classList.add("hidden");
-    panel.classList.remove("hidden");
+    gate.classList.add("hidden"); panel.classList.remove("hidden");
     document.getElementById("who").textContent = "Signed in as " + (user.email || "");
     loadAll();
   }
   function showGate(msg) {
-    panel.classList.add("hidden");
-    gate.classList.remove("hidden");
+    panel.classList.add("hidden"); gate.classList.remove("hidden");
     if (msg) { gateErr.textContent = msg; gateErr.classList.remove("hidden"); }
     else gateErr.classList.add("hidden");
   }
@@ -295,18 +174,12 @@
     try {
       const cred = await auth.signInWithEmailAndPassword(email, password);
       if ((cred.user.email || "").toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-        await auth.signOut();
-        showGate("Not the admin account.");
-        return;
+        await auth.signOut(); showGate("Not the admin account."); return;
       }
       showPanel(cred.user);
-    } catch (e) {
-      showGate(e.message || "Sign-in failed");
-    }
+    } catch (e) { showGate(e.message || "Sign-in failed"); }
   };
-  document.getElementById("pw").addEventListener("keydown", e => {
-    if (e.key === "Enter") document.getElementById("unlockBtn").click();
-  });
+  document.getElementById("pw").addEventListener("keydown", e => { if (e.key === "Enter") document.getElementById("unlockBtn").click(); });
   document.getElementById("signOutBtn").onclick = async () => { await auth.signOut(); showGate(); };
   document.getElementById("refreshBtn").onclick = loadAll;
 
@@ -318,147 +191,80 @@
       renderList();
     };
   });
-
-  auth.onAuthStateChanged(user => {
-    if (user && (user.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) showPanel(user);
-  });
+  auth.onAuthStateChanged(user => { if (user && (user.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase()) showPanel(user); });
 
   async function loadAll() {
     status.textContent = "Loading…";
     try {
       const emptySnap = { forEach() {}, empty: true, size: 0 };
       const [fbSnap, revSnap, repSnap] = await Promise.all([
-        db.collection("site_feedback").orderBy("createdAt", "desc").limit(100).get()
-          .catch(err => { console.warn("site_feedback:", err.message); return emptySnap; }),
-        db.collection("reviews").orderBy("createdAt", "desc").limit(200).get()
-          .catch(err => { console.warn("reviews:", err.message); return emptySnap; }),
-        db.collection("location_reports").orderBy("createdAt", "desc").limit(200).get()
-          .catch(err => { console.warn("location_reports:", err.message); return null; })
+        db.collection("site_feedback").orderBy("createdAt", "desc").limit(100).get().catch(() => emptySnap),
+        db.collection("reviews").orderBy("createdAt", "desc").limit(200).get().catch(() => emptySnap),
+        db.collection("location_reports").orderBy("createdAt", "desc").limit(200).get().catch(() => null)
       ]);
-      reportRows = [];
-      if (repSnap) repSnap.forEach(doc => reportRows.push({ id: doc.id, ...doc.data() }));
+      reportRows = []; if (repSnap) repSnap.forEach(doc => reportRows.push({ id: doc.id, ...doc.data() }));
       document.getElementById("sReports").textContent = repSnap ? reportRows.filter(x => x.status !== "done").length : "n/a";
-      feedbackRows = [];
-      fbSnap.forEach(doc => feedbackRows.push({ id: doc.id, ...doc.data() }));
-      reviewRows = [];
-      let sum = 0, rc = 0;
-      revSnap.forEach(doc => {
-        const d = doc.data();
-        reviewRows.push({ id: doc.id, ...d });
-        if (d.rating) { sum += Number(d.rating); rc++; }
-      });
+      feedbackRows = []; fbSnap.forEach(doc => feedbackRows.push({ id: doc.id, ...doc.data() }));
+      reviewRows = []; let sum = 0, rc = 0;
+      revSnap.forEach(doc => { const d = doc.data(); reviewRows.push({ id: doc.id, ...d }); if (d.rating) { sum += Number(d.rating); rc++; } });
       document.getElementById("sReviews").textContent = reviewRows.length;
       document.getElementById("sFeedback").textContent = feedbackRows.length;
       document.getElementById("sOpen").textContent = feedbackRows.filter(f => f.status !== "done").length;
       document.getElementById("sAvg").textContent = rc ? (sum / rc).toFixed(1) : "—";
       status.textContent = "Updated " + new Date().toLocaleTimeString();
       renderList();
-    } catch (e) {
-      console.error(e);
-      status.textContent = "Error: " + e.message;
-    }
+    } catch (e) { status.textContent = "Error: " + e.message; }
   }
 
-  function when(ts) {
-    if (!ts) return "";
-    if (ts.toDate) return ts.toDate().toLocaleString();
-    return "";
-  }
-
-  const TYPE_LABEL = { pin: "Pin in wrong place", distance: "Distance looks wrong", address: "Name/address wrong", other: "Other" };
-  function renderReports() {
-    if (!reportRows.length) {
-      list.innerHTML = "<p class='status'>No location reports yet (or Firestore rules for location_reports are not set up).</p>";
-      return;
-    }
-    reportRows.forEach(r => {
-      const done = r.status === "done";
-      const hasSug = typeof r.suggestedLat === "number" && typeof r.suggestedLon === "number";
-      const fixUrl = "map.html?edit=1&fix=" + encodeURIComponent(r.key || "") + (hasSug ? "&lat=" + r.suggestedLat + "&lon=" + r.suggestedLon : "");
-      const gm = hasSug ? "https://www.google.com/maps?q=" + r.suggestedLat + "," + r.suggestedLon : "";
-      const div = document.createElement("div");
-      div.className = "card";
-      div.innerHTML = `
-        <div class="meta">${esc(TYPE_LABEL[r.type] || r.type || "report")} · ${esc(when(r.createdAt))} · ${done ? "done" : "open"}${r.accuracyM ? " · GPS ±" + esc(r.accuracyM) + " m" : ""}</div>
-        <div class="title">${esc(r.residenceName)}</div>
-        <div class="body">${esc(r.address || "")}${r.note ? "\n" + esc(r.note) : ""}${r.contact ? "\nContact: " + esc(r.contact) : ""}${hasSug ? "\nSuggested: " + esc(r.suggestedLat) + ", " + esc(r.suggestedLon) : "\n(no spot suggested)"}</div>
-        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-          <a href="${fixUrl}" target="_blank" rel="noopener"><button type="button">Open in pin fixer</button></a>
-          ${gm ? `<a href="${gm}" target="_blank" rel="noopener"><button type="button" class="secondary">View on Google Maps</button></a>` : ""}
-          ${done ? "" : '<button type="button" class="secondary mark">Mark done</button>'}
-          <button type="button" class="danger del">Delete</button>
-        </div>`;
-      const mark = div.querySelector(".mark");
-      if (mark) mark.onclick = async () => { await db.collection("location_reports").doc(r.id).update({ status: "done" }); loadAll(); };
-      div.querySelector(".del").onclick = async () => {
-        if (!confirm("Delete this report?")) return;
-        await db.collection("location_reports").doc(r.id).delete();
-        loadAll();
-      };
-      list.appendChild(div);
-    });
-  }
+  function when(ts) { return ts && ts.toDate ? ts.toDate().toLocaleString() : ""; }
+  const TYPE_LABEL = { pin: "Pin wrong", distance: "Distance wrong", address: "Name/address wrong", other: "Other" };
 
   function renderList() {
     list.innerHTML = "";
-    if (currentTab === "locations") { renderReports(); return; }
+    if (currentTab === "locations") {
+      if (!reportRows.length) { list.innerHTML = "<p class='status'>No location reports yet.</p>"; return; }
+      reportRows.forEach(r => {
+        const div = document.createElement("div"); div.className = "item";
+        div.innerHTML = `<div class="meta">${esc(TYPE_LABEL[r.type] || r.type)} · ${esc(when(r.createdAt))} · ${r.status || "open"}</div>
+          <div class="title">${esc(r.residenceName)}</div>
+          <div class="body">${esc(r.address || "")}${r.note ? "\n" + esc(r.note) : ""}</div>
+          <button type="button" class="danger del" style="margin-top:8px">Delete</button>`;
+        div.querySelector(".del").onclick = async () => { if (confirm("Delete?")) { await db.collection("location_reports").doc(r.id).delete(); loadAll(); } };
+        list.appendChild(div);
+      });
+      return;
+    }
     if (currentTab === "feedback") {
-      if (!feedbackRows.length) {
-        list.innerHTML = "<p class='status'>No site feedback yet. Students can send it from the form on the main site.</p>";
-        return;
-      }
+      if (!feedbackRows.length) { list.innerHTML = "<p class='status'>No feedback yet.</p>"; return; }
       feedbackRows.forEach(f => {
-        const div = document.createElement("div");
-        div.className = "card";
+        const div = document.createElement("div"); div.className = "item";
         const done = f.status === "done";
-        div.innerHTML = `
-          <div class="meta">${esc(f.type || "feedback")} · ${esc(when(f.createdAt))} · ${done ? "done" : "open"}</div>
+        div.innerHTML = `<div class="meta">${esc(f.type || "feedback")} · ${esc(when(f.createdAt))} · ${done ? "done" : "open"}</div>
           <div class="title">${esc(f.name || "Anonymous")}${f.contact ? " · " + esc(f.contact) : ""}</div>
           <div class="body">${esc(f.message || "")}</div>
-          <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
-            ${done ? "" : '<button type="button" class="mark">Mark done</button>'}
+          <div style="display:flex;gap:8px;margin-top:8px">
+            ${done ? "" : '<button type="button" class="secondary mark">Mark done</button>'}
             <button type="button" class="danger del">Delete</button>
           </div>`;
         const mark = div.querySelector(".mark");
-        if (mark) mark.onclick = async () => {
-          await db.collection("site_feedback").doc(f.id).update({ status: "done" });
-          loadAll();
-        };
-        div.querySelector(".del").onclick = async () => {
-          if (!confirm("Delete this feedback?")) return;
-          await db.collection("site_feedback").doc(f.id).delete();
-          loadAll();
-        };
+        if (mark) mark.onclick = async () => { await db.collection("site_feedback").doc(f.id).update({ status: "done" }); loadAll(); };
+        div.querySelector(".del").onclick = async () => { if (confirm("Delete?")) { await db.collection("site_feedback").doc(f.id).delete(); loadAll(); } };
         list.appendChild(div);
       });
     } else {
-      if (!reviewRows.length) {
-        list.innerHTML = "<p class='status'>No reviews yet.</p>";
-        return;
-      }
+      if (!reviewRows.length) { list.innerHTML = "<p class='status'>No reviews yet.</p>"; return; }
       reviewRows.forEach(r => {
         const stars = r.rating ? ("★".repeat(r.rating) + "☆".repeat(5 - r.rating)) : "—";
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `
-          <div class="meta">${stars} · ${esc(r.author || "Student")} · ${esc(when(r.createdAt))}</div>
+        const div = document.createElement("div"); div.className = "item";
+        div.innerHTML = `<div class="meta">${stars} · ${esc(r.author || "Student")} · ${esc(when(r.createdAt))}</div>
           <div class="title">${esc(r.residenceName)}</div>
           <div class="body">${esc(r.comment || "(rating only)")}</div>
           <button type="button" class="danger del" style="margin-top:8px">Delete</button>`;
-        div.querySelector(".del").onclick = async () => {
-          if (!confirm("Delete this review?")) return;
-          try {
-            await db.collection("reviews").doc(r.id).delete();
-            loadAll();
-          } catch (e) {
-            alert("Delete failed: " + e.message);
-          }
-        };
+        div.querySelector(".del").onclick = async () => { if (confirm("Delete?")) { await db.collection("reviews").doc(r.id).delete(); loadAll(); } };
         list.appendChild(div);
       });
     }
   }
-
 </script>
 </body>
 </html>

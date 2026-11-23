@@ -1,6 +1,6 @@
 {
-  "name": "NWU Mahikeng Residences",
-  "short_name": "NWU Residences",
+  "name": "FindMyRes",
+  "short_name": "FindMyRes",
   "start_url": "/NWU-MC-RESS/index.html",
   "display": "standalone",
   "background_color": "#1a102f",
